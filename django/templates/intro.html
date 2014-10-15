@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titre %}Intro{% endblock %}
+{% block contenu %}
+	<h1>intro</h1>
+	{{ txt.phrase1 }}
+	<br />
+	<br />
+	<a href="../../position/{{nid}}/{{lg}}">{{txt.getposition}}</a>
+{% endblock %}
+
