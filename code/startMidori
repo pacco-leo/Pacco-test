@@ -4,4 +4,5 @@ xset s off       # disable screen saver
 xset s noblank # don't blank the video device
 unclutter &
 matchbox-window-manager &
-midori -e Fullscreen -a http://demos.jquerymobile.com/1.4.4/
+sudo python /home/pi/Desktop/Django/PT/manage.py runserver
+midori -e Fullscreen -a http://localhost:8000/paccotest/ouverture/
