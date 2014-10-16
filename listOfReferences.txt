@@ -1,0 +1,2 @@
+Multisteps form in Django: http://stackoverflow.com/questions/14901680/how-to-do-a-multi-step-form-in-django
+Ajax in Django: https://code.djangoproject.com/wiki/AJAX
