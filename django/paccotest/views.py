@@ -2,7 +2,8 @@ import os
 from django.shortcuts import render_to_response
 from django.views.generic.list import ListView
 from paccotest.models import Reponses
-import serial, time, RPi.GPIO as GPIO
+# import serial, time, RPi.GPIO as GPIO
+from paccotest.probesManager import GPSPosition, ProbesManager
 
 #sensors
 sensors=[('PH',4),('REDOX',5),('CONDUCTIVITY',7),('DO',6),('TEMPERATURE',100)]
@@ -99,24 +100,22 @@ def keep_result(idtest,col,val):
 	#r1 = Reponses(titre="te",q1=1,q2=1)
 	#r1.save()
 def ouverture(request):
-#r1 = Reponses(titre="aa")
-#r1.save()
-	GPIO.setmode(GPIO.BOARD)
+    # r1 = Reponses(titre="aa")
+    #r1.save()
 
-	GPIO.setup(16, GPIO.OUT)
-	GPIO.setup(18, GPIO.OUT)
-	GPIO.setup(22, GPIO.OUT)
+    # Initilization of the GPIO
+    probesMananager = ProbesManager()
+    probesMananager.initProbes()
 
-	Reponses.objects.create(titre="tem")
-	r1 = Reponses.objects.get(titre="tem")
-	r1.titre = r1.id
-	nid = r1.id
-	r1.save()
-	#r1 = Reponses.objects.get(titre=nid)
-	#print r1.titre
-	module_dir = os.path.dirname(__file__)
-	file_path = os.path.join(module_dir,'../img/')
-	return render_to_response('ouverture.html',{'nid':nid,'imgfolder':file_path})
+    Reponses.objects.create(titre="tem")
+    r1 = Reponses.objects.get(titre="tem")
+    r1.titre = r1.id
+    nid = r1.id
+    r1.save()  #r1 = Reponses.objects.get(titre=nid)
+    #print r1.titre
+    module_dir = os.path.dirname(__file__)
+    file_path = os.path.join(module_dir, '../img/')
+    return render_to_response('ouverture.html', {'nid': nid, 'imgfolder': file_path})
 
 def intro(request,nid,lg):
 	#import eval('txt_'+lg) as txts
@@ -127,99 +126,22 @@ def intro(request,nid,lg):
 	#array_CSV.append('bleble')
 #array_CSV=[]
 
-def position(request,nid,lg):
+def position(request, nid, lg):
+    # Get the GPS coordinates
+    probesMananager = ProbesManager()  # TODO: Doesn't need to be reinitialized
+    gpsPosition = probesMananager.getGPSPosition()
 
-	import gps
-	import threading
-	#if ser.isOpen() != True:
-	#	ser.open()
-	channelselect(0)
-	port(0)
-	#os.system('sudo killall gpsd')
-	#print 'killall gpsd'
-	#os.system('sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock')
-	#print 'set gps port'
-	#usbport = '/dev/ttyAMA0'
-	#ser = serial.Serial(usbport, 38400, timeout=0)
+    #if lg == 'fr':
+    #	import txt_fr as txts
+    #elif lg == 'nl':
+    #	import txt_nl as txts
+    #else :
+    #	import txt_en as txts
+    exec 'import txt_' + lg + ' as txts' in globals(), locals()
 
-	global gpsd
-	gpsd = None #seting the global variable
-	 
-	#os.system('clear') #clear the terminal (optional)
-	
-	class GpsPoller(threading.Thread):
-	  def __init__(self):
-	    threading.Thread.__init__(self)
-	    global gpsd #bring it in scope
-	    gpsd = gps.gps(mode=gps.WATCH_ENABLE) #starting the stream of info
-	    self.current_value = None
-	    self.running = True #setting the thread running to true
-	 
-	  def run(self):
-	    global gpsd
-	    while self.running:
-		try:
-			if gpsd.waiting():
-		      		gpsd.next() #this will continue to loop and grab EACH set of gpsd info to clear the buffer
-	 	except:
-			raise
-	gpsp = GpsPoller() # create the thread
-
-	gpsp.start() # start it up
-	#os.system('clear')
-	countloop = 0
-	while True:
-		if(gpsd.fix.latitude!=0.0):
-			print
-			print 'GPS reading'
-			print '----------------------------------------'
-			#global gpsd
-
-			print 'latitude    ' , gpsd.fix.latitude
-			print 'longitude   ' , gpsd.fix.longitude
-			print 'time utc    ' , gpsd.utc,' + ', gpsd.fix.time
-			print 'altitude (m)' , gpsd.fix.altitude
-			#data = str(gpsd.utc)+';'+str(gpsd.fix.latitude)+';'+str(gpsd.fix.longitude)+';'+str(gpsd.fix.altitude)
-			#print data
-			#write_csv(data)
-
-			break
-		elif countloop > 3:
-			print
-			print 'GPS failed'
-			gpsd.fix.longitude='None'
-			gpsd.fix.latitude='None'
-			gpsd.fix.altitude='None'
-			gpsd.utc='None'
-			break			
-			
-		else:
-			print gpsd.fix.latitude
-			print 'GPS looking for satellite'
-			print '----------------------------------------'
-			countloop += 1
-			time.sleep(5)
-	keep_result(nid,'datetime',gpsd.utc)
-	keep_result(nid,'gps1',gpsd.fix.latitude)
-	keep_result(nid,'gps2',gpsd.fix.longitude)
-	keep_result(nid,'gps3',gpsd.fix.altitude)	 	 
-	print "\nKilling Thread..."
-	gpsp.running = False
-	gpsp.join() # wait for the thread to finish what it's doing
-
-    	ser.flushInput()
-   	ser.flushOutput()
-	
-	#ser.close()
-	print "Done.\nExiting."	
-	#if lg == 'fr':
-	#	import txt_fr as txts
-	#elif lg == 'nl':
-	#	import txt_nl as txts
-	#else :
-	#	import txt_en as txts
-	exec 'import txt_'+lg+' as txts' in globals(), locals()
-	return render_to_response('position.html',{'latitude':gpsd.fix.latitude,'longitude':gpsd.fix.longitude,'altitude':gpsd.fix.altitude,'utc':gpsd.utc,'nid':nid,'lg':lg,'txt':txts})
+    return render_to_response('position.html', {'latitude': gpsPosition.latitude, 'longitude': gpsPosition.longitude,
+                                                'altitude': gpsPosition.altitude, 'utc': gpsPosition.utc, 'nid': nid, 'lg': lg,
+                                                'txt': txts})
 
 
 def question(request,nid,lg,num):
