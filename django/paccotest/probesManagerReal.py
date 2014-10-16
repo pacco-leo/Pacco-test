@@ -1,7 +1,10 @@
 from paccotest.probesManager import *
 import serial, time, RPi.GPIO as GPIO
 
-
+##
+# A Probes Manager for the real-world probes
+#
+#
 class ProbesManagerReal(ProbesManager):
     # #
     # Initialize GPIO

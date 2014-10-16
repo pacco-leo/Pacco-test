@@ -1,5 +1,9 @@
 from paccotest.probesManager import *
 
+##
+# A Dummy Probes Manager that emulates the real Probes behaviour
+#
+#
 class ProbesManagerDummy(ProbesManager):
 
     def initGPIO( self ):
