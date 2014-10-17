@@ -3,8 +3,6 @@ from django.shortcuts import render_to_response
 from django.views.generic.list import ListView
 from paccotest.models import Reponses
 from paccotest.probesManager import GPSPosition, ProbesManager
-from paccotest.probesManagerDummy import ProbesManagerDummy    #For Dummy Probes
-# from paccotest.probesManagerReal import ProbesManagerReal  #For Real Probes
 
 ##
 # Abstract Factory of Probe Managers
@@ -21,8 +19,17 @@ class ProbesManagerFactory:
         return globals()['ProbesManagerDummy']()
 
 
-g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();   #For Dummy Probes
-# g_probesMananager = ProbesManagerFactory.make_realProbesManager();  #For Real Probes
+global IS_DEBUGGING
+IS_DEBUGGING = True   #Set IS_DEBUGGING for RaspberryPI
+
+if IS_DEBUGGING:
+    from paccotest.probesManagerDummy import ProbesManagerDummy  # For Dummy Probes
+    g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();  #For Dummy Probes
+else:
+    from paccotest.probesManagerReal import ProbesManagerReal  #For Real Probes
+    g_probesMananager = ProbesManagerFactory.make_realProbesManager();  #For Real Probes
+
+
 
 
 def port(timeot):
