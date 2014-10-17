@@ -231,4 +231,5 @@ def write_csv(nid):
 #line = ""
 
 
-
+def updateremote(request):
+    return render_to_response('updateRemote.html')
