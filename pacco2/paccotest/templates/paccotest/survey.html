@@ -1,0 +1,22 @@
+{% if all_questions %}
+    <form action="{% url 'paccotest:surveyComplete'  %}" method="post">
+    {% csrf_token %}
+        <ul>
+        {% for question in all_questions %}
+            <li>{{ question.question_text }}
+                <div>
+                    {% for answer in question.answer_set.all %}
+                        <input type="radio" name="question{{ question.id}}" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
+                        <label for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br />
+                    {% endfor %}
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <input type="submit" value="Vote" />
+    </form>
+{% else %}
+    <p>No questions are available</p>
+{% endif %}
+
