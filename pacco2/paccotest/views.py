@@ -19,3 +19,9 @@ def surveyComplete(request):
 # Page of test
 def test(request):
     return render(request, 'paccotest/test.html')
+
+
+
+#See: http://stackoverflow.com/questions/14901680/how-to-do-a-multi-step-form-in-django
+#https://www.youtube.com/watch?v=fSnBF-BmccQ
+#https://docs.djangoproject.com/en/dev/ref/contrib/formtools/form-wizard/
