@@ -1,2 +1,4 @@
 #Liste des libs à installer
 sudo apt-get install python-dev 
+
+pip install Django==1.7

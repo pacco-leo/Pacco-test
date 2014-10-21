@@ -1,8 +1,10 @@
 import os
 from django.shortcuts import render_to_response
 from django.views.generic.list import ListView
+from django.http import HttpResponse
 from paccotest.models import Reponses
 from paccotest.probesManager import GPSPosition, ProbesManager
+import json
 
 ##
 # Abstract Factory of Probe Managers
@@ -105,7 +107,7 @@ def intro(request, nid, lg):
 
 def position(request, nid, lg):
     # Get the GPS coordinates
-    gpsPosition = g_probesMananager.getGPSPosition()
+    #gpsPosition = g_probesMananager.getGPSPosition()
 
     #if lg == 'fr':
     #	import txt_fr as txts
@@ -115,10 +117,11 @@ def position(request, nid, lg):
     #	import txt_en as txts
     exec 'import txt_' + lg + ' as txts' in globals(), locals()
 
-    return render_to_response('position.html', {'latitude': gpsPosition.latitude, 'longitude': gpsPosition.longitude,
-                                                'altitude': gpsPosition.altitude, 'utc': gpsPosition.utc, 'nid': nid,
-                                                'lg': lg,
-                                                'txt': txts})
+    #return render_to_response('position.html', {'latitude': gpsPosition.latitude, 'longitude': gpsPosition.longitude,
+    #                                            'altitude': gpsPosition.altitude, 'utc': gpsPosition.utc, 'nid': nid,
+    #                                            'lg': lg,
+    #                                            'txt': txts})
+    return render_to_response('position.html', {'nid': nid, 'lg': lg, 'txt': txts})
 
 
 def question(request, nid, lg, num):
@@ -237,6 +240,12 @@ def write_csv(nid):
 #clear line
 #line = ""
 
-
 def updateremote(request):
     return render_to_response('updateRemote.html')
+
+
+#Ajax Calls
+#URL: http://localhost:8000/paccotest/gpsPosition
+def gpsPosition(request):
+    gpsPosition = g_probesMananager.getGPSPosition()
+    return HttpResponse(json.dumps(vars(gpsPosition)), content_type="application/json")

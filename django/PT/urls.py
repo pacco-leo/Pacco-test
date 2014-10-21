@@ -19,7 +19,8 @@ urlpatterns = patterns('',
     url(r'^paccotest/outro/(?P<nid>[0-9]+)/(?P<lg>[a-z]+)$', 'paccotest.views.outro'),
     url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':site_media}),
     url(r'^paccotest/updateremote/$', 'paccotest.views.updateremote'),
-    #url(r'^paccotest/', 'paccotest.views.ouverture'),  
+    url(r'^paccotest/position/[0-9]+/gpsPosition$', 'paccotest.views.gpsPosition'),
+    #url(r'^paccotest/', 'paccotest.views.ouverture'),
 )
 
 
