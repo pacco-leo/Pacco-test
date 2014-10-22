@@ -2,8 +2,9 @@ from django.shortcuts import render, render_to_response
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from paccotest.models import Question
+from paccotest.forms import GPSMeasureForm
 
-from django.contrib.formtools.wizard.views import SessionWizardView
+# from django.contrib.formtools.wizard.views import SessionWizardView
 
 # import the logging library
 import logging
@@ -13,33 +14,52 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
-# Page of the survey
-def survey(request):
-    all_questions_list = Question.objects.all()
-    context = {'all_questions': all_questions_list}
-    return render(request, 'paccotest/survey.html', context)
-
-##
-# Page called when the survey is complete
-def surveyComplete(request):
-    return HttpResponseRedirect(reverse('paccotest:test'))
-
 # Page of test
 def test(request):
     return render(request, 'paccotest/test.html')
 
 
-class ContactWizard(SessionWizardView):
-    logger.info("ContactWizard!")
-    template_name = "paccotest/form.html"
+# The form (hidden) for GPS Position
+def gpsPositionForm(request):
+    #http://pydanny.com/core-concepts-django-modelforms.html
+    #http://stackoverflow.com/questions/14901680/how-to-do-a-multi-step-form-in-django
+    #http://burnbit.com/torrent/316217/pycharm_professional_3_4_1_dmg
+    #https://docs.djangoproject.com/en/dev/topics/forms/
 
-    def done(self, form_list, **kwargs):
+    initial={'fn': request.session.get('fn', None)}
+    form = GPSMeasureForm(request.POST or None, initial=initial)
 
-        logger.info("Done!")
-        return render_to_response('paccotest/done.html', {
-            'form_data': [form.cleaned_data for form in form_list],
-        })
+    if request.method == "POST":
+       # if form.is_valid():
+       if 1 == 1:
+           #https://docs.djangoproject.com/en/1.3/ref/forms/api/
+            #request.session['fn'] = form.cleaned_data['fn']
+            request.session['fn'] = "hello123" #.data['fn']
+            return HttpResponseRedirect(reverse('paccotest:survey'))
+    return render(request, 'paccotest/gpsPositionForm.html', {'form':form})
 
-#See: http://stackoverflow.com/questions/14901680/how-to-do-a-multi-step-form-in-django
-#https://www.youtube.com/watch?v=fSnBF-BmccQ
-#https://docs.djangoproject.com/en/dev/ref/contrib/formtools/form-wizard/
+# Page of the survey
+def survey(request):
+    all_questions_list = Question.objects.all()
+    if request.method == 'POST':
+    #    if form.is_valid():
+    #        #SAVE THE THINGS HERE
+            return HttpResponseRedirect(reverse('paccotest:probesForm'))
+    context = {'all_questions': all_questions_list}
+    return render(request, 'paccotest/survey.html', context)
+
+# Form for probes
+def probesForm(request):
+
+    form = GPSMeasureForm(request.POST or None)
+
+    if request.method == 'POST':
+        return HttpResponseRedirect(reverse('paccotest:complete'))
+
+    return render(request, 'paccotest/probesForm.html', {'form':form})
+
+def complete(request):
+
+    _session = request.session['fn']
+    context = {'SESSION': _session}
+    return render(request, 'paccotest/complete.html', context)

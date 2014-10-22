@@ -1,9 +1,13 @@
 from django import forms
+from paccotest.models import GPSMeasure
 
-class ContactForm1(forms.Form):
-    subject = forms.CharField(max_length=100)
-    sender = forms.EmailField()
+class GPSMeasureForm(forms.ModelForm):
 
-class ContactForm2(forms.Form):
-    message = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = GPSMeasure
 
+    def __init__(self, user, *args, **kwargs):
+        super(GPSMeasureForm, self).__init__(*args, **kwargs)
+        self.fields['latitude'].widget = forms.HiddenInput()
+        self.fields['longitude'].widget = forms.HiddenInput()
+        self.fields['survey'].widget = forms.HiddenInput()
