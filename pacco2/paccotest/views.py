@@ -1,16 +1,45 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+
 from paccotest.models import Question
 from paccotest.forms import GPSMeasureForm
+import json
 
-# from django.contrib.formtools.wizard.views import SessionWizardView
+from paccotest.hardware.probesManager import GPSPosition, ProbesManager
+from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
+
 
 # import the logging library
 import logging
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
+
+
+class ProbesManagerFactory:
+    @classmethod
+    def make_realProbesManager(Class):
+        #return Class.ProbesManagerReal()
+        return globals()['ProbesManagerReal']()
+
+    @classmethod
+    def make_dummyProbesManager(Class):
+        #return Class.ProbesManagerDummy()
+        return globals()['ProbesManagerDummy']()
+
+
+global IS_DEBUGGING
+IS_DEBUGGING = True   #Set IS_DEBUGGING for RaspberryPI
+
+if IS_DEBUGGING:
+    g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();  #For Dummy Probes
+else:
+    g_probesMananager = ProbesManagerFactory.make_realProbesManager();  #For Real Probes
+
+
+
 
 # Create your views here.
 
@@ -63,3 +92,11 @@ def complete(request):
     _session = request.session['fn']
     context = {'SESSION': _session}
     return render(request, 'paccotest/complete.html', context)
+
+
+
+#Ajax Calls
+#URL: http://localhost:8000/paccotest/gpsPosition
+def gpsPosition(request):
+    gpsPosition = g_probesMananager.getGPSPosition()
+    return HttpResponse(json.dumps(vars(gpsPosition)), content_type="application/json")

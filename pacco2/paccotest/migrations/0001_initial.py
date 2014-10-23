@@ -21,19 +21,6 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='GPSMeasure',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('latitude', models.FloatField(verbose_name=b'latitude')),
-                ('longitude', models.FloatField(verbose_name=b'longitude')),
-                ('elevation', models.FloatField(verbose_name=b'elevation')),
-                ('utc', models.DateTimeField(verbose_name=b'date published')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='ProbeMeasure',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -62,10 +49,40 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
+        migrations.CreateModel(
+            name='Survey',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('latitude', models.FloatField(verbose_name=b'latitude')),
+                ('longitude', models.FloatField(verbose_name=b'longitude')),
+                ('elevation', models.FloatField(verbose_name=b'elevation')),
+                ('utc', models.DateTimeField(verbose_name=b'date published')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='UserAnswer',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('answer', models.ForeignKey(to='paccotest.Answer')),
+                ('survey', models.ForeignKey(to='paccotest.Survey')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
         migrations.AddField(
             model_name='probemeasure',
             name='probeType',
             field=models.ForeignKey(to='paccotest.ProbeType'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='probemeasure',
+            name='survey',
+            field=models.ForeignKey(to='paccotest.Survey'),
             preserve_default=True,
         ),
         migrations.AddField(

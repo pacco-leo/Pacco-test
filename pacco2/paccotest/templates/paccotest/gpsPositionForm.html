@@ -2,11 +2,32 @@
 
 
 {% block content %}
+    <div ng-controller="PositionController">
 
-    <form  method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" />
-    </form>
+        <h1>GPS</h1>
+        <div ng-hide="myData.fromServer != null">
+            <p >Waiting for a measure</p>
+            <button ng-click="myData.doClick(item, $event)">Measure</button>
+        </div>
+
+        <div ng-show="myData.fromServer != null">
+            <ul>
+                <li>latitude : {[{myData.fromServer.latitude}]}</li>
+                <li>longitude : {[{myData.fromServer.longitude}]}</li>
+                <li>altitude : {[{myData.fromServer.elevation}]}</li>
+                <li>utc : {[{myData.fromServer.utc}]}</li>
+            </ul>
+
+            <!-- Filled by AngularJS on Ajax Request -->
+            <form  method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Next" />
+            </form>
+        </div>
+
+        <a ng-show="myData.fromServer != null" href="../../question/{{nid}}/{{lg}}/1">{{txt.nextstep}}</a>
+    </div>
+
 
 {% endblock %}

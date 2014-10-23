@@ -4,8 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Pacco-test | {% block titre %}{% endblock %}</title>
 
+    {% load static %} <!-- New line -->
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/angular.min.js" %}"></script>
+    <script src="{% static "js/pacco-test.js" %}"></script>
+
     </head>
-        <body>
+        <body ng-app="paccoApp">
             <div id="cadre">
                     {% block content %}{% endblock %}
             </div>

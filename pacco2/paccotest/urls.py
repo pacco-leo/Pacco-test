@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     url(r'^probesForm/$', views.probesForm, name='probesForm'),
     url(r'^test/$', views.test, name='test'),
     url(r'^complete/$', views.complete, name='complete'),
-
+    url(r'^gpsPositionForm/gpsPosition/$', views.gpsPosition, name='gpsPosition'),
 )

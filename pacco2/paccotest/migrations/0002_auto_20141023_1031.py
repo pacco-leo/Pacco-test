@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('paccotest', '0002_auto_20141021_1610'),
+        ('paccotest', '0001_initial'),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='useranswer',
-            old_name='userAnswer',
-            new_name='answer',
+        migrations.AlterField(
+            model_name='survey',
+            name='utc',
+            field=models.DateTimeField(verbose_name=b'date'),
         ),
     ]

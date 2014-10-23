@@ -19,15 +19,10 @@ class Answer(models.Model):
 
 #A Survey
 class Survey(models.Model):
-    token = models.IntegerField('token')
-
-#A GPSMeasure
-class GPSMeasure(models.Model):
-    survey = models.ForeignKey(Survey)
     latitude = models.FloatField('latitude')
     longitude = models.FloatField('longitude')
     elevation = models.FloatField('elevation')
-    utc = models.DateTimeField('date published')
+    utc = models.DateTimeField('date')
 
     def __unicode__(self):
         return self.latitude + " , " + self.longitude + " , " + self.elevation + " , " + self.utc
