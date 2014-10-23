@@ -11,8 +11,8 @@ class ProbesManagerDummy(ProbesManager):
         pass
 
     def getGPSPosition(self):
-        time.sleep(2)
-        return GPSPosition(12, 13, 14, 23/10/2014)
+        time.sleep(1)
+        return GPSPosition(12, 13, 14, "2014-07-24 21:45:38")
 
     def getProbesValues(self):
         return {'line': "hello", 'sensor': 2, 'sact': 3, 'snext': 4,

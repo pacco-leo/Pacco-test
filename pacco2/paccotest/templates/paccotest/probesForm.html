@@ -3,7 +3,7 @@
 
 {% block content %}
     PROBESFORM
-    <form  method="post">
+    <form  method="post" action="{% url 'paccotest:probesForm' %}">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Submit" />

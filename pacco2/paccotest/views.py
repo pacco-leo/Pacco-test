@@ -59,12 +59,24 @@ def gpsPositionForm(request):
     form = GPSMeasureForm(request.POST or None, initial=initial)
 
     if request.method == "POST":
-       # if form.is_valid():
-       if 1 == 1:
+
+        form = GPSMeasureForm(request.POST, initial=initial)
+
+        if form.is_valid():
+            form.save()
+            #print form.cleaned_data()
            #https://docs.djangoproject.com/en/1.3/ref/forms/api/
+
             #request.session['fn'] = form.cleaned_data['fn']
-            request.session['fn'] = "hello123" #.data['fn']
+            #request.session['fn'] = form.cleaned_data()
+            #request.session['fn'] = form #.data['fn']
             return HttpResponseRedirect(reverse('paccotest:survey'))
+        else:
+            #http://stackoverflow.com/questions/18528932/django-form-with-no-errors-return-false-for-is-valid
+            print form.is_valid()   #form contains data and errors
+            print "hello"
+            print form.errors.as_json()
+
     return render(request, 'paccotest/gpsPositionForm.html', {'form':form})
 
 # Page of the survey
