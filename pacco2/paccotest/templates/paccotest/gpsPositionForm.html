@@ -19,15 +19,14 @@
             </ul>
 
             <!-- Filled by AngularJS on Ajax Request -->
-            <form  method="post">
+            <form method="post" action="{% url 'paccotest:gpsPositionForm' %}">
                 {% csrf_token %}
                 {{ form }}
-                <input type="submit" value="Next" />
+                <input type="submit" value="Submit" />
             </form>
         </div>
 
         <a ng-show="myData.fromServer != null" href="../../question/{{nid}}/{{lg}}/1">{{txt.nextstep}}</a>
     </div>
-
 
 {% endblock %}
