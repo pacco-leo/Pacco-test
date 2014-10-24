@@ -60,7 +60,7 @@ def gpsPositionForm(request):
         if form.is_valid():
             form.cleaned_data["utc"] = json.dumps(form.cleaned_data["utc"], cls = DateTimeEncoder)
             request.session['gpsForm'] = form.cleaned_data
-            return HttpResponseRedirect(reverse('paccotest:survey'))
+            return HttpResponseRedirect(reverse('paccotest:questionnaireForm'))
         else:
             print "GpsForm not valid!"
             print form.errors.as_json()
@@ -69,7 +69,7 @@ def gpsPositionForm(request):
 
 
 # Page of the survey
-def survey(request):
+def questionnaireForm(request):
 
     initial={'gpsForm': request.session.get('surveyForm', None)}
     form = forms.Form(request.POST or None, initial=initial)
@@ -82,7 +82,7 @@ def survey(request):
             print json.dumps(form.cleaned_data)
             return HttpResponseRedirect(reverse('paccotest:probesForm'))
     context = {'all_questions': all_questions_list}
-    return render(request, 'paccotest/survey.html', context)
+    return render(request, 'paccotest/questionnaireForm.html', context)
 
 
 # Form for probes
@@ -113,7 +113,7 @@ def complete(request):
 def gpsPosition(request):
     gpsPosition = g_probesMananager.getGPSPosition()
     return HttpResponse(json.dumps(vars(gpsPosition)), content_type="application/json")
- 
+
 
 
 #------JSON Encoder for DateTime------------
