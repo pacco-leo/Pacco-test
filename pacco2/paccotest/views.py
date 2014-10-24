@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 
 from paccotest.models import Question
-from paccotest.forms import GPSMeasureForm, QuestionForm
+from paccotest.forms import GPSMeasureForm
 import json
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
@@ -72,18 +72,18 @@ def gpsPositionForm(request):
 def questionnaireForm(request):
 
     initial={'surveyForm': request.session.get('surveyForm', None)}
-    #form = forms.Form(request.POST or None, initial=initial)
-    form = QuestionForm(request.POST or None, initial=initial)
+    form = forms.Form(request.POST or None, initial=initial)
+    #form = QuestionForm(request.POST or None, initial=initial)
 
-    #all_questions_list = Question.objects.all()
+    all_questions_list = Question.objects.all()
     if request.method == 'POST':
-        pass
+        print "ffssdf"
         # if form.is_valid():
         #     #request.session['surveyForm'] = form.cleaned_data
         #     #print json.dumps(form.cleaned_data)
-        #     return HttpResponseRedirect(reverse('paccotest:probesForm'))
-    #context = {'all_questions': all_questions_list}
-    return render(request, 'paccotest/questionnaireForm.html', {'form':form})
+        return HttpResponseRedirect(reverse('paccotest:probesForm'))
+    context = {'all_questions': all_questions_list}
+    return render(request, 'paccotest/questionnaireForm.html', context)
 
 
 # Form for probes

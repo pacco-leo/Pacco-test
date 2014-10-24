@@ -19,25 +19,25 @@ class GPSMeasureForm(forms.ModelForm):
         self.fields['utc'].widget = forms.HiddenInput()
 
 
-class QuestionForm(forms.ModelForm):
-
-    #http://mounirmesselmeni.github.io/2013/11/25/django-grouped-select-field/
-
-     answers = forms.ModelChoiceField(Answer.objects.all(), widget=forms.RadioSelect)
-
-    #  category = GroupedModelChoiceField(
-    #     label=_('Category'),
-    #     group_by_field='parent',
-    #     queryset=Category.objects.all(),
-    # )
-
-
-
-     class Meta:
-         model = Question
-
-     def __init__(self, *args, **kwargs):
-         super(QuestionForm, self).__init__(*args, **kwargs)
+# class QuestionForm(forms.ModelForm):
+#
+#     #http://mounirmesselmeni.github.io/2013/11/25/django-grouped-select-field/
+#
+#      answers = forms.ModelChoiceField(Answer.objects.all(), widget=forms.RadioSelect)
+#
+#     #  category = GroupedModelChoiceField(
+#     #     label=_('Category'),
+#     #     group_by_field='parent',
+#     #     queryset=Category.objects.all(),
+#     # )
+#
+#
+#
+#      class Meta:
+#          model = Question
+#
+#      def __init__(self, *args, **kwargs):
+#          super(QuestionForm, self).__init__(*args, **kwargs)
 
 
 # class QuestionForm(forms.ModelFor
