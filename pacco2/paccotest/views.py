@@ -75,13 +75,14 @@ def questionnaireForm(request):
     form = forms.Form(request.POST or None, initial=initial)
     #form = QuestionForm(request.POST or None, initial=initial)
 
-    all_questions_list = Question.objects.all()
     if request.method == 'POST':
-        print "ffssdf"
-        # if form.is_valid():
+        if form.is_valid():
+            print form.cleaned_data  #Problem: void
         #     #request.session['surveyForm'] = form.cleaned_data
         #     #print json.dumps(form.cleaned_data)
         return HttpResponseRedirect(reverse('paccotest:probesForm'))
+
+    all_questions_list = Question.objects.all()
     context = {'all_questions': all_questions_list}
     return render(request, 'paccotest/questionnaireForm.html', context)
 
