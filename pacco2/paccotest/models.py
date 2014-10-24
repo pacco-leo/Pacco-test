@@ -2,10 +2,20 @@ from django.db import models
 
 # Create your models here.
 
+
+#An Answer to a Question
+class Answer(models.Model):
+    answer_text = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.answer_text
+
+
 #An answer to a Question
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     order_index = models.IntegerField()
+    answers = models.ManyToManyField(Answer)  #Many-to-many relationship
 
     def __unicode__(self):
         return self.question_text
@@ -13,14 +23,6 @@ class Question(models.Model):
     class Meta:
         pass
         #ordering = ('order_index')
-
-#An Answer to a Question
-class Answer(models.Model):
-    questions = models.ManyToManyField(Question)  #Many-to-many relationship
-    answer_text = models.CharField(max_length=200)
-
-    def __unicode__(self):
-        return self.answer_text
 
 #A Survey
 class Survey(models.Model):

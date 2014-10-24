@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 
 from paccotest.models import Question
-from paccotest.forms import GPSMeasureForm
+from paccotest.forms import GPSMeasureForm, QuestionForm
 import json
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
@@ -71,23 +71,25 @@ def gpsPositionForm(request):
 # Page of the survey
 def questionnaireForm(request):
 
-    initial={'gpsForm': request.session.get('surveyForm', None)}
-    form = forms.Form(request.POST or None, initial=initial)
+    initial={'surveyForm': request.session.get('surveyForm', None)}
+    #form = forms.Form(request.POST or None, initial=initial)
+    form = QuestionForm(request.POST or None, initial=initial)
 
-    all_questions_list = Question.objects.all()
+    #all_questions_list = Question.objects.all()
     if request.method == 'POST':
-        if form.is_valid():
-            print "ICI"
-            request.session['surveyForm'] = form.cleaned_data
-            print json.dumps(form.cleaned_data)
-            return HttpResponseRedirect(reverse('paccotest:probesForm'))
-    context = {'all_questions': all_questions_list}
-    return render(request, 'paccotest/questionnaireForm.html', context)
+        pass
+        # if form.is_valid():
+        #     #request.session['surveyForm'] = form.cleaned_data
+        #     #print json.dumps(form.cleaned_data)
+        #     return HttpResponseRedirect(reverse('paccotest:probesForm'))
+    #context = {'all_questions': all_questions_list}
+    return render(request, 'paccotest/questionnaireForm.html', {'form':form})
 
 
 # Form for probes
-def probesForm(request):
+def probesForm(request, probeType):
 
+    print probeType
     form = GPSMeasureForm(request.POST or None)
 
     if request.method == 'POST':
@@ -98,10 +100,11 @@ def probesForm(request):
 def complete(request):
 
     _session1 = request.session['gpsForm']
-    #_session2 = request.session['surveyForm']
+    _session2 = request.session['surveyForm']
 
     #Save the brol
     #survey = Survey.objects.create(fn=request.session['gpsForm'])
+    #
 
     context = {'SESSION': json.dumps(_session1)}
     return render(request, 'paccotest/complete.html', context)
@@ -113,6 +116,11 @@ def complete(request):
 def gpsPosition(request):
     gpsPosition = g_probesMananager.getGPSPosition()
     return HttpResponse(json.dumps(vars(gpsPosition)), content_type="application/json")
+
+
+def probeMeasure(request, probeType):
+    probeValue = g_probesMananager.getProbeValue(probeType)
+    return HttpResponse(probeValue, content_type="application/json")
 
 
 

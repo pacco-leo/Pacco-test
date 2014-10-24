@@ -12,8 +12,8 @@ class ProbesManagerDummy(ProbesManager):
 
     def getGPSPosition(self):
         time.sleep(1)
-        return GPSPosition(12, 13, 14, "2014-07-24 21:45:38")
+        return GPSPosition(latitude = 12, longitude=13, elevation=14, utc="2014-07-24 21:45:38")
 
-    def getProbesValues(self):
-        return {'line': "hello", 'sensor': 2, 'sact': 3, 'snext': 4,
-            'stotal': 5, 'etape': 6, 'txt': "hello", 'last_question': "lastQuestion"}  # sensors
+    def getProbeValue(self, probeType):
+        time.sleep(1)
+        return 456.789
