@@ -60,7 +60,7 @@ def gpsPositionForm(request):
         if form.is_valid():
             form.cleaned_data["utc"] = json.dumps(form.cleaned_data["utc"], cls = DateTimeEncoder)
             request.session['gpsForm'] = form.cleaned_data
-            return HttpResponseRedirect(reverse('paccotest:questionnaireForm'))
+            return HttpResponseRedirect(reverse('paccotest:questionnaireForm', args=("ph",))) #FIX: arg not passing
         else:
             print "GpsForm not valid!"
             print form.errors.as_json()
@@ -77,7 +77,7 @@ def questionnaireForm(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            print form.cleaned_data  #Problem: void
+            print form.cleaned_data  #FIX: void
         #     #request.session['surveyForm'] = form.cleaned_data
         #     #print json.dumps(form.cleaned_data)
         return HttpResponseRedirect(reverse('paccotest:probesForm'))
