@@ -60,7 +60,7 @@ def gpsPositionForm(request):
         if form.is_valid():
             form.cleaned_data["utc"] = json.dumps(form.cleaned_data["utc"], cls = DateTimeEncoder)
             request.session['gpsForm'] = form.cleaned_data
-            return HttpResponseRedirect(reverse('paccotest:questionnaireForm', args=("ph",))) #FIX: arg not passing
+            return HttpResponseRedirect(reverse('paccotest:questionnaireForm'))
         else:
             print "GpsForm not valid!"
             print form.errors.as_json()
@@ -80,7 +80,7 @@ def questionnaireForm(request):
             print form.cleaned_data  #FIX: void
         #     #request.session['surveyForm'] = form.cleaned_data
         #     #print json.dumps(form.cleaned_data)
-        return HttpResponseRedirect(reverse('paccotest:probesForm'))
+        return HttpResponseRedirect(reverse('paccotest:probesForm', args=("ph",))) 
 
     all_questions_list = Question.objects.all()
     context = {'all_questions': all_questions_list}
@@ -96,7 +96,7 @@ def probesForm(request, probeType):
     if request.method == 'POST':
         return HttpResponseRedirect(reverse('paccotest:complete'))
 
-    return render(request, 'paccotest/probesForm.html', {'form':form})
+    return render(request, 'paccotest/probesForm.html', {'probeType':probeType, 'form':form})
 
 def complete(request):
 
