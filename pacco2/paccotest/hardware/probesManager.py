@@ -8,6 +8,12 @@ class GPSPosition:
     elevation = 0
     utc = 0
 
+    def __init__(self, latitude, longitude, elevation, utc):
+        self.latitude = latitude
+        self.longitude = longitude
+        self.elevation = elevation
+        self.utc = utc
+
 
 ##
 # An abstract class for making tests with probes
