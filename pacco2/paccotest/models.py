@@ -3,22 +3,23 @@ from django.db import models
 # Create your models here.
 
 
-#An Answer to a Question
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    order_index = models.IntegerField()
+
+    def __unicode__(self):
+        return self.question_text
+
+    class Meta:
+        pass
+        #ordering = ('order_index')
+
 class Answer(models.Model):
+    question = models.ForeignKey(Question)
     answer_text = models.CharField(max_length=200)
 
     def __unicode__(self):
         return self.answer_text
-
-
-#An answer to a Question
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    order_index = models.IntegerField()
-    answers = models.ManyToManyField(Answer)  #Many-to-many relationship
-
-    def __unicode__(self):
-        return self.question_text
 
     class Meta:
         pass

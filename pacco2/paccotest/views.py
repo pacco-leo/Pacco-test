@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 
-from paccotest.models import Question
+from paccotest.models import Question, Answer
 from paccotest.forms import GPSMeasureForm
 import json
 
@@ -82,8 +82,11 @@ def questionnaireForm(request):
         #     #print json.dumps(form.cleaned_data)
         return HttpResponseRedirect(reverse('paccotest:probesForm', args=("ph",))) 
 
-    all_questions_list = Question.objects.all()
-    context = {'all_questions': all_questions_list}
+    questions_list = Question.objects.all()
+    for question in questions_list:
+        question.answers = Answer.objects.filter(question=question.pk)
+
+    context = {'all_questions': questions_list}
     return render(request, 'paccotest/questionnaireForm.html', context)
 
 

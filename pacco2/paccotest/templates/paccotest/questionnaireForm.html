@@ -1,22 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Pacco-test | {% block titre %}{% endblock %}</title>
+
+    {% load static %} <!-- New line -->
+    <link type="text/css" href="{% static 'css/main.css' %}?{% now 'U' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'css/jquery.mobile-1.4.4.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/angular.min.js' %}"></script>
+    <script src="{% static 'js/pacco-test.js' %}"></script>
+    <script src="{% static 'js/jquery.mobile-1.4.4.min.js' %}"></script>
+    </head>
+        <body ng-app="paccoApp">
+            <div id="cadre" data-role="page">
+
 {% if all_questions %}
     <form method="post">
     {% csrf_token %}
-        <ul>
+        <fieldset>
         {% for question in all_questions %}
-            <li>{{ question.question_text }}
-                <div>
-                    {% for answer in question.answers.all %}
-                        <input type="radio" name="question{{ question.id}}" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
-                        <label for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br />
+            {{ question.question_text }}
+
+                    {% for answer in question.answers %}
+                        <label for="question{{ question.id }}-answer{{ forloop.counter }}">{{ answer.answer_text }}</label>
+                        <input type="radio" name="question{{ question.id }}" id="question{{ question.id }}-answer{{ forloop.counter }}" value="{{ answer.id }}" />
                     {% endfor %}
-                </div>
-            </li>
+
+
         {% endfor %}
-        </ul>
+        </fieldset>
 
         <input type="submit" value="Vote" />
     </form>
 {% else %}
     <p>No questions are available</p>
 {% endif %}
+
+        </div>
+    </body>
+</html>
 
