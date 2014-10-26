@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    PROBESFORM
+    Testing new: {{ probeType }}
     <form  method="post" action="{% url 'paccotest:probesForm' 'hellllo' %}">
         {% csrf_token %}
         {{ form }}
