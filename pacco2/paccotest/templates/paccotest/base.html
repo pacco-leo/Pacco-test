@@ -5,13 +5,16 @@
     <title>Pacco-test | {% block titre %}{% endblock %}</title>
 
     {% load static %} <!-- New line -->
-    <script src="{% static "js/jquery.min.js" %}"></script>
-    <script src="{% static "js/angular.min.js" %}"></script>
-    <script src="{% static "js/pacco-test.js" %}"></script>
+    <link type="text/css" href="{% static 'css/main.css' %}?{% now 'U' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'css/jquery.mobile-1.4.4.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/angular.min.js' %}"></script>
+    <script src="{% static 'js/pacco-test.js' %}"></script>
+    <script src="{% static 'js/jquery.mobile-1.4.4.min.js' %}"></script>
 
     </head>
         <body ng-app="paccoApp">
-            <div id="cadre">
+            <div id="cadre" data-role="page">
                     {% block content %}{% endblock %}
             </div>
         </body>
