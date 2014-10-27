@@ -2,11 +2,27 @@
 
 
 {% block content %}
-    Testing new: {{ probeType }}
-    <form  method="post" action="{% url 'paccotest:probesForm' 'hellllo' %}">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" />
-    </form>
+
+    <div ng-controller="ProbeController">
+        <h1>Testing: {{ probeName }}</h1>
+
+        <div ng-hide="myData.fromServer != null">
+            <p >Waiting for a measure</p>
+            <button ng-click="myData.doClick(item, $event)">Measure</button>
+        </div>
+
+
+        <div ng-show="myData.fromServer != null">
+            <p>Got value: {[{myData.fromServer}]}</p>
+
+            <form  method="post" action="{% url 'paccotest:probesForm' probeName %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit" />
+            </form>
+
+        </div>
+
+    </div>
 
 {% endblock %}

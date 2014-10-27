@@ -17,6 +17,7 @@ paccoApp.controller("PositionController", function($scope, $http) {
 
     $scope.myData.doClick = function(item, event) {
         var responsePromise = $http.get("gpsPosition");
+         //Something like: http://127.0.0.1:8000/paccotest/gpsPositionForm/gpsPosition
 
         responsePromise.success(function(data, status, headers, config) {
             $scope.myData.fromServer = data;
@@ -25,6 +26,27 @@ paccoApp.controller("PositionController", function($scope, $http) {
             $("#id_latitude").val($scope.myData.fromServer.latitude)
             $("#id_longitude").val($scope.myData.fromServer.longitude)
             $("#id_utc").val($scope.myData.fromServer.utc)
+        });
+        responsePromise.error(function(data, status, headers, config) {
+            alert("AJAX failed!");
+        });
+    }
+
+
+} );
+
+paccoApp.controller("ProbeController", function($scope, $http) {
+
+    $scope.myData = {};
+
+    $scope.myData.doClick = function(item, event) {
+        var responsePromise = $http.get("probeMeasure");
+        //Something like: http://127.0.0.1:8000/paccotest/probesForm/ph/probeMeasure
+
+        responsePromise.success(function(data, status, headers, config) {
+            $scope.myData.fromServer = data;
+
+            $("#id_measure").val($scope.myData.fromServer)
         });
         responsePromise.error(function(data, status, headers, config) {
             alert("AJAX failed!");

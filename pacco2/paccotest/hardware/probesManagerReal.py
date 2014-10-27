@@ -112,7 +112,7 @@ class ProbesManagerReal(ProbesManager):
     ##
     # Get values form probes
     #
-    def getProbeValue(self, probeType):
+    def getProbeValue(self, probeName):
         last_question = False
         correction = 'False'
         array_qr = ''

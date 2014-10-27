@@ -28,6 +28,6 @@ class ProbesManager:
     def getGPSPosition(self):
         return NotImplementedError( "Should have implemented this" )
 
-    def getProbeValue(self, probeType):
+    def getProbeValue(self, probeName):
         return NotImplementedError( "Should have implemented this" )
 

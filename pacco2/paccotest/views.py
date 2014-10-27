@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 
-from paccotest.models import Question, Answer
-from paccotest.forms import GPSMeasureForm
+from paccotest.models import Question, Probe
+from paccotest.forms import GPSMeasureForm,ProbeMeasureForm
 import json
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
@@ -76,35 +76,55 @@ def questionnaireForm(request):
     #form = QuestionForm(request.POST or None, initial=initial)
 
     if request.method == 'POST':
+        print "hggdfdfgop"
         if form.is_valid():
             print form.cleaned_data  #FIX: void
         #     #request.session['surveyForm'] = form.cleaned_data
         #     #print json.dumps(form.cleaned_data)
-        return HttpResponseRedirect(reverse('paccotest:probesForm', args=("ph",))) 
+        firstProbeName = Probe.objects.all().order_by('order')[0].name
+        return HttpResponseRedirect(reverse('paccotest:probesForm', args=(firstProbeName,)))
 
-    questions_list = Question.objects.all()
-    for question in questions_list:
-        question.answers = Answer.objects.filter(question=question.pk)
-
-    context = {'all_questions': questions_list}
+    all_questions_list = Question.objects.all()
+    context = {'all_questions': all_questions_list}
     return render(request, 'paccotest/questionnaireForm.html', context)
 
 
 # Form for probes
-def probesForm(request, probeType):
+def probesForm(request, probeName):
 
-    print probeType
-    form = GPSMeasureForm(request.POST or None)
+    #TODO: Test if probeName exists!
+    probeTypeID = Probe.objects.get(name=probeName).id
+
+    initial={'probeName': request.session.get('probeName', None), 'probeType': probeTypeID}
+    form = ProbeMeasureForm(request.POST or None, initial=initial)
 
     if request.method == 'POST':
-        return HttpResponseRedirect(reverse('paccotest:complete'))
 
-    return render(request, 'paccotest/probesForm.html', {'probeType':probeType, 'form':form})
+        if form.is_valid():
+            #request.session['probeName'] = form.cleaned_data
+
+            #Get the list of probes
+            currentOrder = Probe.objects.get(name=probeName).order
+            nextProbes = Probe.objects.all().order_by('order').filter(order__gt=currentOrder)
+
+            #Go to the next probe
+            if nextProbes:
+                nextProbeName = nextProbes[0].name
+                return HttpResponseRedirect(reverse('paccotest:probesForm', args=(nextProbeName,)))
+            #This is the last probe
+            else:
+                return HttpResponseRedirect(reverse('paccotest:complete'))
+
+        else:
+            print "ProbeForm not valid!"
+            print form.errors.as_json()
+
+    return render(request, 'paccotest/probesForm.html', {'probeName':probeName, 'form':form})
 
 def complete(request):
 
     _session1 = request.session['gpsForm']
-    _session2 = request.session['surveyForm']
+    #_session2 = request.session['surveyForm']
 
     #Save the brol
     #survey = Survey.objects.create(fn=request.session['gpsForm'])
@@ -122,8 +142,8 @@ def gpsPosition(request):
     return HttpResponse(json.dumps(vars(gpsPosition)), content_type="application/json")
 
 
-def probeMeasure(request, probeType):
-    probeValue = g_probesMananager.getProbeValue(probeType)
+def probeMeasure(request, probeName):
+    probeValue = g_probesMananager.getProbeValue(probeName)
     return HttpResponse(probeValue, content_type="application/json")
 
 

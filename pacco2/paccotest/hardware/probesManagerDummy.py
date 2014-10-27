@@ -14,6 +14,7 @@ class ProbesManagerDummy(ProbesManager):
         time.sleep(1)
         return GPSPosition(latitude = 12, longitude=13, elevation=14, utc="2014-07-24 21:45:38")
 
-    def getProbeValue(self, probeType):
+    def getProbeValue(self, probeName):
+        #Probe.objects.get(name=probeName).channel
         time.sleep(1)
         return 456.789

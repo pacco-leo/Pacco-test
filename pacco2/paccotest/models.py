@@ -3,23 +3,22 @@ from django.db import models
 # Create your models here.
 
 
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    order_index = models.IntegerField()
-
-    def __unicode__(self):
-        return self.question_text
-
-    class Meta:
-        pass
-        #ordering = ('order_index')
-
+#An Answer to a Question
 class Answer(models.Model):
-    question = models.ForeignKey(Question)
     answer_text = models.CharField(max_length=200)
 
     def __unicode__(self):
         return self.answer_text
+
+
+#An answer to a Question
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    order_index = models.IntegerField()
+    answers = models.ManyToManyField(Answer)  #Many-to-many relationship
+
+    def __unicode__(self):
+        return self.question_text
 
     class Meta:
         pass
@@ -40,18 +39,32 @@ class UserAnswer(models.Model):
     survey = models.ForeignKey(Survey)
     answer = models.ForeignKey(Answer)
 
+class Probe(models.Model):
+    name = models.CharField(max_length=200)
+    channel = models.IntegerField()
+    order = models.IntegerField()
+
+    def __unicode__(self):
+        return self.name
+
 #A ProbeType
-class ProbeType(models.Model):
-    PH = 'REDOX'
-    REDOX = 'REDOX'
-    CONDUCTIVITY = 'CONDUCTIVITY'
-    DO = 'DO'
-    TEMPERATURE = 'TEMPERATURE'
+# class ProbeType(models.Model):
+#     PH = 'REDOX'
+#     REDOX = 'REDOX'
+#     CONDUCTIVITY = 'CONDUCTIVITY'
+#     DO = 'DO'
+#     TEMPERATURE = 'TEMPERATURE'
 
 #A ProbeMeasure
 class ProbeMeasure(models.Model):
     survey = models.ForeignKey(Survey)
-    probeType = models.ForeignKey(ProbeType)
-    mesure = models.FloatField('measure')
+    probeType = models.ForeignKey(Probe)
+    measure = models.FloatField('measure')
+
+    def __unicode__(self):
+        return self.survey + " , " + self.probeType + " , " + self.measure
+
+
+
 
 
