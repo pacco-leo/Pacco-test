@@ -45,7 +45,7 @@ class Probe(models.Model):
     order = models.IntegerField()
 
     def __unicode__(self):
-        return self.name
+        return self.name + " , " + str(self.channel)
 
 #A ProbeType
 # class ProbeType(models.Model):

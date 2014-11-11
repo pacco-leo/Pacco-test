@@ -9,7 +9,7 @@ import json
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
 from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
-
+from paccotest.hardware.probesManagerReal import ProbesManagerReal
 
 # import the logging library
 import logging
@@ -32,7 +32,7 @@ class ProbesManagerFactory:
 
 
 global IS_DEBUGGING
-IS_DEBUGGING = True   #Set IS_DEBUGGING for RaspberryPI
+IS_DEBUGGING = False  #Set IS_DEBUGGING for RaspberryPI
 
 if IS_DEBUGGING:
     g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();  #For Dummy Probes
@@ -101,6 +101,7 @@ def probesForm(request, probeName):
     if request.method == 'POST':
 
         if form.is_valid():
+
             #request.session['probeName'] = form.cleaned_data
 
             #Get the list of probes
