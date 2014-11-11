@@ -8,7 +8,7 @@
 
         <div ng-hide="myData.fromServer != null">
             <p >Waiting for a measure</p>
-            <button ng-click="myData.doClick(item, $event)">Measure</button>
+            <button ng-click="myData.doClick(item, $event)" class="ui-btn ui-icon-eye ui-btn-icon-right">Measure</button>
         </div>
 
 
@@ -18,7 +18,7 @@
             <form  method="post" action="{% url 'paccotest:probesForm' probeName %}">
                 {% csrf_token %}
                 {{ form }}
-                <input type="submit" value="Submit" />
+                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />Submit</button>
             </form>
 
         </div>

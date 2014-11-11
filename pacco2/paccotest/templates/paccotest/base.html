@@ -7,6 +7,18 @@
     {% load static %} <!-- New line -->
     <link rel="stylesheet" href="{% static 'jquery.mobile/jquery.mobile-1.4.4.min.css' %}" />
     <script src="{% static "js/jquery.min.js" %}"></script>
+    <script>
+        //Disable "ajax loading" of the pages in jQueryMobile. Use standard HTTP behaviour
+        //This script must be loaded before the jquery.mobile script
+        $( document ).on( "mobileinit", function() {
+            console.log("hello")
+            $.extend( $.mobile , {
+                //http://api.jquerymobile.com/global-config/
+                ajaxEnabled: false
+            });
+        });
+     </script>
+
     <script src="{% static 'jquery.mobile/jquery.mobile-1.4.4.min.js' %}"></script>
 
    <link type="text/css" href="{% static 'css/main.css' %}?{% now 'U' %}" rel="stylesheet" />
