@@ -56,4 +56,13 @@ paccoApp.controller("ProbeController", function($scope, $http) {
 
 } );
 
+paccoApp.controller("TabController",function(){
+	this.tab = 1;
+	this.setTab = function(newValue){
+		this.tab = newValue;
+	};
+	this.isSet = function(tabNum){
+		return this.tab === tabNum;
+	};
+});
 
