@@ -95,14 +95,18 @@ def probesForm(request, probeName):
     #TODO: Test if probeName exists!
     probeTypeID = Probe.objects.get(name=probeName).id
 
-    initial={'probeName': request.session.get('probeName', None), 'probeType': probeTypeID}
+    initial={'probesValues': request.session.get('probesValues', None), 'probeType': probeTypeID}
     form = ProbeMeasureForm(request.POST or None, initial=initial)
 
     if request.method == 'POST':
 
         if form.is_valid():
 
-            #request.session['probeName'] = form.cleaned_data
+            if 'probesValues' not in request.session:
+                request.session['probesValues']={}
+
+            request.session['probesValues'][form.cleaned_data['probeType'].id] = form.cleaned_data['measure']
+
 
             #Get the list of probes
             currentOrder = Probe.objects.get(name=probeName).order
@@ -125,13 +129,16 @@ def probesForm(request, probeName):
 def complete(request):
 
     _session1 = request.session['gpsForm']
+    _session2 = request.session['probesValues']
+
+    print(request.session.keys())   #Print all the keys
     #_session2 = request.session['surveyForm']
 
     #Save the brol
     #survey = Survey.objects.create(fn=request.session['gpsForm'])
     #
 
-    context = {'SESSION': json.dumps(_session1)}
+    context = {'SESSION': json.dumps(_session1)+ " ---- " +json.dumps(_session2)}
     return render(request, 'paccotest/complete.html', context)
 
 

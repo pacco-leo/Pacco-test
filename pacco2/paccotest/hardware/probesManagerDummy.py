@@ -11,10 +11,10 @@ class ProbesManagerDummy(ProbesManager):
         pass
 
     def getGPSPosition(self):
-        time.sleep(1)
+        time.sleep(0)
         return GPSPosition(latitude = 12, longitude=13, elevation=14, utc="2014-07-24 21:45:38")
 
     def getProbeValue(self, probeName):
         #Probe.objects.get(name=probeName).channel
-        time.sleep(1)
+        time.sleep(0)
         return 456.789

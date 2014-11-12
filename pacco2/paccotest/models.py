@@ -38,6 +38,7 @@ class Survey(models.Model):
 class UserAnswer(models.Model):
     survey = models.ForeignKey(Survey)
     answer = models.ForeignKey(Answer)
+    question = models.ForeignKey(Question)
 
 class Probe(models.Model):
     name = models.CharField(max_length=200)
