@@ -42,3 +42,42 @@ ol.bread-crumb  li.bread-crumb-active {
   display: none !important;
 }
 */
+
+/* QuestionnaireForm */
+	.question {
+		width:740px;
+		font-size:25px;
+	}
+	.tabsNavigation {
+		display:block;
+		text-align:center;
+	}
+	.tabsNavigation a {
+		background-color:white;
+		border:5px solid white;
+		width:5px;
+		height:5px;
+		display:inline-block;
+		margin:1px;
+		text-decoration:none;
+	}
+	.tabsNavigation a.active {
+		border-color:#0769AD;
+	}
+	.tabitem{
+		-webkit-transition: 1s linear all;
+		transition:1s linear all;
+		opacity:1;
+		position:absolute;
+		top:30px;
+		left:30px;
+	}
+	.tabitem.ng-hide {
+		opacity:0;
+	}
+	.tabitem.ng-hide-add, .tabitem.ng-hide-remove {
+		display:block !important;
+	}
+	.resumeAnswer {
+		cursor:pointer;
+}

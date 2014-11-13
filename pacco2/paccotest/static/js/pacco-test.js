@@ -4,7 +4,7 @@ $(document).ready( function() {
 });
 
 
-var paccoApp = angular.module('paccoApp', []);
+var paccoApp = angular.module('paccoApp', ['ngAnimate']);
 
 paccoApp.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -58,11 +58,31 @@ paccoApp.controller("ProbeController", function($scope, $http) {
 
 paccoApp.controller("TabController",function(){
 	this.tab = 1;
+	this.backToResume = false;
+	this.lastTab = parseInt($('#lastTabValue').val());
 	this.setTab = function(newValue){
 		this.tab = newValue;
+	};
+	this.setTabResume = function(newValue){
+		this.tab = newValue;
+		this.backToResume = true;
+	};
+	this.nextTab = function(newValue,answer){
+	    $('.resumeAnswer_'+newValue).css('display','none');
+	    $('#resumeAnswer_'+newValue+'_'+answer).css('display','inline');
+            if(this.backToResume)
+	    {
+		this.tab = this.lastTab;
+	    }
+            else
+	    {
+		this.tab = newValue + 1;
+	    }
+	    
 	};
 	this.isSet = function(tabNum){
 		return this.tab === tabNum;
 	};
 });
+
 

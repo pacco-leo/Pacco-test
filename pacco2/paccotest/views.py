@@ -85,7 +85,8 @@ def questionnaireForm(request):
         return HttpResponseRedirect(reverse('paccotest:probesForm', args=(firstProbeName,)))
 
     all_questions_list = Question.objects.all()
-    context = {'all_questions': all_questions_list}
+    lastTab = all_questions_list.count() + 1
+    context = {'all_questions': all_questions_list,'lastTab':lastTab}
     return render(request, 'paccotest/questionnaireForm.html', context)
 
 
