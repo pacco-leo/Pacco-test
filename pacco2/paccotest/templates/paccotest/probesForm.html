@@ -2,27 +2,42 @@
 
 
 {% block content %}
+<div ng-controller="TabController as tab">
+            <form  method="post" action="{% url 'paccotest:probesForm' %}">
+	 {% csrf_token %}
+	<p class="tabsNavigation">
+	{% for probe in all_probes %}
+		<a href ng-class="{active:tab.isSet({{probe.id}})}" ng-click="tab.setTab({{probe.id}})">&nbsp;</a>
+	{% endfor %}
+		<a href ng-class="{active:tab.isSet({{lastTab}})}" ng-click="tab.setTab({{lastTab}})">&nbsp;</a>
+	</p>
 
-    <div ng-controller="ProbeController">
-        <h1>Testing: {{ probeName }}</h1>
+	{% for probe in all_probes %}
+	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.id}})" class="tabitem">
 
-        <div ng-hide="myData.fromServer != null">
-            <p >Waiting for a measure</p>
-            <button ng-click="myData.doClick(item, $event)" class="ui-btn ui-icon-eye ui-btn-icon-right">Measure</button>
-        </div>
+	        <h1>Testing: {{ probe.name }}</h1>
+	
+	        <div ng-hide="myData.fromServer != null">
+		<br />
+	            <a href ng-click="myData.doClick(item, $event,{{ probe.name }})" class="ui-btn ui-icon-eye ui-btn-icon-right">Measure</a>
+	        </div>
+	
+	
+	        <div ng-show="myData.fromServer != null">
+	            <p>Got value: {[{myData.fromServer}]}</p>
+                        <input type="hidden" name="probe{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">		
+	                <a href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">Continuer</a>
+	        </div>
+	
+	    </div>
+	{% endfor %}
+        <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
 
-
-        <div ng-show="myData.fromServer != null">
-            <p>Got value: {[{myData.fromServer}]}</p>
-
-            <form  method="post" action="{% url 'paccotest:probesForm' probeName %}">
-                {% csrf_token %}
-                {{ form }}
+               
+               
                 <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />Submit</button>
-            </form>
-
-        </div>
-
-    </div>
-
+            
+	</div>
+</form>
+</div>
 {% endblock %}

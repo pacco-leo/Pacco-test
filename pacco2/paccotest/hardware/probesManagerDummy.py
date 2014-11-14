@@ -17,4 +17,5 @@ class ProbesManagerDummy(ProbesManager):
     def getProbeValue(self, probeName):
         #Probe.objects.get(name=probeName).channel
         time.sleep(0)
-        return 456.789
+	from random import randint
+        return randint(1,100)

@@ -81,8 +81,7 @@ def questionnaireForm(request):
             print form.cleaned_data  #FIX: void
         #     #request.session['surveyForm'] = form.cleaned_data
         #     #print json.dumps(form.cleaned_data)
-        firstProbeName = Probe.objects.all().order_by('order')[0].name
-        return HttpResponseRedirect(reverse('paccotest:probesForm', args=(firstProbeName,)))
+        return HttpResponseRedirect(reverse('paccotest:probesForm'))
 
     all_questions_list = Question.objects.all()
     lastTab = all_questions_list.count() + 1
@@ -91,41 +90,24 @@ def questionnaireForm(request):
 
 
 # Form for probes
-def probesForm(request, probeName):
+def probesForm(request):
 
-    #TODO: Test if probeName exists!
-    probeTypeID = Probe.objects.get(name=probeName).id
+    all_probes_list = Probe.objects.all()
+    lastTab = all_probes_list.count() + 1
 
-    initial={'probesValues': request.session.get('probesValues', None), 'probeType': probeTypeID}
-    form = ProbeMeasureForm(request.POST or None, initial=initial)
+    initial={'probesValues': request.session.get('probesValues', None), 'all_probes': all_probes_list}
+    form = forms.Form(request.POST or None, initial=initial)
 
     if request.method == 'POST':
 
         if form.is_valid():
-
+	
             if 'probesValues' not in request.session:
                 request.session['probesValues']={}
-
-            request.session['probesValues'][form.cleaned_data['probeType'].id] = form.cleaned_data['measure']
-
-
-            #Get the list of probes
-            currentOrder = Probe.objects.get(name=probeName).order
-            nextProbes = Probe.objects.all().order_by('order').filter(order__gt=currentOrder)
-
-            #Go to the next probe
-            if nextProbes:
-                nextProbeName = nextProbes[0].name
-                return HttpResponseRedirect(reverse('paccotest:probesForm', args=(nextProbeName,)))
-            #This is the last probe
-            else:
-                return HttpResponseRedirect(reverse('paccotest:complete'))
-
-        else:
-            print "ProbeForm not valid!"
-            print form.errors.as_json()
-
-    return render(request, 'paccotest/probesForm.html', {'probeName':probeName, 'form':form})
+	    for probe in all_probes_list:
+            	request.session['probesValues'][probe.id] = form.cleaned_data['probe'+str(probe.id)]
+	    return HttpResponseRedirect(reverse('paccotest:complete'))
+    return render(request, 'paccotest/probesForm.html', {'all_probes':all_probes_list, 'lastTab':lastTab, 'form':form})
 
 def complete(request):
 

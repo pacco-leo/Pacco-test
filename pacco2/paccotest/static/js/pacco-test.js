@@ -39,8 +39,8 @@ paccoApp.controller("ProbeController", function($scope, $http) {
 
     $scope.myData = {};
 
-    $scope.myData.doClick = function(item, event) {
-        var responsePromise = $http.get("probeMeasure");
+    $scope.myData.doClick = function(item, event, probeName) {
+        var responsePromise = $http.get(probeName+"/probeMeasure");
         //Something like: http://127.0.0.1:8000/paccotest/probesForm/ph/probeMeasure
 
         responsePromise.success(function(data, status, headers, config) {
