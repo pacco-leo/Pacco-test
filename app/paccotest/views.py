@@ -170,21 +170,46 @@ def complete(request):
                                     measure=probesValues[key])
 
 
-
-
-   # s = Survey(gpsValues)
-   # print(s)
-
-    print(request.session.keys())   #Print all the keys
-    #_session2 = request.session['surveyForm']
-
-    #Save the brol
-    #survey = Survey.objects.create(fn=request.session['gpsForm'])
-    #
+    #print(request.session.keys())   #DEBUG: Print all the keys
 
     context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues)}
     return render(request, 'paccotest/complete.html', context)
 
+
+
+#--------------------- CRON ----------------------------------
+#Called by Cron, to send all new surveys to remote Server
+def uploadToServer(request):
+    newSurveys = Survey.objects.filter(uploadedToServer=False)
+
+    # Send to remote Queue
+    import pika
+
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+    channel = connection.channel()
+    channel.queue_declare(queue='paccotest')
+
+    for survey in newSurveys:
+        channel.basic_publish(exchange='',
+                              routing_key='paccotest',
+                              body=getJsonFromSurvey(survey.id))
+        #survey.uploadedToServer = True
+        #survey.save() #Debug: commented for debugging
+
+    connection.close()
+
+    uploadedCount = newSurveys.count()
+    return HttpResponse("UploadedToServer: " + str(uploadedCount))
+#--------------------- /CRON ----------------------------------
+
+#Return a JSON from all user data for survey "surveyID"
+def getJsonFromSurvey(surveyID):
+
+    from django.core import serializers
+    data = serializers.serialize("json", [Survey.objects.get(id=surveyID)])
+
+    return data
 
 
 #Ajax Calls

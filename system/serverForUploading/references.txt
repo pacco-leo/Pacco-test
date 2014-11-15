@@ -1,0 +1,7 @@
+http://www.rabbitmq.com/tutorials/tutorial-one-python.html
+http://www.rabbitmq.com/management.html
+
+RabbitMQ Management: 
+http://localhost:15672
+
+

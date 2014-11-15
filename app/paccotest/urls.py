@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^questionnaireForm/$', views.questionnaireForm, name='questionnaireForm'),
     url(r'^probesForm/$', views.probesForm, name='probesForm'),
     url(r'^complete/$', views.complete, name='complete'),
+    url(r'^uploadToServer/$', views.uploadToServer, name='uploadToServer'),
 
     #Ajax
     url(r'^gpsPositionForm/gpsPosition/$', views.gpsPosition, name='gpsPosition'),

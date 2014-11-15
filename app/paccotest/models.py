@@ -54,6 +54,7 @@ class Survey(models.Model):
     longitude = models.FloatField('longitude')
     elevation = models.FloatField('elevation')
     utc = models.DateTimeField('date')
+    uploadedToServer = models.BooleanField('uploadedToServer', default=False)
 
     def __unicode__(self):
         return str(self.latitude) + " , " + str(self.longitude) + " , " + str(self.elevation) + " , " + str(self.utc)
