@@ -15,3 +15,5 @@ pip-delete-this-directory.txt
 # Django stuff:
 *.log
 .idea/
+
+virtualEnv/osx/
