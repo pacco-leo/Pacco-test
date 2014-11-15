@@ -1,1 +1,0 @@
-{'id': None, 'datetime': None, 'gps1': None, 'gps1': None, 'gps1': None, 'q1': None, 'q2': None, 'q3': None, 'q4': None, 'q5': None, 'q6': None, 'q7': None, 'q8': None, 'q9': None, 'q10': None, 'q11': None, 'q12': None, 's1': None, 's2': None, 's3': None, 's4': None, 's5': None}
