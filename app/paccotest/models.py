@@ -2,6 +2,12 @@ from django.db import models
 
 # Create your models here.
 
+class PlateformInfo(models.Model):
+    software_version = models.FloatField()
+    rpi_id = models.IntegerField()
+
+    def __unicode__(self):
+        return "Software version : "+ str(self.software_version) + " --- RaspberryID : " + str(self.rpi_id)
 
 #An Answer to a Question
 class Answer(models.Model):
