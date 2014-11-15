@@ -185,10 +185,25 @@ def uploadToServer(request):
     # Send to remote Queue
     import pika
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'))
+    #The RabbitMQ host
+    RABBITMQ_HOST = '192.168.1.5'   #TODO: Add this to settings somewhere
+
+
+    credentials = pika.PlainCredentials('guest', 'guest')
+
+    # parameters = pika.ConnectionParameters(host='localhost')
+
+    parameters = pika.ConnectionParameters(RABBITMQ_HOST,
+                                           5672,
+                                           '/',
+                                           credentials)
+
+    connection = pika.BlockingConnection(parameters)
+
     channel = connection.channel()
+
     channel.queue_declare(queue='paccotest')
+
 
     for survey in newSurveys:
         channel.basic_publish(exchange='',
@@ -208,8 +223,12 @@ def getJsonFromSurvey(surveyID):
 
     from django.core import serializers
     data = serializers.serialize("json", [Survey.objects.get(id=surveyID)])
+    data2 =   serializers.serialize("json", UserAnswer.objects.filter(survey=surveyID), fields=('question','answer'))
+    data3 =   serializers.serialize("json", ProbeMeasure.objects.filter(survey=surveyID), fields=('probeType','measure'))
 
-    return data
+    return data + data2 + data3
+
+
 
 
 #Ajax Calls
