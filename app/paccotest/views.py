@@ -71,19 +71,27 @@ def gpsPositionForm(request):
 # Page of the survey
 def questionnaireForm(request):
 
-    initial={'surveyForm': request.session.get('surveyForm', None)}
+    initial={'questionnaireValues': request.session.get('questionnaireValues', None)}
     form = forms.Form(request.POST or None, initial=initial)
     #form = QuestionForm(request.POST or None, initial=initial)
 
     if request.method == 'POST':
-        print "hggdfdfgop"
-        if form.is_valid():
-            print form.cleaned_data  #FIX: void
-        #     #request.session['surveyForm'] = form.cleaned_data
-        #     #print json.dumps(form.cleaned_data)
-        return HttpResponseRedirect(reverse('paccotest:probesForm'))
 
-    all_questions_list = Question.objects.all()
+        if form.is_valid():  #Useless!
+            if 'questionnaireValues' not in request.session:
+                 request.session['questionnaireValues']={}
+
+            #Get values of the form
+            #Key: QuestionID,   Value: AnswerID
+            for i in request.POST:
+                if i !=  "csrfmiddlewaretoken":    #TODO: Make it cleaner
+                    #print 'I have been passed the following keys: ',i, ' and value:',request.POST[i]
+                    request.session['questionnaireValues'][i] = request.POST[i]
+
+            #print request.session['questionnaireValues']  #DEBUG
+            return HttpResponseRedirect(reverse('paccotest:probesForm'))
+
+    all_questions_list = Question.objects.all().order_by('order')
     lastTab = all_questions_list.count() + 1
     context = {'all_questions': all_questions_list,'lastTab':lastTab}
     return render(request, 'paccotest/questionnaireForm.html', context)
@@ -91,28 +99,46 @@ def questionnaireForm(request):
 
 # Form for probes
 def probesForm(request):
-
-    all_probes_list = Probe.objects.all()
+    all_probes_list = Probe.objects.all().order_by('order')
     lastTab = all_probes_list.count() + 1
 
-    initial={'probesValues': request.session.get('probesValues', None), 'all_probes': all_probes_list}
+    initial = {'probesValues': request.session.get('probesValues', None), 'all_probes': all_probes_list}
     form = forms.Form(request.POST or None, initial=initial)
 
     if request.method == 'POST':
 
-        if form.is_valid():
-	
+        if form.is_valid():   #Useless!
+
             if 'probesValues' not in request.session:
-                request.session['probesValues']={}
-	    for probe in all_probes_list:
-            	request.session['probesValues'][probe.id] = form.cleaned_data['probe'+str(probe.id)]
-	    return HttpResponseRedirect(reverse('paccotest:complete'))
-    return render(request, 'paccotest/probesForm.html', {'all_probes':all_probes_list, 'lastTab':lastTab, 'form':form})
+                request.session['probesValues'] = {}
+
+            # Get values of the form
+            #Key: ProbeID,   Value: ProbeValue
+            for i in request.POST:
+                if i != "csrfmiddlewaretoken":  #TODO: Make it cleaner
+                    #print 'I have been passed the following keys: ',i, ' and value:',request.POST[i]
+                    request.session['probesValues'][i] = request.POST[i]
+
+            print request.session['probesValues']  #DEBUG
+
+            # if 'probesValues' not in request.session:
+            #     request.session['probesValues'] = {}
+            #
+            #     for probe in all_probes_list:
+            #         request.session['probesValues'][probe.id] = form.cleaned_data['probe' + str(probe.id)]
+            #
+            #     print request.session['probesValues']  #DEBUG
+
+            return HttpResponseRedirect(reverse('paccotest:complete'))
+
+    return render(request, 'paccotest/probesForm.html',
+                  {'all_probes': all_probes_list, 'lastTab': lastTab, 'form': form})
 
 def complete(request):
 
-    _session1 = request.session['gpsForm']
-    _session2 = request.session['probesValues']
+    gpsValues = request.session['gpsForm']
+    questionnaireValues = request.session['questionnaireValues']
+    probesValues = request.session['probesValues']
 
     print(request.session.keys())   #Print all the keys
     #_session2 = request.session['surveyForm']
@@ -121,7 +147,7 @@ def complete(request):
     #survey = Survey.objects.create(fn=request.session['gpsForm'])
     #
 
-    context = {'SESSION': json.dumps(_session1)+ " ---- " +json.dumps(_session2)}
+    context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues)}
     return render(request, 'paccotest/complete.html', context)
 
 

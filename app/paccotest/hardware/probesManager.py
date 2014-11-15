@@ -24,7 +24,6 @@ class ProbesManager:
     def initGPIO( self ):
         raise NotImplementedError( "Should have implemented this" )
 
-
     def getGPSPosition(self):
         return NotImplementedError( "Should have implemented this" )
 

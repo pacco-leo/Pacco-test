@@ -25,7 +25,7 @@
 	
 	        <div ng-show="myData.fromServer != null">
 	            <p>Got value: {[{myData.fromServer}]}</p>
-                        <input type="hidden" name="probe{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">		
+                        <input type="hidden" name="{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">
 	                <a href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">Continuer</a>
 	        </div>
 	

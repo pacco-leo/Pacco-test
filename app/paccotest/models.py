@@ -14,7 +14,7 @@ class Answer(models.Model):
 #An answer to a Question
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    order_index = models.IntegerField()
+    order = models.IntegerField()
     answers = models.ManyToManyField(Answer)  #Many-to-many relationship
 
     def __unicode__(self):
@@ -24,21 +24,6 @@ class Question(models.Model):
         pass
         #ordering = ('order_index')
 
-#A Survey
-class Survey(models.Model):
-    latitude = models.FloatField('latitude')
-    longitude = models.FloatField('longitude')
-    elevation = models.FloatField('elevation')
-    utc = models.DateTimeField('date')
-
-    def __unicode__(self):
-        return self.latitude + " , " + self.longitude + " , " + self.elevation + " , " + self.utc
-
-#An UserAnswer to a Question
-class UserAnswer(models.Model):
-    survey = models.ForeignKey(Survey)
-    answer = models.ForeignKey(Answer)
-    question = models.ForeignKey(Question)
 
 class Probe(models.Model):
     name = models.CharField(max_length=200)
@@ -56,6 +41,23 @@ class Probe(models.Model):
 #     DO = 'DO'
 #     TEMPERATURE = 'TEMPERATURE'
 
+# -------------- User Values Related Classes --------------
+#A Survey
+class Survey(models.Model):
+    latitude = models.FloatField('latitude')
+    longitude = models.FloatField('longitude')
+    elevation = models.FloatField('elevation')
+    utc = models.DateTimeField('date')
+
+    def __unicode__(self):
+        return self.latitude + " , " + self.longitude + " , " + self.elevation + " , " + self.utc
+
+#An UserAnswer to a Question
+class UserAnswer(models.Model):
+    survey = models.ForeignKey(Survey)
+    answer = models.ForeignKey(Answer)
+    question = models.ForeignKey(Question)
+
 #A ProbeMeasure
 class ProbeMeasure(models.Model):
     survey = models.ForeignKey(Survey)
@@ -64,6 +66,7 @@ class ProbeMeasure(models.Model):
 
     def __unicode__(self):
         return self.survey + " , " + self.probeType + " , " + self.measure
+# -------------- /User Values Related Classes --------------
 
 
 

@@ -19,7 +19,7 @@
 			<fieldset data-role="controlgroup">
                         {% for answer in question.answers.all %}
                         	<div ng-click="tab.nextTab({{question.id}},{{ forloop.counter }})">
-                        		<input type="radio" name="question{{ question.id}}" id="question{{ question.id}}_answer{{ forloop.counter }}" value="{{ answer.id }}">
+                        		<input type="radio" name="{{ question.id}}" id="question{{ question.id}}_answer{{ forloop.counter }}" value="{{ answer.id }}">
                         		<label for="question{{ question.id}}_answer{{ forloop.counter }}">{{ answer.answer_text }}</label>
                      		</div>
                         {% endfor %}
