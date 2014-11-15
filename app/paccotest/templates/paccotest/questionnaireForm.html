@@ -14,7 +14,8 @@
         {% csrf_token %}
             {% for question in all_questions %}
                 <div ng-show="tab.isSet({{question.id}})" class="ui-field-contain tabitem">
-             		<p class="question">{{ question.question_text }}</p>
+                    <h2>{{ forloop.counter }} / {{ all_questions.count }}</h2>
+             		<h1 class="question">{{ question.question_text }}</h1>
 			<br />      
 			<fieldset data-role="controlgroup">
                         {% for answer in question.answers.all %}

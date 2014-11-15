@@ -15,6 +15,7 @@
 	{% for probe in all_probes %}
 	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.id}})" class="tabitem">
 
+            <h2>{{ forloop.counter }} / {{ all_probes.count }}</h2>
 	        <h1>Testing: {{ probe.name }}</h1>
 	
 	        <div ng-hide="myData.fromServer != null">
