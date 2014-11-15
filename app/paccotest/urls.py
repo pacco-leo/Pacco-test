@@ -5,10 +5,11 @@ from paccotest import views
 
 urlpatterns = patterns('',
     # ex: /polls/
+    url(r'^opening/$', views.opening, name='opening'),
+    url(r'^intro/$', views.intro, name='intro'),
     url(r'^gpsPositionForm/$', views.gpsPositionForm, name='gpsPositionForm'),
     url(r'^questionnaireForm/$', views.questionnaireForm, name='questionnaireForm'),
     url(r'^probesForm/$', views.probesForm, name='probesForm'),
-    url(r'^test/$', views.test, name='test'),
     url(r'^complete/$', views.complete, name='complete'),
 
     #Ajax

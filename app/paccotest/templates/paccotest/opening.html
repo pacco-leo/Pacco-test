@@ -1,0 +1,13 @@
+{% extends "paccotest/base.html" %}
+
+
+{% block content %}
+        <img src="/static/img/logo.jpg" />
+        <ul>
+            <!-- TODO: Create language selection system here-->
+            <li><a class="ui-btn" href="{% url 'paccotest:intro' %}">continuer en français</a></li>
+            <li><a class="ui-btn" href="{% url 'paccotest:intro' %}">volg in het Nederlands</a></li>
+            <li><a class="ui-btn" href="{% url 'paccotest:intro' %}">go on in English</a></li>
+        </ul>
+
+{% endblock %}

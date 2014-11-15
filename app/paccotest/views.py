@@ -43,9 +43,13 @@ else:
 
 # Create your views here.
 
-# Page of test
-def test(request):
-    return render(request, 'paccotest/test.html')
+# The Opening Page
+def opening(request):
+    return render(request, 'paccotest/opening.html')
+
+# The Intro Page
+def intro(request):
+    return render(request, 'paccotest/intro.html')
 
 # The form (hidden) for GPS Position
 def gpsPositionForm(request):
