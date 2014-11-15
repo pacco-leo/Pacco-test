@@ -1,0 +1,51 @@
+{% extends "paccotest/base.html" %}
+
+
+{% block content %}
+    {% if all_questions %}
+	<div ng-controller="TabController as tab">
+	<p class="tabsNavigation">
+	{% for question in all_questions %}
+		<a href ng-class="{active:tab.isSet({{question.id}})}" ng-click="tab.setTab({{question.id}})">&nbsp;</a>
+	{% endfor %}
+		<a href ng-class="{active:tab.isSet({{lastTab}})}" ng-click="tab.setTab({{lastTab}})">&nbsp;</a>
+	</p>
+        <form method="post" action="{% url 'paccotest:questionnaireForm' %}">
+        {% csrf_token %}
+            {% for question in all_questions %}
+                <div ng-show="tab.isSet({{question.id}})" class="ui-field-contain tabitem">
+             		<p class="question">{{ question.question_text }}</p>
+			<br />      
+			<fieldset data-role="controlgroup">
+                        {% for answer in question.answers.all %}
+                        	<div ng-click="tab.nextTab({{question.id}},{{ forloop.counter }})">
+                        		<input type="radio" name="question{{ question.id}}" id="question{{ question.id}}_answer{{ forloop.counter }}" value="{{ answer.id }}">
+                        		<label for="question{{ question.id}}_answer{{ forloop.counter }}">{{ answer.answer_text }}</label>
+                     		</div>
+                        {% endfor %}
+                    	</fieldset>
+                </div>
+            {% endfor %}
+                <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
+	  		<p class="question">Résumé</p>
+			<br />
+			{% for question in all_questions %}
+			<p>
+				{{ question.question_text }}
+	                        {% for answer in question.answers.all %}
+				<b>&nbsp;<span ng-click="tab.setTabResume({{question.id}})" class="resumeAnswer resumeAnswer_{{ question.id }}" id="resumeAnswer_{{ question.id }}_{{ forloop.counter }}">{{ answer.answer_text }}</span></b>
+	                        {% endfor %}
+	                </p>
+           		{% endfor %} 
+			<br /> 
+			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />                
+			<input type="submit" value="Continuer" />
+                </div>
+            
+        </form>
+	</div>
+    {% else %}
+        <p>No questions are available</p>
+    {% endif %}
+
+{% endblock %}

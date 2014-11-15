@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Pacco-test | {% block titre %}{% endblock %}</title>
+
+    {% load static %} <!-- New line -->
+    <link rel="stylesheet" href="{% static 'jquery.mobile/jquery.mobile-1.4.4.min.css' %}" />
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script>
+        //Disable "ajax loading" of the pages in jQueryMobile. Use standard HTTP behaviour
+        //This script must be loaded before the jquery.mobile script
+        $( document ).on( "mobileinit", function() {
+            console.log("hello")
+            $.extend( $.mobile , {
+                //http://api.jquerymobile.com/global-config/
+                ajaxEnabled: false
+            });
+        });
+     </script>
+
+    <script src="{% static 'jquery.mobile/jquery.mobile-1.4.4.min.js' %}"></script>
+
+   <link type="text/css" href="{% static 'css/main.css' %}?{% now 'U' %}" rel="stylesheet" />
+
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/angular.min.js" %}"></script>
+    <script src="{% static "js/angular-animate.js" %}"></script>
+    <script src="{% static "js/pacco-test.js" %}"></script>
+
+
+
+    </head>
+        <body ng-app="paccoApp">
+            <div id="cadre">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </body>
+</html>

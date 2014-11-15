@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 {% block titre %}Position{% endblock %}
 {% block contenu %}
-	<h1>GPS</h1>
-	<p>latitude : {{latitude}}</p>
-	<p>longitude : {{longitude}}</p>
-	<p>altitude : {{altitude}}</p>
-	<p>utc : {{utc}}</p>
-	<br />
-	<br />
-	<a href="../../question/{{nid}}/{{lg}}/1">{{txt.nextstep}}</a>
+<div ng-controller="PositionController">
+
+    <h1>GPS</h1>
+    <div ng-hide="myData.fromServer != null">
+        <p >Waiting for a measure</p>
+        <button ng-click="myData.doClick(item, $event)">Measure</button>
+    </div>
+
+    <ul ng-show="myData.fromServer != null">
+        <li>latitude : {[{myData.fromServer.latitude}]}</li>
+        <li>longitude : {[{myData.fromServer.longitude}]}</li>
+        <li>altitude : {[{myData.fromServer.altitude}]}</li>
+        <li>utc : {[{myData.fromServer.utc}]}</li>
+    </ul>
+
+    <a ng-show="myData.fromServer != null" href="../../question/{{nid}}/{{lg}}/1">{{txt.nextstep}}</a>
+</div>
+<br/>
+<br/>
 {% endblock %}
