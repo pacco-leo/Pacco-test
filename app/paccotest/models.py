@@ -56,13 +56,17 @@ class Survey(models.Model):
     utc = models.DateTimeField('date')
 
     def __unicode__(self):
-        return self.latitude + " , " + self.longitude + " , " + self.elevation + " , " + self.utc
+        return str(self.latitude) + " , " + str(self.longitude) + " , " + str(self.elevation) + " , " + str(self.utc)
 
 #An UserAnswer to a Question
 class UserAnswer(models.Model):
     survey = models.ForeignKey(Survey)
     answer = models.ForeignKey(Answer)
     question = models.ForeignKey(Question)
+
+    def __unicode__(self):
+        return "Survey :" + str(self.survey.id) + " - Answer: " + str(self.answer.id) + " to question: " + str(self.question.id)
+
 
 #A ProbeMeasure
 class ProbeMeasure(models.Model):
@@ -71,7 +75,7 @@ class ProbeMeasure(models.Model):
     measure = models.FloatField('measure')
 
     def __unicode__(self):
-        return self.survey + " , " + self.probeType + " , " + self.measure
+        return "Survey : " + str(self.survey.id) + " - " + str(self.probeType.name) + " : " + str(self.measure)
 # -------------- /User Values Related Classes --------------
 
 

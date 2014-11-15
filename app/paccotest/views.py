@@ -49,6 +49,8 @@ def opening(request):
 
 # The Intro Page
 def intro(request):
+    request.session.clear()
+
     return render(request, 'paccotest/intro.html')
 
 # The form (hidden) for GPS Position
@@ -138,11 +140,40 @@ def probesForm(request):
     return render(request, 'paccotest/probesForm.html',
                   {'all_probes': all_probes_list, 'lastTab': lastTab, 'form': form})
 
+
+from models import *  #TEMP
+
 def complete(request):
 
     gpsValues = request.session['gpsForm']
     questionnaireValues = request.session['questionnaireValues']
     probesValues = request.session['probesValues']
+
+    utc_formated = gpsValues["utc"][1:11]+' '+gpsValues["utc"][12:20]
+
+    #Save GPS Values
+    survey = Survey.objects.create(latitude = gpsValues["latitude"],
+                                    longitude = gpsValues["longitude"],
+                                    elevation = gpsValues["elevation"],
+                                    utc = utc_formated
+                                    )
+    #Save Questionnaire
+    for key in questionnaireValues:
+        UserAnswer.objects.create(  survey = survey,
+                                    answer=Answer.objects.get(id=questionnaireValues[key]),
+                                    question=Question.objects.get(id=key))
+
+    #Save Probes values
+    for key in probesValues:
+        ProbeMeasure.objects.create(  survey = survey,
+                                    probeType=Probe.objects.get(id=key),
+                                    measure=probesValues[key])
+
+
+
+
+   # s = Survey(gpsValues)
+   # print(s)
 
     print(request.session.keys())   #Print all the keys
     #_session2 = request.session['surveyForm']
