@@ -191,12 +191,12 @@ def uploadToServer(request):
 
     credentials = pika.PlainCredentials('guest', 'guest')
 
-    # parameters = pika.ConnectionParameters(host='localhost')
+    parameters = pika.ConnectionParameters(host='localhost')
 
-    parameters = pika.ConnectionParameters(RABBITMQ_HOST,
-                                           5672,
-                                           '/',
-                                           credentials)
+    # parameters = pika.ConnectionParameters(RABBITMQ_HOST,
+    #                                        5672,
+    #                                        '/',
+    #                                        credentials)
 
     connection = pika.BlockingConnection(parameters)
 
