@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
+from django.utils.translation import ugettext as _
+from django.utils.translation import activate as translationactivate
+from django.utils.translation import get_language as translationget_language
+from django.utils.translation import LANGUAGE_SESSION_KEY
 
 from paccotest.models import Question, Probe
 from paccotest.forms import GPSMeasureForm,ProbeMeasureForm
@@ -48,9 +52,10 @@ def opening(request):
     return render(request, 'paccotest/opening.html')
 
 # The Intro Page
-def intro(request):
+def intro(request,lg):
     request.session.clear()
-
+    translationactivate(lg)
+    request.session[LANGUAGE_SESSION_KEY] = lg
     return render(request, 'paccotest/intro.html')
 
 # The form (hidden) for GPS Position

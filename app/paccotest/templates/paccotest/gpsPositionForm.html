@@ -1,28 +1,27 @@
 {% extends "paccotest/base.html" %}
 
-
+{% load i18n %}
 {% block content %}
     <div ng-controller="PositionController">
 
-        <h1>GPS</h1>
+        <h1>{% trans "GPS" %}</h1>
         <div ng-hide="myData.fromServer != null">
-            <p >Waiting for a measure</p>
-            <button ng-click="myData.doClick(item, $event)" class="ui-btn ui-icon-eye ui-btn-icon-right">Measure</button>
+            <button ng-click="myData.doClick(item, $event)" class="ui-btn ui-icon-eye ui-btn-icon-right">{% trans "Measure" %}</button>
         </div>
 
         <div ng-show="myData.fromServer != null">
             <ul>
-                <li>latitude : {[{myData.fromServer.latitude}]}</li>
-                <li>longitude : {[{myData.fromServer.longitude}]}</li>
-                <li>altitude : {[{myData.fromServer.elevation}]}</li>
-                <li>utc : {[{myData.fromServer.utc}]}</li>
+                <li>{% trans "latitude" %} : {[{myData.fromServer.latitude}]}</li>
+                <li>{% trans "longitude" %} : {[{myData.fromServer.longitude}]}</li>
+                <li>{% trans "elevation" %} : {[{myData.fromServer.elevation}]}</li>
+                <li>{% trans "utc" %} : {[{myData.fromServer.utc}]}</li>
             </ul>
 
             <!-- Filled by AngularJS on Ajax Request -->
             <form method="post" action="{% url 'paccotest:gpsPositionForm' %}">
                 {% csrf_token %}
                 {{ form }}
-                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />Submit</button>
+                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />{% trans "submit" %}</button>
             </form>
         </div>
 

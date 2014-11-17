@@ -1,6 +1,6 @@
 {% extends "paccotest/base.html" %}
 
-
+{% load i18n %}
 {% block content %}
 <div ng-controller="TabController as tab">
             <form  method="post" action="{% url 'paccotest:probesForm' %}">
@@ -16,18 +16,18 @@
 	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.id}})" class="tabitem">
 
             <h2>{{ forloop.counter }} / {{ all_probes.count }}</h2>
-	        <h1>Testing: {{ probe.name }}</h1>
+	        <h1>{% trans "testing" %}: {{ probe.name }}</h1>
 	
 	        <div ng-hide="myData.fromServer != null">
 		<br />
-	            <a href ng-click="myData.doClick(item, $event,{{ probe.name }})" class="ui-btn ui-icon-eye ui-btn-icon-right">Measure</a>
+	            <a href ng-click="myData.doClick(item, $event,{{ probe.name }})" class="ui-btn ui-icon-eye ui-btn-icon-right">{% trans "measure" %}</a>
 	        </div>
 	
 	
 	        <div ng-show="myData.fromServer != null">
-	            <p>Got value: {[{myData.fromServer}]}</p>
+	            <p>{% trans "outcome" %}: {[{myData.fromServer}]}</p>
                         <input type="hidden" name="{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">
-	                <a href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">Continuer</a>
+	                <a href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">{% trans "proceed" %}</a>
 	        </div>
 	
 	    </div>
@@ -36,7 +36,7 @@
 
                
                
-                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />Submit</button>
+                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />{% trans "submit" %}</button>
             
 	</div>
 </form>

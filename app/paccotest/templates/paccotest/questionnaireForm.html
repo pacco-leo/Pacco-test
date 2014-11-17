@@ -1,6 +1,6 @@
 {% extends "paccotest/base.html" %}
 
-
+{% load i18n %}
 {% block content %}
     {% if all_questions %}
 	<div ng-controller="TabController as tab">
@@ -28,7 +28,7 @@
                 </div>
             {% endfor %}
                 <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
-	  		<p class="question">Résumé</p>
+	  		<p class="question">{% trans "summary" %}</p>
 			<br />
 			{% for question in all_questions %}
 			<p>
@@ -40,7 +40,7 @@
            		{% endfor %} 
 			<br /> 
 			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />                
-			<input type="submit" value="Continuer" />
+			<input type="submit" value="{% trans 'proceed' %}" />
                 </div>
             
         </form>
