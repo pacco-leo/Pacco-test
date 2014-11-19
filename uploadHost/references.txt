@@ -4,4 +4,6 @@ http://www.rabbitmq.com/management.html
 RabbitMQ Management: 
 http://localhost:15672
 
+Rabbit Port Blocking on OSX:
+http://superuser.com/questions/464311/open-port-5672-tcp-for-access-to-rabbitmq-on-mac
 
