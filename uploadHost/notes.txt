@@ -1,0 +1,12 @@
+##Install RabbitMQ:
+#On OSX:
+brew install rabbitmq
+#On Ubuntu:
+TODO: complete here
+
+
+##Run RabbitMQ Server
+rabbitmq-server
+
+#The server is then accessible on http://localhost:15672/
+#login:guest, password:guest

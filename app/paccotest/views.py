@@ -194,14 +194,14 @@ def uploadToServer(request):
     RABBITMQ_HOST = '192.168.1.5'   #TODO: Add this to settings somewhere
 
 
-    credentials = pika.PlainCredentials('guest', 'guest')
+    credentials = pika.PlainCredentials('matt', 'matt')
 
-    parameters = pika.ConnectionParameters(host='localhost')
+    # parameters = pika.ConnectionParameters(host='localhost')
 
-    # parameters = pika.ConnectionParameters(RABBITMQ_HOST,
-    #                                        5672,
-    #                                        '/',
-    #                                        credentials)
+    parameters = pika.ConnectionParameters(RABBITMQ_HOST,
+                                           5672,
+                                           '/',
+                                           credentials)
 
     connection = pika.BlockingConnection(parameters)
 
