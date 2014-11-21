@@ -21,7 +21,7 @@
             <form method="post" action="{% url 'paccotest:gpsPositionForm' %}">
                 {% csrf_token %}
                 {{ form }}
-                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />{% trans "submit" %}</button>
+                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="{% trans 'submit' %}" name="{% trans 'submit' %}">{% trans 'submit' %}</button>
             </form>
         </div>
 

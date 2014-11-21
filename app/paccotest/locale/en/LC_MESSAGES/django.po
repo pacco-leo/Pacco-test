@@ -8,13 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-17 22:43+0100\n"
+"POT-Creation-Date: 2014-11-18 17:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: .\templates\paccotest\complete.html:5
+msgid "Merci de votre participation"
+msgstr ""
 
 #: .\templates\paccotest\form.html:23
 msgid "first step"
@@ -26,7 +30,7 @@ msgstr "Previous stepp"
 
 #: .\templates\paccotest\form.html:26
 #: .\templates\paccotest\gpsPositionForm.html:24
-#: .\templates\paccotest\probesForm.html:39
+#: .\templates\paccotest\probesForm.html:38
 msgid "submit"
 msgstr "Submit"
 
@@ -69,22 +73,36 @@ msgid "button-next"
 msgstr "Proceed"
 
 #: .\templates\paccotest\probesForm.html:19
-msgid "testing"
-msgstr "Testing"
+#, python-format
+msgid "Put %(probeName)s in water"
+msgstr ""
 
-#: .\templates\paccotest\probesForm.html:23
+#: .\templates\paccotest\probesForm.html:22
 msgid "measure"
 msgstr "Measure"
 
-#: .\templates\paccotest\probesForm.html:28
+#: .\templates\paccotest\probesForm.html:27
 msgid "outcome"
 msgstr "Outcome"
 
-#: .\templates\paccotest\probesForm.html:30
-#: .\templates\paccotest\questionnaireForm.html:43
+#: .\templates\paccotest\probesForm.html:29
+#: .\templates\paccotest\questionnaireForm.html:44
 msgid "proceed"
 msgstr "Proceed"
 
-#: .\templates\paccotest\questionnaireForm.html:31
+#: .\templates\paccotest\questionnaireForm.html:19
+#, python-format
+msgid "%(textfr)s"
+msgstr ""
+
+#: .\templates\paccotest\questionnaireForm.html:32
 msgid "summary"
 msgstr "Summary"
+
+#, fuzzy
+#~| msgid "%(question.title)s"
+#~ msgid "%(textfr)s %(question.title)s"
+#~ msgstr "%(question.title)s %(question.titre_en)s"
+
+#~ msgid "testing"
+#~ msgstr "Testing"

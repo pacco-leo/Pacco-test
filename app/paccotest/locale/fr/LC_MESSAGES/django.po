@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-17 22:43+0100\n"
+"POT-Creation-Date: 2014-11-18 17:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\templates\paccotest\complete.html:5
+msgid "Merci de votre participation"
+msgstr ""
 
 #: .\templates\paccotest\form.html:23
 msgid "first step"
@@ -27,7 +31,7 @@ msgstr "Etape précédente"
 
 #: .\templates\paccotest\form.html:26
 #: .\templates\paccotest\gpsPositionForm.html:24
-#: .\templates\paccotest\probesForm.html:39
+#: .\templates\paccotest\probesForm.html:38
 msgid "submit"
 msgstr "Valider"
 
@@ -57,7 +61,7 @@ msgstr "Date & heure"
 
 #: .\templates\paccotest\intro.html:5
 msgid "Intro"
-msgstr "Intro"
+msgstr "Pacco-test"
 
 #: .\templates\paccotest\intro.html:7
 msgid "Welcome to the Pacco-Test"
@@ -68,22 +72,40 @@ msgid "button-next"
 msgstr "Continuer"
 
 #: .\templates\paccotest\probesForm.html:19
-msgid "testing"
-msgstr "Test"
+#, python-format
+msgid "Put %(probeName)s in water"
+msgstr "Mettez la sonde <u>%(probeName)s</u> dans l'eau puis appuyez sur:"
 
-#: .\templates\paccotest\probesForm.html:23
+#: .\templates\paccotest\probesForm.html:22
 msgid "measure"
 msgstr "Mesurer"
 
-#: .\templates\paccotest\probesForm.html:28
+#: .\templates\paccotest\probesForm.html:27
 msgid "outcome"
 msgstr "Résultat"
 
-#: .\templates\paccotest\probesForm.html:30
-#: .\templates\paccotest\questionnaireForm.html:43
+#: .\templates\paccotest\probesForm.html:29
+#: .\templates\paccotest\questionnaireForm.html:44
 msgid "proceed"
 msgstr "Continuer"
 
-#: .\templates\paccotest\questionnaireForm.html:31
+#: .\templates\paccotest\questionnaireForm.html:19
+#, python-format
+msgid "%(textfr)s"
+msgstr "get %(textfr)s"
+
+#: .\templates\paccotest\questionnaireForm.html:32
 msgid "summary"
 msgstr "Résumé"
+
+#, fuzzy
+#~| msgid "%(question.title)s"
+#~ msgid "%(textfr)s %(question.title)s"
+#~ msgstr "get %(textfr)s"
+
+#~ msgid "testing"
+#~ msgstr "Test"
+
+#~ msgid "<h1> Mettre la sonde %(probeName)s dans l'eau</h1>"
+#~ msgstr ""
+#~ "<h1> Mettez la sonde %(probeName)s dans l'eau et appuyer sur Mesurer</h1>"

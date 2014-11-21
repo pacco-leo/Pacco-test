@@ -243,8 +243,8 @@ def gpsPosition(request):
     return HttpResponse(json.dumps(vars(gpsPosition)), content_type="application/json")
 
 
-def probeMeasure(request, probeName):
-    probeValue = g_probesMananager.getProbeValue(probeName)
+def probeMeasure(request, probeChannel):
+    probeValue = g_probesMananager.getProbeValue(probeChannel)
     return HttpResponse(probeValue, content_type="application/json")
 
 

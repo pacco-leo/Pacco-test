@@ -11,20 +11,23 @@ class PlateformInfo(models.Model):
 
 #An Answer to a Question
 class Answer(models.Model):
-    text = models.CharField(max_length=200)
+    answer_text = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return self.text
+        return self.answer_text
 
 
 #An answer to a Question
 class Question(models.Model):
-    text = models.CharField('text',max_length=300)
+    title = models.CharField(max_length=100)
+    text_en = models.CharField('text',max_length=300)
+    text_fr = models.CharField('text',max_length=300)
+    text_nl = models.CharField('text',max_length=300)
     order = models.IntegerField()
     answers = models.ManyToManyField(Answer)  #Many-to-many relationship
 
     def __unicode__(self):
-        return self.text
+        return self.title
 
     class Meta:
         pass
@@ -33,7 +36,6 @@ class Question(models.Model):
 
 class Probe(models.Model):
     name = models.CharField(max_length=200)
-    text = models.CharField('text',max_length=200)
     channel = models.IntegerField()
     order = models.IntegerField()
 

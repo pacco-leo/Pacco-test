@@ -21,7 +21,6 @@ paccoApp.controller("PositionController", function($scope, $http) {
 
         responsePromise.success(function(data, status, headers, config) {
             $scope.myData.fromServer = data;
-
             $("#id_elevation").val($scope.myData.fromServer.elevation)
             $("#id_latitude").val($scope.myData.fromServer.latitude)
             $("#id_longitude").val($scope.myData.fromServer.longitude)
@@ -33,20 +32,18 @@ paccoApp.controller("PositionController", function($scope, $http) {
     }
 
 
-} );
+});
 
 paccoApp.controller("ProbeController", function($scope, $http) {
 
     $scope.myData = {};
-
-    $scope.myData.doClick = function(item, event, probeName) {
-        var responsePromise = $http.get(probeName+"/probeMeasure");
+    $scope.myData.doClick = function(item, event, probeChannel) {
+        var responsePromise = $http.get(probeChannel+"/probeMeasure");
         //Something like: http://127.0.0.1:8000/paccotest/probesForm/ph/probeMeasure
-
         responsePromise.success(function(data, status, headers, config) {
             $scope.myData.fromServer = data;
-
-            $("#id_measure").val($scope.myData.fromServer)
+            //$("#id_measure").val($scope.myData.fromServer)
+            $("#resume_result_"+probeChannel).text($scope.myData.fromServer);
         });
         responsePromise.error(function(data, status, headers, config) {
             alert("AJAX failed!");
@@ -56,9 +53,10 @@ paccoApp.controller("ProbeController", function($scope, $http) {
 
 } );
 
-paccoApp.controller("TabController",function(){
+paccoApp.controller("TabController",function($scope){
 	this.tab = 1;
 	this.backToResume = false;
+	this.hideResult = false;
 	this.lastTab = parseInt($('#lastTabValue').val());
 	this.setTab = function(newValue){
 		this.tab = newValue;
@@ -66,23 +64,25 @@ paccoApp.controller("TabController",function(){
 	this.setTabResume = function(newValue){
 		this.tab = newValue;
 		this.backToResume = true;
+	    this.hideResult = true;
 	};
 	this.nextTab = function(newValue,answer){
 	    $('.resumeAnswer_'+newValue).css('display','none');
 	    $('#resumeAnswer_'+newValue+'_'+answer).css('display','inline');
-            if(this.backToResume)
+        if(this.backToResume)
 	    {
-		this.tab = this.lastTab;
+		    this.tab = this.lastTab;
 	    }
-            else
+        else
 	    {
-		this.tab = newValue + 1;
+		    this.tab = newValue + 1;
 	    }
 	    
 	};
 	this.isSet = function(tabNum){
 		return this.tab === tabNum;
 	};
+	this.hideresult = function(){
+	    this.hideResult = false;
+	};
 });
-
-

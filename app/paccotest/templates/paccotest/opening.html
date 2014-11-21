@@ -2,12 +2,12 @@
 
 
 {% block content %}
-        <img src="/static/img/logo.jpg" />
+        <p  style="text-align:center;"><img src="/static/img/logo.png" /></p>
+        <br />
         <ul>
             <!-- TODO: Create language selection system here-->
             <li><a class="ui-btn" href="{% url 'paccotest:intro' lg='fr'  %}">continuer en français</a></li>
             <li><a class="ui-btn" href="{% url 'paccotest:intro' lg='nl' %}">volg in het Nederlands</a></li>
             <li><a class="ui-btn" href="{% url 'paccotest:intro' lg='en' %}">go on in English</a></li>
         </ul>
-
 {% endblock %}

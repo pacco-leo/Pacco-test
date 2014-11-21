@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.formtools',
     'paccotest',
+    'modeltranslation'
+    #'linguo'
 )
 
 MIDDLEWARE_CLASSES = (

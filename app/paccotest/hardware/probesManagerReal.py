@@ -60,8 +60,8 @@ class ProbesManagerReal(ProbesManager):
     ##
     # Get values form probes
     #
-    def getProbeValue(self, probeName):
-	if probeName == 'temperature':
+    def getProbeValue(self, probeChannel):
+	if probeChannel == 15: #temperature is not on muxdemux
 		import glob
 		os.system('modprobe w1-gpio')
 		os.system('modprobe w1-therm')
@@ -87,7 +87,7 @@ class ProbesManagerReal(ProbesManager):
 		line = read_temp()
 		return line	
 	else:
-		probeChannel = Probe.objects.get(name=probeName).channel
+		#probeChannel = Probe.objects.get(name=probeName).channel
 		channelselect(probeChannel)
 		port()
 		ser.write("L,1\r")

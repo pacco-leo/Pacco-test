@@ -3,42 +3,48 @@
 {% load i18n %}
 {% block content %}
 <div ng-controller="TabController as tab">
-            <form  method="post" action="{% url 'paccotest:probesForm' %}">
+<form  method="post" action="{% url 'paccotest:probesForm' %}">
 	 {% csrf_token %}
 	<p class="tabsNavigation">
 	{% for probe in all_probes %}
-		<a href ng-class="{active:tab.isSet({{probe.id}})}" ng-click="tab.setTab({{probe.id}})">&nbsp;</a>
+		<span ng-class="{active:tab.isSet({{probe.id}})}"><!--ng-click="tab.setTab({{probe.id}})"-->&nbsp;</span>
 	{% endfor %}
-		<a href ng-class="{active:tab.isSet({{lastTab}})}" ng-click="tab.setTab({{lastTab}})">&nbsp;</a>
+		<span ng-class="{active:tab.isSet({{lastTab}})}"><!--ng-click="tab.setTab({{lastTab}})"-->&nbsp;</span>
 	</p>
 
 	{% for probe in all_probes %}
 	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.id}})" class="tabitem">
+            <h2><span class="bigger">{{ forloop.counter }}</span> / {{ all_probes.count }}</h2>
+            <span style="border:1px dotted black;position:fixed;top:3px;left:3px;padding:7px 15px;">{{ probe.text }}</span>
+	        <div ng-hide="myData.fromServer != null && tab.backToResume == false">
+                 <h2>{% blocktrans with probeName=probe.name %}Put {{probeName}} in water{% endblocktrans %}</h2>
+		        <br />
+	            <a href ng-click="myData.doClick(item, $event,{{ probe.channel }});tab.hideresult()" class="ui-btn ui-icon-eye ui-btn-icon-right">{% trans "measure" %}</a>
+	        </div>
 
-            <h2>{{ forloop.counter }} / {{ all_probes.count }}</h2>
-	        <h1>{% trans "testing" %}: {{ probe.name }}</h1>
-	
-	        <div ng-hide="myData.fromServer != null">
-		<br />
-	            <a href ng-click="myData.doClick(item, $event,{{ probe.name }})" class="ui-btn ui-icon-eye ui-btn-icon-right">{% trans "measure" %}</a>
+	        <div ng-show="myData.fromServer != null && tab.hideResult == false">
+	            <br />
+                <br />
+                <h2 class="resultat">{% trans "outcome" %} {{ probe.text }} ({{ probe.name }}): <span class="red" id="result_{{probe.channel}}">{[{myData.fromServer}]}</span></h2>
+                <br />
+                <br />
+                <input type="hidden" name="{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">
+	            <a href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">{% trans "proceed" %}</a>
 	        </div>
-	
-	
-	        <div ng-show="myData.fromServer != null">
-	            <p>{% trans "outcome" %}: {[{myData.fromServer}]}</p>
-                        <input type="hidden" name="{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">
-	                <a href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">{% trans "proceed" %}</a>
-	        </div>
-	
+
 	    </div>
 	{% endfor %}
         <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
+			{% for probe in all_probes %}
+			<p>
+				{{ probe.name }}
 
-               
-               
-                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />{% trans "submit" %}</button>
-            
-	</div>
+                    <b><span ng-click="tab.setTabResume({{forloop.counter}})" class="sdf" id="resume_result_{{probe.channel}}">Null</span></b>
+            </p>
+           	{% endfor %}
+			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />
+            <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />{% trans "submit" %}</button>
+        </div>
 </form>
 </div>
 {% endblock %}
