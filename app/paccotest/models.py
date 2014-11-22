@@ -12,6 +12,7 @@ class PlateformInfo(models.Model):
 #An Answer to a Question
 class Answer(models.Model):
     text = models.CharField(max_length=200)
+    order = models.IntegerField()
 
     def __unicode__(self):
         return self.text

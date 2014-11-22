@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^gpsPositionForm/gpsPosition/$', views.gpsPosition, name='gpsPosition'),
     #url(r'^probesForm/(?P<probeName>[a-zA-Z]+)/probeMeasure/$', views.probeMeasure, name='probeMeasure'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
     url(r'^probesForm/(?P<probeChannel>[0-9]+)/probeMeasure/$', views.probeMeasure, name='probeMeasure'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
+    url(r'^update/$', views.update, name='update'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
 )

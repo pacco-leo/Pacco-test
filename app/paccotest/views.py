@@ -47,6 +47,7 @@ else:
 
 # Create your views here.
 
+
 # The Opening Page
 def opening(request):
     return render(request, 'paccotest/opening.html')
@@ -264,3 +265,25 @@ class DateTimeEncoder(json.JSONEncoder):
        else:
            return json.JSONEncoder.default(self, obj)
 #------/JSON Encoder for DateTime------------
+
+
+#------UPDATE DB------------
+def update(request):
+
+    #OPTION1
+    #from django.db import connection
+    #cursor = connection.cursor()
+    #cursor.execute("INSERT INTO `paccotest_question` (`id`, `text`, `text_fr`, `text_nl`, `text_en`, `order`) VALUES (8, 'Question1', 'LM''eau est-elle pporonfde?', 'LM''eau est-elle pporonfde?', 'LM''eau est-elle pporonfde?', 1), (9, 'Question1', 'LM''eau est-elle pporonfde?', 'LM''eau est-elle pporonfde?', 'LM''eau est-elle pporonfde?', 1)")
+
+    #OPTION2
+    Question.objects.all().delete()
+    Answer.objects.all().delete()
+    Probe.objects.all().delete()
+    #data='[{"model":"paccotest.question","fields":{"id":"1","text":"Question1","text_fr":"LM\'eau est-elle pporonfde?","text_nl":"LM\'eau est-elle pporonfde?","text_en":"LM\'eau est-elle pporonfde?","order":"0","answers":[1,2]}},{"model":"paccotest.question","fields":{"id":"2","text":"Questoin2","text_fr":"couleur?","text_nl":"couleur?","text_en":"couleur?","order":"2","answers":[1,2]}},{"model":"paccotest.answer","fields":{"id":"1","text":"0","text_fr":"oui","text_nl":"","text_en":"","order":"0"}},{"model":"paccotest.answer","fields":{"id":"2","text":"0","text_fr":"non","text_nl":"","text_en":"","order":"0"}},{"model":"paccotest.probe","fields":{"id":"1","name":"pH","text_fr":"pH","text_nl":"pH","text_en":"pH","channel":"4","order":"0"}},{"model":"paccotest.probe","fields":{"id":"2","name":"ORP (redox)","text_fr":"Potentiel d\'oxydor\u00e9duction","text_nl":"Redoxpotentiaal","text_en":"Reduction potential","channel":"5","order":"2"}},{"model":"paccotest.probe","fields":{"id":"3","name":"conductivityyy","text_fr":"Conductivit\u00e9","text_nl":"Geleidbaarheid","text_en":"Conductivity","channel":"7","order":"2"}},{"model":"paccotest.probe","fields":{"id":"4","name":"do","text_fr":"Oxyg\u00e8ne Dissous","text_nl":"Opgeloste Zuurstof","text_en":"Dissolved oxygen","channel":"6","order":"3"}},{"model":"paccotest.probe","fields":{"id":"5","name":"temperature","text_fr":"Temperature","text_nl":"Temperatuur","text_en":"Temperatur","channel":"15","order":"4"}}]'
+    with open('updateDB.json') as f:
+        data = f.read()
+    from django.core import serializers
+    for deserialized_object in serializers.deserialize("json", str(data)):
+        deserialized_object.save()
+
+    return  HttpResponse("DB updated!")
