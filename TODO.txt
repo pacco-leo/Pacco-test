@@ -1,0 +1,38 @@
+11/01/2015
+-Check internet connection before updating stuffs:
+http://stackoverflow.com/questions/3764291/checking-network-connection
+
+
+# 29/01/2015
+— Matt
+* Terminer le Deploy sur RPI
+	** Install
+	** Reinstall
+	** Update
+	
+— Matt
+* UpdateServer 
+	** Check connection au Startup et ouverture page « Send Surveys to Server ». Bouton « envoi », et ensuite « bouton shutdown ». ( Et aussi vérifier si nouvelle version dispo sur Github )
+	** Sinon ouverture de Intro Paccotest
+
+
+( * Mise a jour possible des questions et réponses
+	** Fixtures Django )
+
+— Leo
+* Ajout d’un nom de host et version dans la DB RPI
+	** Puis envoie de ces données dans les surveys vers Server
+
+
+— Leo
+* Rabbit ou SMTP ?
+-> SMTP
+
+
+
+* Ajouter page « admin questions » et un role « admin questions »
+	Qui pourra seulement:
+		* Ajouter des nouvelles questions et/ou réponses
+		* Activer/Desactiver des questions et/ou réponses existentes
+		* Recreer des liens entre questions et réponses
+	Surtout pas supprimer de question et/ou réponses
