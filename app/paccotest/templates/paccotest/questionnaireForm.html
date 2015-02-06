@@ -3,23 +3,26 @@
 {% load i18n %}
 {% block content %}
     {% if all_questions %}
+
 	<div ng-controller="TabController as tab">
 	<p class="tabsNavigation">
 	{% for question in all_questions %}
-		<span ng-class="{active:tab.isSet({{question.id}})}"><!--ng-click="tab.setTab({{question.id}})"-->&nbsp;</span>
+		<span ng-class="{active:tab.isSet({{ forloop.counter }})}"><!--ng-click="tab.setTab({{question.id}})"-->&nbsp;</span>
 	{% endfor %}
 		<span ng-class="{active:tab.isSet({{lastTab}})}"><!--ng-click="tab.setTab({{lastTab}})"-->&nbsp;</span>
 	</p>
         <form method="post" action="{% url 'paccotest:questionnaireForm' %}">
+
         {% csrf_token %}
+             <input id="skipQuestion" data-role="none" type="submit" name="skip" value="> skip all Questions" />
             {% for question in all_questions %}
-                <div ng-show="tab.isSet({{question.id}})" class="ui-field-contain tabitem">
+                <div ng-show="tab.isSet({{ forloop.counter }})" class="ui-field-contain tabitem">
                     <h2><span class="bigger">{{ forloop.counter }}</span> / {{ all_questions.count }}</h2>
                     <h1 class="question">{{ question.text }}</h1>
 			<br />      
 			<fieldset data-role="controlgroup">
                         {% for answer in question.answers.all %}
-                        	<div ng-click="tab.nextTab({{question.id}},{{ forloop.counter }})">
+                        	<div ng-click="tab.nextTab({{forloop.parentloop.counter}},{{ forloop.counter }})">
                         		<input type="radio" name="{{ question.id}}" id="question{{ question.id}}_answer{{ forloop.counter }}" value="{{ answer.id }}">
                         		<label for="question{{ question.id}}_answer{{ forloop.counter }}">{{ answer.text }}</label>
                      		</div>
@@ -34,12 +37,12 @@
 			<p>
 				{{ question.text }}
                 {% for answer in question.answers.all %}
-                    <b><span ng-click="tab.setTabResume({{question.id}})" class="resumeAnswer resumeAnswer_{{ question.id }}" id="resumeAnswer_{{ question.id }}_{{ forloop.counter }}">{{ answer.text }}</span></b>
+                    <b><span ng-click="tab.setTabResume({{forloop.parentloop.counter}})" class="resumeAnswer resumeAnswer_{{forloop.parentloop.counter}}" id="resumeAnswer_{{forloop.parentloop.counter}}_{{ forloop.counter }}">{{ answer.text }}</span></b>
                 {% endfor %}
             </p>
            	{% endfor %}
 			<br /> 
-			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />                
+			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />
 			<input type="submit" value="{% trans 'proceed' %}" />
                 </div>
             

@@ -5,6 +5,7 @@
 #cadre {
 	/*width:800px;
 	height:480px;*/
+	position:relative;
     width:700px;
 	height:440px;
 	background-color:#A8A892;
@@ -56,6 +57,20 @@ p, h1, h2 {
 	}
 	.resumeAnswer {
 		cursor:pointer;
+}
+#skipQuestion {
+    display:block;
+    position:absolute;
+    right:0;
+    bottom:0;
+    padding:15px;
+    cursor:pointer;
+    border:none;
+    font-size:9px;
+    text-transform:uppercase;
+}
+#skipQuestion:hover {
+    background-color:yellow;
 }
 /* ProbesForm */
     .resultat {

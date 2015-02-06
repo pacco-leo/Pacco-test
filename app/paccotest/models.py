@@ -22,14 +22,15 @@ class Answer(models.Model):
 class Question(models.Model):
     text = models.CharField('text',max_length=300)
     order = models.IntegerField()
+    actif = models.BooleanField()
     answers = models.ManyToManyField(Answer)  #Many-to-many relationship
 
     def __unicode__(self):
         return self.text
 
     class Meta:
-        pass
-        #ordering = ('order_index')
+        #pass
+        ordering = ['order']
 
 
 class Probe(models.Model):

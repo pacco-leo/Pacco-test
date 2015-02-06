@@ -103,9 +103,10 @@ def questionnaireForm(request):
             #print request.session['questionnaireValues']  #DEBUG
             return HttpResponseRedirect(reverse('paccotest:probesForm'))
 
-    all_questions_list = Question.objects.all().order_by('order')
-    lastTab = all_questions_list.count() + 1
-    context = {'all_questions': all_questions_list,'lastTab':lastTab}
+    all_questions_list = Question.objects.all().filter(actif=True).order_by('order')
+    firstTab = 1
+    lastTab = all_questions_list.count()
+    context = {'all_questions': all_questions_list,'firstTab':firstTab,'lastTab':lastTab}
     return render(request, 'paccotest/questionnaireForm.html', context)
 
 
