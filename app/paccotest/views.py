@@ -192,10 +192,10 @@ def uploadToServer(request):
     import pika
 
     #The RabbitMQ host
-    RABBITMQ_HOST = '192.168.1.5'   #TODO: Add this to settings somewhere
+    RABBITMQ_HOST = 'localhost'   #TODO: Add this to settings somewhere
 
 
-    credentials = pika.PlainCredentials('matt', 'matt')
+    credentials = pika.PlainCredentials('guest', 'guest')
 
     # parameters = pika.ConnectionParameters(host='localhost')
 
