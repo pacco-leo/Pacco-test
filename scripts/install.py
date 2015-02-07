@@ -4,20 +4,25 @@
 import os.path
 from os.path import *
 
+#------- Constants
 sudoPassword = 'raspberry'
+libs = ["matchbox-window-manager", "python-dev" , "python-pip"]
+pyLibs = ["Django==1.7", "django-modeltranslation" ]
+
 
 # #paccoInstallDir = join( abspath(join(dirname(abspath(__file__)), os.pardir)), '')
 systemScriptsDir = join(dirname(abspath(__file__)), "system/")
 
 
-#os.path.dirname(os.path.abspath(__file__))
-
-
-#os.getenv("HOME")
-
 print "Adding needed libs"
-command1 = "apt-get install matchbox-window-manager"
-p = os.system('echo %s|sudo -S %s' % (sudoPassword, command1))
+for lib in libs:
+	command = "apt-get --assume-yes install " + lib
+	p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
+
+print "Adding python libs"
+for lib in pyLibs:
+        command = "pip install " + lib
+        p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
 
 print "Copying modified config.txt to /boot/"
 file2 = systemScriptsDir + "config.txt"
@@ -26,7 +31,7 @@ p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2))
 
 print "Copying startup script (startMidori.sh) to $HOME"
 file3 = systemScriptsDir + "startMidori.sh"
-command3 = "cp " + file3 + " /boot/"
+command3 = "cp " + file3 + join(os.getenv("HOME"), '')
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command3))
 
 print "Copying modified rc.local to /etc"
