@@ -15,7 +15,7 @@ xset -dpms     # disable DPMS (Energy Star) features.
 xset s off       # disable screen saver
 xset s noblank # don't blank the video device
 
-python $PACCO_DIR/apps/manage.py runserver # start Django server
+python $PACCO_DIR/app/manage.py runserver # start Django server
 
 unclutter &
 matchbox-window-manager &
