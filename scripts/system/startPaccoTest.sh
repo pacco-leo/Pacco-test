@@ -9,7 +9,7 @@
 #bash_version    : 
 #==============================================================================
 
-export PACCO_DIR = "/home/pi/PaccoTest/"
+export PACCO_DIR="/home/pi/PaccoTest/"
 
 xset -dpms     # disable DPMS (Energy Star) features.
 xset s off       # disable screen saver
