@@ -39,7 +39,7 @@ p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2))
 
 print "Copying startup script (startMidori.sh) to $HOME"
 file3 = systemScriptsDir + "startMidori.sh"
-command3 = "cp " + file3 + join(os.getenv("HOME"), '')
+command3 = "cp " + file3 + " " + join(os.getenv("HOME"), '')
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command3))
 
 print "Copying modified rc.local to /etc"
