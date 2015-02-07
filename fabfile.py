@@ -7,7 +7,7 @@ from fabric.state import env
 from fabric.contrib.files import append, sed
 
 paccoURL = "https://github.com/pacco-leo/Pacco-test/"
-paccoInstallDir = "PaccoTestTEST"
+paccoInstallDir = "PaccoTest"  #This Dir should be changed (since it is defined in startMidori.sh)
 
 @task
 def localhost():
@@ -40,3 +40,4 @@ def install():
 
     scriptsDir = installDir + "/scripts/"
     env run("python " + scriptsDir + 'install.py')
+

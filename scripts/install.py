@@ -15,18 +15,23 @@ systemScriptsDir = join(dirname(abspath(__file__)),"system/")
 
 #os.getenv("HOME")
 
-echo "Copying modified config.txt to /boot/"
-file1 = systemScriptsDir  + "config.txt"
+echo "Adding "
 command1 = "cp " + file1 + " /boot/"
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command1))
 
+echo "Copying modified config.txt to /boot/"
+file2 = systemScriptsDir  + "config.txt"
+command2 = "cp " + file2 + " /boot/"
+p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2))
+
 echo "Copying startup script (startMidori.sh) to $HOME"
-file2 = systemScriptsDir  + "startMidori.sh"
-command2 = "cp " + file1 + " /boot/"
-p = os.system('echo %s|sudo -S %s' % (sudoPassword, command1))
+file3 = systemScriptsDir  + "startMidori.sh"
+command3 = "cp " + file3 + " /boot/"
+p = os.system('echo %s|sudo -S %s' % (sudoPassword, command3))
 
 
 echo "Copying modified rc.local to /etc"
-file3 = systemScriptsDir  + "rc.local"
-command3 = "cp " + file1 + " /etc/"
-p = os.system('echo %s|sudo -S %s' % (sudoPassword, command1))
+file4 = systemScriptsDir  + "rc.local"
+command4 = "cp " + file4 + " /etc/"
+p = os.system('echo %s|sudo -S %s' % (sudoPassword, command4))
+
