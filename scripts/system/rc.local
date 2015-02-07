@@ -28,6 +28,6 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-sudo xinit ./home/pi/startMidori.sh &
+sudo xinit ./home/pi/startPaccoTest.sh &
 
 exit 0

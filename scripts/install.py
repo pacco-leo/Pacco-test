@@ -37,8 +37,8 @@ file2 = systemScriptsDir + "config.txt"
 command2 = "cp " + file2 + " /boot/"
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2))
 
-print "Copying startup script (startMidori.sh) to $HOME"
-file3 = systemScriptsDir + "startMidori.sh"
+print "Copying startup script (startPaccoTest.sh) to $HOME"
+file3 = systemScriptsDir + "startPaccoTest.sh"
 command3 = "cp " + file3 + " " + join(os.getenv("HOME"), '')
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command3))
 
