@@ -1,5 +1,13 @@
 #!/usr/bin/python
-
+#title           :install.py
+#description     :
+#author          :paccotest
+#date            :20140702
+#version         :0.1
+#usage           :
+#notes           :
+#bash_version    :
+#==============================================================================
 
 import os.path
 from os.path import *

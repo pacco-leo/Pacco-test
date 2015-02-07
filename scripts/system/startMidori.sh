@@ -20,4 +20,13 @@ python $PACCO_DIR/apps/manage.py runserver # start Django server
 unclutter &
 matchbox-window-manager &
 
-midori -e Fullscreen -a http://localhost:8000/paccotest/ouverture/
+# Choose which page to run, depending if connection to internet is on or off
+wget -q --tries=10 --timeout=20 --spider http://google.com
+if [[ $? -eq 0 ]]; then
+    echo "Online"
+    #REPLACE THIS BY THE UPLOAD PAGE
+    midori -e Fullscreen -a http://localhost:8000/paccotest/ouverture/
+else
+    echo "Offline"
+    midori -e Fullscreen -a http://localhost:8000/paccotest/ouverture/
+fi
