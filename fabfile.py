@@ -36,8 +36,8 @@ def install():
 
     env.run('mkdir -p ' + installDir )
 
-    env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
+    #env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
 
     scriptsDir = installDir + "/scripts/"
-    env run("python " + scriptsDir + 'install.py')
+    env.run("python " + scriptsDir + 'install.py')
 
