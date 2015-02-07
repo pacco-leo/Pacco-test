@@ -29,6 +29,6 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-sudo xinit ./home/pi/startMidori &
+sudo xinit ./home/pi/startMidori.sh &
 
 exit 0

@@ -36,50 +36,7 @@ def install():
 
     env.run('mkdir -p ' + installDir )
 
-    #env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
+    env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
 
-    #------------------------------------------------
-    #---- Create and copy VideoConfig script (to get fullscreen and no Desktop at startup)
-
-    #http://docs.fabfile.org/en/latest/api/contrib/files.html
-    #videoConfigFile = "/boot/config.txt"   #REAL ONE
-    videoConfigFile = "/tmp/config.txt"  #JUST FOR DEBUGGING
-    #env.run('sudo touch ' + videoConfigFile )
-    #env.run('sudo cat ' + '"disable_overscan=1"' + " >> " +  videoConfigFile)
-    append(videoConfigFile, "disable_overscan=1", use_sudo=True, partial=False, escape=True, shell=False)
-    append(videoConfigFile, "framebuffer_width=800", use_sudo=True, partial=False, escape=True, shell=False)
-    append(videoConfigFile, "framebuffer_height=450", use_sudo=True, partial=False, escape=True, shell=False)
-    append(videoConfigFile, "framebuffer_depth=32", use_sudo=True, partial=False, escape=True, shell=False)
-    append(videoConfigFile, "framebuffer_ignore_alpha=1", use_sudo=True, partial=False, escape=True, shell=False)
-    append(videoConfigFile, "hdmi_pixel_encoding=1", use_sudo=True, partial=False, escape=True, shell=False)
-    append(videoConfigFile, "hdmi_group=2", use_sudo=True, partial=False, escape=True, shell=False)
-
-
-    #------------------------------------------------
-    #---- Create and copy Midori script (to run browser at startup)
-    # TODO : EVITER QUE LE TRUC S AJOUTE A CHAQUE FOIS QU ON RELANCE
-    startMidoriScript="""
-    #!/bin/sh
-    xset -dpms     # disable DPMS (Energy Star) features.
-    xset s off       # disable screen saver
-    xset s noblank # don't blank the video device
-    # python /home/pi/Desktop/Django/PT/manage.py runserver # start Django server
-    unclutter &
-    matchbox-window-manager &
-    midori -e Fullscreen -a http://localhost:8000/paccotest/ouverture/ """
-
-    MidoriFile = homeDir + "/" + "startMidori"
-    append(MidoriFile, startMidoriScript, use_sudo=False, partial=False, escape=True, shell=False)
-
-
-    #------------------------------------------------
-    #---- Add MidoriScript to startup script
-    #---- Remove "exit 0"  and add
-    StartupFile = "/tmp/testRC.local"
-
-    LinesAdd = """
-    sudo xinit ./home/pi/startMidori &
-
-    exit 0"""
-
-    sed("/tmp/testRC.local", "exit 0", LinesAdd, limit='', use_sudo=False, backup='.bak', flags='', shell=False)
+    scriptsDir = installDir + "/scripts/"
+    env run("python " + scriptsDir + 'install.py')
