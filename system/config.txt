@@ -1,3 +1,14 @@
+#title           :config.txt
+#description     :
+#author		 :paccotest
+#date            :20140702
+#version         :0.1    
+#usage		 :
+#notes           :
+#bash_version    :
+#==============================================================================
+
+
 # uncomment if you get no picture on HDMI for a default "safe" mode
 #hdmi_safe=1
 

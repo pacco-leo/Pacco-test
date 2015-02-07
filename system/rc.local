@@ -1,4 +1,16 @@
 #!/bin/sh -e
+
+#title           :rc.local
+#description     : 
+#author          :paccotest  
+#date            :20140702
+#version         :0.1
+#usage           : 
+#notes           : 
+#bash_version    : 
+#==============================================================================
+
+
 #
 # rc.local
 #
