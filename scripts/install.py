@@ -14,7 +14,7 @@ from os.path import *
 
 #------- Constants
 sudoPassword = 'raspberry'
-libs = ["midori", "matchbox-window-manager", "python-dev" , "python-pip"]
+libs = ["midori", "matchbox-window-manager", "python-dev" , "python-pip", "chromium"]
 pyLibs = ["Django==1.7", "django-modeltranslation" ]
 
 
