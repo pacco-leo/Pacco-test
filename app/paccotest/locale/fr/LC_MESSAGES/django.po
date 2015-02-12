@@ -109,3 +109,7 @@ msgstr "Résumé"
 #~ msgid "<h1> Mettre la sonde %(probeName)s dans l'eau</h1>"
 #~ msgstr ""
 #~ "<h1> Mettez la sonde %(probeName)s dans l'eau et appuyer sur Mesurer</h1>"
+
+#: .\templates\paccotest\uploadToServer.html:8
+msgid "button-upload"
+msgstr "Uploader sur le server"

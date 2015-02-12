@@ -105,3 +105,7 @@ msgstr ""
 
 #~ msgid "cecitest"
 #~ msgstr "errr"
+
+#: .\templates\paccotest\uploadToServer.html:8
+msgid "button-upload"
+msgstr "Upload to server"

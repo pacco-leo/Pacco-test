@@ -1,0 +1,9 @@
+{% extends "paccotest/base.html" %}
+
+{% load i18n %}
+{% block content %}
+        <h1>{% trans "Upload to server" %}</h1>
+        <br />
+        {% blocktrans %}There is {{ newSurveysCount }} new surveys{% endblocktrans %}
+        <a class="ui-btn" href="{% url 'paccotest:uploadToServer' %}">{% trans "button-upload" %}</a>
+{% endblock %}

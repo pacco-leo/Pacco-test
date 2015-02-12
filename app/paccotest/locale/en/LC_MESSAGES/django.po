@@ -106,3 +106,7 @@ msgstr "Summary"
 
 #~ msgid "testing"
 #~ msgstr "Testing"
+
+#: .\templates\paccotest\uploadToServer.html:8
+msgid "button-upload"
+msgstr "Upload to server"

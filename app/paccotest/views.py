@@ -185,44 +185,14 @@ def complete(request):
 
 
 #--------------------- CRON ----------------------------------
-#Called by Cron, to send all new surveys to remote Server
+#Called on startup, if the RPI is connected to internet
 def uploadToServer(request):
     newSurveys = Survey.objects.filter(uploadedToServer=False)
-
-    # Send to remote Queue
-    import pika
-
-    #The RabbitMQ host
-    RABBITMQ_HOST = 'localhost'   #TODO: Add this to settings somewhere
-
-
-    credentials = pika.PlainCredentials('guest', 'guest')
-
-    # parameters = pika.ConnectionParameters(host='localhost')
-
-    parameters = pika.ConnectionParameters(RABBITMQ_HOST,
-                                           5672,
-                                           '/',
-                                           credentials)
-
-    connection = pika.BlockingConnection(parameters)
-
-    channel = connection.channel()
-
-    channel.queue_declare(queue='paccotest')
-
-
-    for survey in newSurveys:
-        channel.basic_publish(exchange='',
-                              routing_key='paccotest',
-                              body=getJsonFromSurvey(survey.id))
-        #survey.uploadedToServer = True
-        #survey.save() #Debug: commented for debugging
-
-    connection.close()
-
     uploadedCount = newSurveys.count()
-    return HttpResponse("UploadedToServer: " + str(uploadedCount))
+
+
+    print(uploadedCount);
+    return render(request, 'paccotest/uploadToServer.html', {'newSurveysCount':uploadedCount})
 #--------------------- /CRON ----------------------------------
 
 #Return a JSON from all user data for survey "surveyID"
@@ -249,6 +219,47 @@ def probeMeasure(request, probeChannel):
     probeValue = g_probesMananager.getProbeValue(probeChannel)
     return HttpResponse(probeValue, content_type="application/json")
 
+# Called when user click "Upload to server" in the uploadToServer.html page
+def uploadToServerClick(request):
+    newSurveys = Survey.objects.filter(uploadedToServer=False)
+    uploadedCount = newSurveys.count()
+
+    # # Send to remote Queue
+    # import pika
+    #
+    # #The RabbitMQ host
+    # RABBITMQ_HOST = 'localhost'   #TODO: Add this to settings somewhere
+    #
+    #
+    #
+    #
+    # credentials = pika.PlainCredentials('guest', 'guest')
+    #
+    # # parameters = pika.ConnectionParameters(host='localhost')
+    #
+    # parameters = pika.ConnectionParameters(RABBITMQ_HOST,
+    #                                        5672,
+    #                                        '/',
+    #                                        credentials)
+    #
+    # connection = pika.BlockingConnection(parameters)
+    #
+    # channel = connection.channel()
+    #
+    # channel.queue_declare(queue='paccotest')
+    #
+    #
+    # for survey in newSurveys:
+    #     channel.basic_publish(exchange='',
+    #                           routing_key='paccotest',
+    #                           body=getJsonFromSurvey(survey.id))
+    #     #survey.uploadedToServer = True
+    #     #survey.save() #Debug: commented for debugging
+    #
+    # connection.close()
+
+    #return HttpResponse("UploadedToServer: " + str(uploadedCount))
+    return HttpResponse("{true}", content_type="application/json")
 
 
 #------JSON Encoder for DateTime------------
@@ -266,6 +277,8 @@ class DateTimeEncoder(json.JSONEncoder):
        else:
            return json.JSONEncoder.default(self, obj)
 #------/JSON Encoder for DateTime------------
+
+
 
 
 #------UPDATE DB------------
