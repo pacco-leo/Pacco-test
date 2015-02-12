@@ -18,5 +18,6 @@ urlpatterns = patterns('',
     #url(r'^probesForm/(?P<probeName>[a-zA-Z]+)/probeMeasure/$', views.probeMeasure, name='probeMeasure'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
     url(r'^probesForm/(?P<probeChannel>[0-9]+)/probeMeasure/$', views.probeMeasure, name='probeMeasure'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
     url(r'^update/$', views.update, name='update'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
-    url(r'^uploadToServer/uploadToServerClick/$', views.uploadToServer, name='uploadToServerClick'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
+    url(r'^uploadToServer/uploadToServerClick/$', views.uploadToServerClick, name='uploadToServerClick'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
+    url(r'^uploadToServer/doShutdown/$', views.doShutdown, name='doShutdown'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
 )

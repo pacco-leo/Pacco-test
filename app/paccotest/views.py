@@ -224,6 +224,12 @@ def uploadToServerClick(request):
     newSurveys = Survey.objects.filter(uploadedToServer=False)
     uploadedCount = newSurveys.count()
 
+
+# Called when userUpload to servero server" in the uploadToServer.html page
+def uploadToServerClick(request):
+    newSurveys = Survey.objects.filter(uploadedToServer=False)
+    uploadedCount = newSurveys.count()
+
     # # Send to remote Queue
     # import pika
     #
@@ -259,7 +265,21 @@ def uploadToServerClick(request):
     # connection.close()
 
     #return HttpResponse("UploadedToServer: " + str(uploadedCount))
-    return HttpResponse("{true}", content_type="application/json")
+    
+    # Get again the count in case that the upload hasn't succeed
+    newSurveys = Survey.objects.filter(uploadedToServer=False)
+    uploadedCountLeft = newSurveys.count()
+
+    answer = {u"uploadCountLeft": uploadedCountLeft, u"error": "TO_BE_FILLED"}
+    return HttpResponse(json.dumps(answer), content_type="application/json")
+
+# Called when user click "Shutdown Paccotest" in the uploadToServer.html page
+def doShutdown(request):
+    print "Shutdown Paccotest"
+    ## Code to shutdown the Raspberry PI
+
+    #-------
+    return HttpResponse("Shuting Down Pacco-test", content_type="application/json")
 
 
 #------JSON Encoder for DateTime------------

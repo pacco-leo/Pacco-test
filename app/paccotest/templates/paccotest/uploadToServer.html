@@ -2,8 +2,34 @@
 
 {% load i18n %}
 {% block content %}
-        <h1>{% trans "Upload to server" %}</h1>
-        <br />
-        {% blocktrans %}There is {{ newSurveysCount }} new surveys{% endblocktrans %}
-        <a class="ui-btn" href="{% url 'paccotest:uploadToServer' %}">{% trans "button-upload" %}</a>
+    <div ng-controller="UploadToServerController">
+            <h1>{% trans "Upload to server" %}</h1>
+
+
+        <div ng-show="uploadAnswser.fromServer.uploadCountLeft == null">
+            <br />
+            {% blocktrans %}There is {{ newSurveysCount }} new surveys{% endblocktrans %}
+            <div ng-hide="uploadAnswser.fromServer != null">
+                <button ng-click="uploadAnswser.doUploadClick(item, $event)" class="ui-btn ui-icon-cloud ui-btn-icon-right">{% trans "button-upload" %}</button>
+            </div>
+        </div>
+
+
+        <div ng-show="uploadAnswser.fromServer.uploadCountLeft != null">
+            <div ng-if="uploadAnswser.fromServer.uploadCountLeft <= 0">
+                    <p>The surveys have been load to the server</p>
+
+                    <p>You can now switch off the Paccotest</p>
+                    <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="ui-btn ui-icon-power ui-btn-icon-right">{% trans "Shutdown Paccotest" %}</button>
+                    <!-- code to render a large video block-->
+            </div>
+            <div ng-if="uploadAnswser.fromServer.uploadCountLeft > 0">
+                <p>There was a problem uploading the new surveys to the server.</p>
+                <p></p><span id="uploadCountLeft">ffsfsfdfd</span> are still in the Paccotest and need to be upload</p>
+                <button ng-click="uploadAnswser.doUploadClick(item, $event)" class="ui-btn ui-icon-cloud ui-btn-icon-right">{% trans "try again" %}</button>
+                <!-- code to render the regular video block -->
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
