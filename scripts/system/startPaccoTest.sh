@@ -25,13 +25,11 @@ wget -q --tries=10 --timeout=20 --spider http://google.com
 if [[ $? -eq 0 ]]; then
     echo "Online"
     #REPLACE THIS BY THE UPLOAD PAGE
-    #chromium --kiosk
-    # OR 
     # epiphany-browser http://www.playr.biz/23612/15122
 	#sleep 2s # give it time to start
 	#echo key F11 | xte # simulate pressing the full screen key
-    midori -e Fullscreen -a http://localhost:8000/paccotest/ouverture/
+    chromium --kiosk http://localhost:8000/paccotest/ouverture/
 else
     echo "Offline"
-    midori -e Fullscreen -a http://localhost:8000/paccotest/ouverture/
+    chromium --kiosk http://localhost:8000/paccotest/ouverture/
 fi
