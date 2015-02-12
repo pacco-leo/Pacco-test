@@ -4,10 +4,11 @@
 from fabric.operations import local as lrun, run
 from fabric.api import task
 from fabric.state import env
-from fabric.contrib.files import append, sed
+from fabric.contrib.files import exists
 
 paccoURL = "https://github.com/pacco-leo/Pacco-test/"
-paccoInstallDir = "PaccoTest"  #This Dir should be changed (since it is defined in startMidori.sh)
+paccoInstallDir = "PaccoTest"  # This Dir should be changed (since it is defined in startMidori.sh)
+
 
 @task
 def localhost():
@@ -18,7 +19,7 @@ def localhost():
 @task
 def remote():
     env.run = run
-    #env.hosts = ['some.remote.host']
+    # env.hosts = ['some.remote.host']
     env.hosts = ['192.168.2.2']
     env.user = "pi"
     env.password = "raspberry"
@@ -27,18 +28,25 @@ def remote():
 @task
 def install():
     import os
-    #homeDir = os.getenv("HOME") #Crappy hack. Try to do it with Fabric
+    # homeDir = os.getenv("HOME") #Crappy hack. Try to do it with Fabric
     #homeDir = env.run('echo $HOME')
+
     homeDir = "/home/pi"
 
-    installDir = homeDir + "/" + paccoInstallDir   #To change on final version
-    print "Installing to:" + installDir
+    installDir = homeDir + "/" + paccoInstallDir  #To change on final version
 
-    env.run('mkdir -p ' + installDir )
+    if exists(installDir, use_sudo=True):
+        print "There is an existing Paccotest folder in this RaspberryPI"
+        print "Please run an update command (To be implemented :)) or remove the /home/pi/PaccoTest dir on the RPI"
 
-    env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
+    else:
+        print "Installing to:" + installDir
 
-    # Run deployement script on RPI
-    scriptsDir = installDir + "/scripts/"
-    env.run("python " + scriptsDir + 'install.py')
+        env.run('mkdir -p ' + installDir)
+
+        env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
+
+        # Run deployement script on RPI
+        scriptsDir = installDir + "/scripts/"
+        env.run("python " + scriptsDir + 'install.py')
 
