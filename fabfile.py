@@ -36,7 +36,7 @@ def install():
 
     env.run('mkdir -p ' + installDir )
 
-    #env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
+    env.run('git clone ' + paccoURL + ' ' + installDir)  #DEBUG: Reactivate
 
     # Run deployement script on RPI
     scriptsDir = installDir + "/scripts/"
