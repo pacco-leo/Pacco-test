@@ -265,7 +265,7 @@ def uploadToServerClick(request):
     # connection.close()
 
     #return HttpResponse("UploadedToServer: " + str(uploadedCount))
-    
+
     # Get again the count in case that the upload hasn't succeed
     newSurveys = Survey.objects.filter(uploadedToServer=False)
     uploadedCountLeft = newSurveys.count()
@@ -277,7 +277,12 @@ def uploadToServerClick(request):
 def doShutdown(request):
     print "Shutdown Paccotest"
     ## Code to shutdown the Raspberry PI
+    import os.path
+    from os.path import *
 
+    sudoPassword = 'raspberry'
+    command = "sudo shutdown -h now "
+	p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
     #-------
     return HttpResponse("Shuting Down Pacco-test", content_type="application/json")
 
