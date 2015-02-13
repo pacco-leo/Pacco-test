@@ -12,9 +12,11 @@
 import os.path
 from os.path import *
 
+# See that link if problems in RPI: http://blogs.wcode.org/2013/09/howto-boot-your-raspberry-pi-into-a-fullscreen-browser-kiosk/
+
 #------- Constants
 sudoPassword = 'raspberry'
-libs = ["matchbox-window-manager", "python-dev" , "python-pip", "chromium"]
+libs = ["matchbox-window-manager", "python-dev" , "python-pip", "chromium", "x11-xserver-utils"]
 pyLibs = ["Django==1.7", "django-modeltranslation" ]
 
 
