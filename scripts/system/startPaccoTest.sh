@@ -28,8 +28,8 @@ if [[ $? -eq 0 ]]; then
     # epiphany-browser http://www.playr.biz/23612/15122
 	#sleep 2s # give it time to start
 	#echo key F11 | xte # simulate pressing the full screen key
-    chromium --kiosk http://localhost:8000/paccotest/ouverture/
+    chromium --kiosk http://localhost:8000/paccotest/uploadToServer/
 else
     echo "Offline"
-    chromium --kiosk http://localhost:8000/paccotest/ouverture/
+    chromium --kiosk http://localhost:8000/paccotest/opening/
 fi

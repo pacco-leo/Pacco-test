@@ -47,3 +47,6 @@ file4 = systemScriptsDir + "rc.local"
 command4 = "cp " + file4 + " /etc/"
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command4))
 
+print "Disable LightGDM (Desktop) on startup"
+command5 = "update-rc.d lightdm disble"
+p = os.system('echo %s|sudo -S %s' % (sudoPassword, command5))

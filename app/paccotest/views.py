@@ -282,7 +282,7 @@ def doShutdown(request):
 
     sudoPassword = 'raspberry'
     command = "sudo shutdown -h now "
-	p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
+    p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
     #-------
     return HttpResponse("Shuting Down Pacco-test", content_type="application/json")
 
