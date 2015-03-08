@@ -39,9 +39,9 @@ file2 = systemScriptsDir + "config.txt"
 command2 = "cp " + file2 + " /boot/"
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2))
 
-print "Copying startup script (startPaccoTest.sh) to /boot/"
+print "Copying startup script (startPaccoTest.sh) to $HOME"
 file3 = systemScriptsDir + "startPaccoTest.sh"
-command3 = "cp " + file3 + " /boot/"
+command3 = "cp " + file3 + " " + join(os.getenv("HOME"), '')
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command3))
 
 print "Copying modified rc.local to /etc"

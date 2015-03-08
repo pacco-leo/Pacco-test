@@ -47,10 +47,12 @@ printf "===> Resetting frame-buffer to %dx%dx%d...\n" $_XRES $_YRES $_DEPTH
 fbset --all --geometry $_XRES $_YRES $_XRES $_YRES $_DEPTH -left 0 -right 0 -upper 0 -lower 0;
 sleep 1;
 
-if [ -f /boot/xinitrc ]; then
-	ln -fs /boot/startPaccoTest.sh /home/pi/.xinitrc;
-	su - pi -c 'startx' &
-fi
+#if [ -f /boot/xinitrc ]; then
+#	ln -fs /boot/startPaccoTest.sh /home/pi/.xinitrc;
+#	su - pi -c 'startx' &
+#fi
+
+sudo xinit /home/pi/startPaccoTest.sh &
 
 
 exit 0
