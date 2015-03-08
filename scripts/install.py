@@ -16,7 +16,7 @@ from os.path import *
 
 #------- Constants
 sudoPassword = 'raspberry'
-libs = ["matchbox-window-manager", "python-dev" , "python-pip", "chromium", "x11-xserver-utils"]
+libs = ["matchbox-window-manager", "unclutter", "python-dev" , "python-pip", "chromium", "x11-xserver-utils"]
 pyLibs = ["Django==1.7", "django-modeltranslation" ]
 
 
@@ -39,9 +39,9 @@ file2 = systemScriptsDir + "config.txt"
 command2 = "cp " + file2 + " /boot/"
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2))
 
-print "Copying startup script (startPaccoTest.sh) to $HOME"
+print "Copying startup script (startPaccoTest.sh) to /boot/"
 file3 = systemScriptsDir + "startPaccoTest.sh"
-command3 = "cp " + file3 + " " + join(os.getenv("HOME"), '')
+command3 = "cp " + file3 + " /boot/"
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command3))
 
 print "Copying modified rc.local to /etc"
