@@ -57,10 +57,10 @@
 disable_overscan=1
 framebuffer_width=800
 framebuffer_height=450
-framebuffer_depth=32
-framebuffer_ignore_alpha=1
-hdmi_pixel_encoding=1
-hdmi_group=2
+#framebuffer_depth=32
+#framebuffer_ignore_alpha=1
+#hdmi_pixel_encoding=1
+#hdmi_group=2
 
 # assign pin4 on Rpi (for thermometer)
 dtoverlay=w1-gpio,gpiopin=4
