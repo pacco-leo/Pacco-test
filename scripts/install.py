@@ -39,6 +39,16 @@ file2 = systemScriptsDir + "config.txt"
 command2 = "cp " + file2 + " /boot/"
 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2))
 
+print "Copying modified cmdline.txt to /boot/"
+file2b = systemScriptsDir + "cmdline.txt"
+command2b = "cp " + file2b + " /boot/"
+p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2b))
+
+print "Copying modified inittab.txt to /etc"
+file2c = systemScriptsDir + "inittab.txt"
+command2c = "cp " + file2c + " /etc/"
+p = os.system('echo %s|sudo -S %s' % (sudoPassword, command2c))
+
 print "Copying startup script (startPaccoTest.sh) to $HOME"
 file3 = systemScriptsDir + "startPaccoTest.sh"
 command3 = "cp " + file3 + " " + join(os.getenv("HOME"), '')
