@@ -54,10 +54,12 @@ while true; do
 	    # epiphany-browser http://www.playr.biz/23612/15122
 		#sleep 2s # give it time to start
 		#echo key F11 | xte # simulate pressing the full screen key
+	    sleep 10
 	    chromium --app=http://localhost:8000/paccotest/uploadToServer/
 	else
 	    echo "Offline"
-	    chromium --app=http://localhost:8000/paccotest/opening/
+	    sleep 10
+	    chromium --app=http://localhost:8000/paccotest/opening/ --user-data-dir
 	fi
 	
 	
