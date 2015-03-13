@@ -227,8 +227,45 @@ def uploadToServerClick(request):
 
 # Called when userUpload to servero server" in the uploadToServer.html page
 def uploadToServerClick(request):
+    
+    paccoboxid = 0 #      !!!!!!!!!!TO DO :: assign paccobox ID to each box!:
     newSurveys = Survey.objects.filter(uploadedToServer=False)
     uploadedCount = newSurveys.count()
+
+    # send Survey via SMTP
+
+    # Import smtplib to provide email functions
+    import smtplib
+
+    # Import the email modules
+    from email.mime.text import MIMEText
+
+    # Define email addresses to use
+    addr_to   = 'paccobox@citymined.org'
+    addr_from = 'paccobox@citymined.org'
+
+    # Define SMTP email server details
+    smtp_server = 'smtp.domainepublic.net:465'
+    smtp_user   = 'paccobox@citymined.org'
+    smtp_pass   = 'P4CC0B0X3CR1R3'
+
+    s = smtplib.SMTP_SSL(smtp_server)
+
+    for survey in newSurveys:
+        msg = MIMEText(getJsonFromSurvey(survey.id))
+        msg['To'] = addr_to
+        msg['From'] = addr_from
+        msg['Subject'] = 'PACCORESULT-'+str(paccoboxid)+'-'+str(survey.id)
+
+        survey.uploadedToServer = True
+        survey.save() #Debug: commented for debugging
+
+        # Send the message via an SMTP server
+        s.login(smtp_user,smtp_pass)
+        s.sendmail(addr_from, addr_to, msg.as_string())
+
+    s.quit()
+
 
     # # Send to remote Queue
     # import pika
