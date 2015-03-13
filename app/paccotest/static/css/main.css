@@ -2,13 +2,16 @@
 	margin:0;
 	padding:0;
 }
+ul {
+    list-style:none;
+}
 #cadre {
 	/*width:800px;
 	height:480px;*/
 	position:relative;
     width:700px;
 	height:440px;
-	background-color:#A8A892;
+	background-color:#F47920;
 	color:black;
 	padding:20px 50px;
 	text-shadow:none;
@@ -42,8 +45,8 @@ p, h1, h2 {
 		border-color:#0769AD;
 	}
 	.tabitem{
-		-webkit-transition: 1s linear all;
-		transition:1s linear all;
+		/*-webkit-transition: 1s linear all;
+		transition:1s linear all;*/
 		opacity:1;
 		position:absolute;
 		top:30px;

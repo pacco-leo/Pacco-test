@@ -96,7 +96,7 @@ def questionnaireForm(request):
             #Get values of the form
             #Key: QuestionID,   Value: AnswerID
             for i in request.POST:
-                if i !=  "csrfmiddlewaretoken":    #TODO: Make it cleaner
+                if i !=  "csrfmiddlewaretoken" and request.POST[i] != "> skip all Questions":    #TODO: Make it cleaner
                     #print 'I have been passed the following keys: ',i, ' and value:',request.POST[i]
                     request.session['questionnaireValues'][i] = request.POST[i]
 

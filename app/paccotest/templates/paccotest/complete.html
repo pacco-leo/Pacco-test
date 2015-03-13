@@ -2,5 +2,15 @@
 
 {% load i18n %}
 {% block content %}
-    {% blocktrans %}Merci de votre participation{% endblocktrans %}
+
+    <div ng-controller="CompleteController">
+            <h1>{% blocktrans %}Merci de votre participation{% endblocktrans %}</h1>
+
+            <p>You can now switch off the Paccotest</p>
+            <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="ui-btn ui-icon-power ui-btn-icon-right">{% blocktrans %}Shutdown Paccotest{% endblocktrans %}</button>
+                    <!-- code to render a large video block-->
+
+        </div>
+
+    </div>
 {% endblock %}
