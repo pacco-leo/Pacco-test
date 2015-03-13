@@ -120,3 +120,22 @@ paccoApp.controller("UploadToServerController", function($scope, $http) {
 
 
 });
+
+paccoApp.controller("CompleteController", function($scope, $http) {
+
+    $scope.shutdownAnswer = {};
+
+    $scope.shutdownAnswer.doShutdownClick = function(item, event) {
+        var responsePromise = $http.get("doShutdown");
+         //Something like: http://127.0.0.1:8000/paccotest/uploadToServer/doShutdown
+
+        responsePromise.success(function(data, status, headers, config) {
+            $scope.shutdownAnswer.fromServer = data;
+        });
+        responsePromise.error(function(data, status, headers, config) {
+            alert("AJAX failed!");
+        });
+    }
+
+
+});
