@@ -48,14 +48,14 @@ while true; do
 	# Start the browser (See http://peter.sh/experiments/chromium-command-line-switches/)
 	## Choose which page to run, depending if connection to internet is on or off
 	wget -q --tries=10 --timeout=20 --spider http://google.com
-	if [[ $? -eq 0 ]]; then
+	if [ $? -eq 0 ]; then
 	    echo "Online"
 	    #REPLACE THIS BY THE UPLOAD PAGE
 	    # epiphany-browser http://www.playr.biz/23612/15122
 		#sleep 2s # give it time to start
 		#echo key F11 | xte # simulate pressing the full screen key
 	    sleep 10
-	    chromium --app=http://localhost:8000/paccotest/uploadToServer/
+	    chromium --app=http://localhost:8000/paccotest/uploadToServer/ --user-data-dir
 	else
 	    echo "Offline"
 	    sleep 10
