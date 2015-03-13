@@ -105,7 +105,7 @@ def questionnaireForm(request):
 
     all_questions_list = Question.objects.all().filter(actif=True).order_by('order')
     firstTab = 1
-    lastTab = all_questions_list.count()
+    lastTab = all_questions_list.count() + 1
     context = {'all_questions': all_questions_list,'firstTab':firstTab,'lastTab':lastTab}
     return render(request, 'paccotest/questionnaireForm.html', context)
 
