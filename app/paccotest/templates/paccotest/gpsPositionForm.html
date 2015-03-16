@@ -11,10 +11,10 @@
 
         <div ng-show="myData.fromServer != null">
             <ul>
-                <li>{% trans "latitude" %} : {[{myData.fromServer.latitude}]}</li>
-                <li>{% trans "longitude" %} : {[{myData.fromServer.longitude}]}</li>
-                <li>{% trans "elevation" %} : {[{myData.fromServer.elevation}]}</li>
-                <li>{% trans "utc" %} : {[{myData.fromServer.utc}]}</li>
+                <li>{% trans "latitude" %} : <span class="resultdisplay">{[{myData.fromServer.latitude}]}</span></li>
+                <li>{% trans "longitude" %} : <span class="resultdisplay">{[{myData.fromServer.longitude}]}</span></li>
+                <li>{% trans "elevation" %} : <span class="resultdisplay">{[{myData.fromServer.elevation}]}</span></li>
+                <li>{% trans "utc" %} : <span class="resultdisplay">{[{myData.fromServer.utc}]}</span></li>
             </ul>
 
             <!-- Filled by AngularJS on Ajax Request -->

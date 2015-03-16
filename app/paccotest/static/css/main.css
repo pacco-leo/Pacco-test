@@ -10,7 +10,7 @@ ul {
 	height:480px;*/
 	position:relative;
     width:700px;
-	height:440px;
+	height:410px;
 	background-color:#F47920;
 	color:black;
 	padding:20px 50px;
@@ -20,6 +20,10 @@ p, h1, h2 {
     width:700px;
 }
 
+.resultdisplay {
+    font-size:25px;
+    font-weight:bold;
+}
 /* QuestionnaireForm */
 	.question {
 
@@ -45,8 +49,8 @@ p, h1, h2 {
 		border-color:#0769AD;
 	}
 	.tabitem{
-		/*-webkit-transition: 1s linear all;
-		transition:1s linear all;*/
+		-webkit-transition: 1s linear all;
+		transition:1s linear all;
 		opacity:1;
 		position:absolute;
 		top:30px;
@@ -60,16 +64,17 @@ p, h1, h2 {
 	}
 	.resumeAnswer {
 		cursor:pointer;
+		font-size:17px;
 }
 #skipQuestion {
     display:block;
     position:absolute;
     right:0;
     bottom:0;
-    padding:15px;
+    padding:25px;
     cursor:pointer;
     border:none;
-    font-size:9px;
+    font-size:11px;
     text-transform:uppercase;
 }
 #skipQuestion:hover {

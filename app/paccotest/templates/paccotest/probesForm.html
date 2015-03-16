@@ -35,11 +35,12 @@
 	    </div>
 	{% endfor %}
         <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
+            <h1 class=question">{% trans "summary" %}</h1>
+			<br />
 			{% for probe in all_probes %}
 			<p>
-				{{ probe.name }}
-
-                    <b><span ng-click="tab.setTabResume({{forloop.counter}})" class="sdf" id="resume_result_{{probe.channel}}">Null</span></b>
+				{{ probe.name }}:
+                <span ng-click="tab.setTabResume({{forloop.counter}})" class="sdf resultdisplay" id="resume_result_{{probe.channel}}">Null</span>
             </p>
            	{% endfor %}
 			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />
