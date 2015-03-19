@@ -1,8 +1,14 @@
-from paccotest.hardware.probesManager import *
+from paccotest.hardware.probesManager import ProbesManager, GPSPosition
 from paccotest.models import Probe
 import serial, RPi.GPIO as GPIO
 import os, time, threading
-from gps import *
+import gps
+
+GPIO.setmode(GPIO.BOARD)
+
+GPIO.setup(16,GPIO.OUT)
+GPIO.setup(18,GPIO.OUT)
+GPIO.setup(22,GPIO.OUT)
 
 ##
 # A Probes Manager for the real-world probes
@@ -10,13 +16,18 @@ from gps import *
 #
 class ProbesManagerReal(ProbesManager):
     def getGPSPosition(self):
+	channelselect('0')
+	# a mettre aileurs ? pour eviter le sleepp 3 seconds...
+	os.system('sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock')
+	time.sleep(3) #time needed for gps-port start
+
 	global gpsd
 	gpsd = None #seting the global variable
 	class GpsPoller(threading.Thread):
 		def __init__(self):
 			threading.Thread.__init__(self)
 			global gpsd #bring it in scope
-			gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
+			gpsd = gps.gps(mode=gps.WATCH_ENABLE) #starting the stream of info
 			self.current_value = None
 			self.running = True #setting the thread running to true
 		def run(self):
@@ -26,8 +37,9 @@ class ProbesManagerReal(ProbesManager):
 	gpsp = GpsPoller() # create the thread
 	gpsp.start() # start it up
 	countloop = 0
+	import math
 	while True:
-		if (gpsd.fix.latitude != 0.0):
+		if (gpsd.fix.latitude != 0.0 and math.isnan(gpsd.fix.latitude) != True):
 			print
 			print 'GPS reading'
 			print '----------------------------------------'
@@ -40,10 +52,10 @@ class ProbesManagerReal(ProbesManager):
 		elif countloop > 3:
 			print
 			print 'GPS failed'
-			gpsd.fix.longitude = 'None'
-			gpsd.fix.latitude = 'None'
-			gpsd.fix.altitude = 'None'
-			gpsd.utc = 'None'
+			gpsd.fix.longitude = '0'
+			gpsd.fix.latitude = '0'
+			gpsd.fix.altitude = '0'
+			gpsd.utc = '2015-03-20 08:00:00'
 			break
 		else:
 			print 'GPS looking for satellite'
@@ -52,16 +64,20 @@ class ProbesManagerReal(ProbesManager):
 			time.sleep(5)
 	print "\nKilling Thread..."
 	gpsp.running = False
-	gpsp.join() # wait for the thread to finish what it's doing
+	#gpsp.join() # wait for the thread to finish what it's doing
 	print "Done.\nExiting."
 	utc_formated = gpsd.utc[:10]+' '+gpsd.utc[11:19]
-        return GPSPosition(gpsd.fix.latitude, gpsd.fix.longitude, gpsd.fix.altitude, utc_formated)
-
+	latitude=gpsd.fix.latitude
+	longitude=gpsd.fix.longitude
+	altitude=gpsd.fix.altitude
+	os.system('sudo killall gpsd')
+        return GPSPosition(latitude, longitude, altitude, utc_formated)
+	
     ##
     # Get values form probes
     #
     def getProbeValue(self, probeChannel):
-	if probeChannel == 15: #temperature is not on muxdemux
+	if probeChannel == '15': #temperature is not on muxdemux
 		import glob
 		os.system('modprobe w1-gpio')
 		os.system('modprobe w1-therm')
@@ -87,70 +103,94 @@ class ProbesManagerReal(ProbesManager):
 		line = read_temp()
 		return line	
 	else:
-		#probeChannel = Probe.objects.get(name=probeName).channel
+		#port()
 		channelselect(probeChannel)
-		port()
+		import serial
+		usbport='/dev/ttyAMA0'
+		ser = serial.Serial(usbport,9600)
+		ser.flushInput()
+		ser.flushOutput()
 		ser.write("L,1\r")
-		ser.write("C,1,\r")
+		ser.write("C,1\r")
 		line=""
+		#sensorOK=0
 		while True:
 			data=ser.read()
-			if(data== "\r"):
+			if(data == "\r" and line == '*OK'):
+				line=""
+				print 'redo'
+			elif(data == "\r" and line == '*ER'):
+				line=""
+				print 'redo'
+			elif(data == "\r"):
+				#if(sensorOK==1 and line!='*OK'):
+				#	print "Received from sensor:" + line
+				#	return line
+				#	line = ""
+				#	break
+				#if(line=='*OK'):
+				#	print 'sensor OK'
+				#	sensorOK=1
+				#line = ""
 				print "Received from sensor:" + line
 				return line
-				line=""
+				line = ""
 				break
 			else:
-				line= line + data
-	
+				line = line + data
 
-
-#sensors = [('PH', 4), ('REDOX', 5), ('CONDUCTIVITY', 7), ('DO', 6), ('TEMPERATURE', 100)]
 
 
 def port():
-	usbport='/dev/ttyAMA0'
-	global ser
-	ser=serial.Serial(usbport,38400)
-	ser.flushInput()
-	ser.flushOutput()
+	GPIO.setmode(GPIO.BOARD)
+	
+	GPIO.setup(16,GPIO.OUT)
+	GPIO.setup(18,GPIO.OUT)
+	GPIO.setup(22,GPIO.OUT)
+
+	#usbport='/dev/ttyAMA0'
+	#global ser
+	#ser=serial.Serial(usbport,9600)
+	#ser.flushInput()
+	#ser.flushOutput()
 	
 
 def channelselect(cs):
-    if cs == 0:
+    print 'cs='+cs
+    if cs == '0':
         A = 0
         B = 0
         C = 0
         print '-------GPS'
-    elif cs == 1:
+    elif cs == '1':
         A = 0
         B = 0
         C = 1
-    elif cs == 2:
+    elif cs == '2':
         A = 0
         B = 1
         C = 0
         print '-------print results'
-    elif cs == 3:
+    elif cs == '3':
         A = 0
         B = 1
         C = 1
-    elif cs == 4:
+    elif cs == '4':
         A = 1
         B = 0
         C = 0
         print '-------PH'
-    elif cs == 5:
+    elif cs == '5':
         A = 1
         B = 0
         C = 1
         print '-------REDOX (ORP)'
-    elif cs == 6:
+    elif cs == '6':
         A = 1
         B = 1
         C = 0
         print '-------DO'
-    elif cs == 7:
+    elif cs == '7':
         A = 1
         B = 1
         C = 1
@@ -159,8 +199,10 @@ def channelselect(cs):
         # ser.flushInput()
         # ser.flushOutput()
 
-        #return [A,B,C]
-        #Matt: commented
-        GPIO.output(16,A) #S2
-        GPIO.output(18,B) #S1
-        GPIO.output(22,C) #S0
+    #return [A,B,C]
+    #Matt: commented
+    #GPIO.cleanup()
+
+    GPIO.output(16,A) #S2
+    GPIO.output(18,B) #S1
+    GPIO.output(22,C) #S0

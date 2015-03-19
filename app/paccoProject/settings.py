@@ -80,7 +80,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'fr'
 LOCALE_PATHS = (
-     '/locale/',
+     'locale/',
 )
 TIME_ZONE = 'UTC'
 

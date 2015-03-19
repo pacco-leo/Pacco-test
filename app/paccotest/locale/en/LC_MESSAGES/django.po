@@ -1,14 +1,9 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# PACCOTEST EN
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-18 17:30+0100\n"
+"POT-Creation-Date: 2015-03-19 16:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,88 +11,113 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\templates\paccotest\complete.html:5
+#: templates/paccotest/complete.html:7
 msgid "Merci de votre participation"
-msgstr ""
+msgstr "Thank you for contributing to the Pacco-test!"
 
-#: .\templates\paccotest\form.html:23
+#: templates/paccotest/complete.html:9
+msgid "Print your results!"
+msgstr "Print the results of your test!"
+
+#: templates/paccotest/complete.html:12
+msgid "You can now switch off the Paccotest"
+msgstr "You can now switch off the Paccotest"
+
+#: templates/paccotest/complete.html:13
+#: templates/paccotest/uploadToServer.html:23
+msgid "Shutdown Paccotest"
+msgstr "Shutdown Paccotest"
+
+#: templates/paccotest/form.html:23
 msgid "first step"
 msgstr "First step"
 
-#: .\templates\paccotest\form.html:24
+#: templates/paccotest/form.html:24
 msgid "prev step"
 msgstr "Previous stepp"
 
-#: .\templates\paccotest\form.html:26
-#: .\templates\paccotest\gpsPositionForm.html:24
-#: .\templates\paccotest\probesForm.html:38
+#: templates/paccotest/form.html:26
+#: templates/paccotest/gpsPositionForm.html:24
+#: templates/paccotest/probesForm.html:47
 msgid "submit"
 msgstr "Submit"
 
-#: .\templates\paccotest\gpsPositionForm.html:7
+#: templates/paccotest/gpsPositionForm.html:7
 msgid "GPS"
 msgstr "GPS"
 
-#: .\templates\paccotest\gpsPositionForm.html:9
+#: templates/paccotest/gpsPositionForm.html:9
 msgid "Measure"
 msgstr "Measure"
 
-#: .\templates\paccotest\gpsPositionForm.html:14
+#: templates/paccotest/gpsPositionForm.html:14
 msgid "latitude"
 msgstr "latitude"
 
-#: .\templates\paccotest\gpsPositionForm.html:15
+#: templates/paccotest/gpsPositionForm.html:15
 msgid "longitude"
 msgstr "longitude"
 
-#: .\templates\paccotest\gpsPositionForm.html:16
+#: templates/paccotest/gpsPositionForm.html:16
 msgid "elevation"
 msgstr "elevation"
 
-#: .\templates\paccotest\gpsPositionForm.html:17
+#: templates/paccotest/gpsPositionForm.html:17
 msgid "utc"
 msgstr "date & time"
 
-#: .\templates\paccotest\intro.html:5
+#: templates/paccotest/intro.html:5
 msgid "Intro"
 msgstr "Intro"
 
-#: .\templates\paccotest\intro.html:7
+#: templates/paccotest/intro.html:7
 msgid "Welcome to the Pacco-Test"
-msgstr ""
-"Welcome to the Pacco-Test\n"
-"In this test.. . . ."
+msgstr "Welcome to the Pacco-Test"
 
-#: .\templates\paccotest\intro.html:8
+
+#: templates/paccotest/intro.html:8
 msgid "button-next"
 msgstr "Proceed"
 
-#: .\templates\paccotest\probesForm.html:19
+#: templates/paccotest/probesForm.html:20
 #, python-format
 msgid "Put %(probeName)s in water"
-msgstr ""
+msgstr "Place the probe %(probeName)s in the water and press the button below to test"
 
-#: .\templates\paccotest\probesForm.html:22
+#: templates/paccotest/probesForm.html:22
 msgid "measure"
 msgstr "Measure"
 
-#: .\templates\paccotest\probesForm.html:27
+#: templates/paccotest/probesForm.html:28
 msgid "outcome"
 msgstr "Outcome"
 
-#: .\templates\paccotest\probesForm.html:29
-#: .\templates\paccotest\questionnaireForm.html:44
+#: templates/paccotest/probesForm.html:32
+#: templates/paccotest/questionnaireForm.html:46
 msgid "proceed"
 msgstr "Proceed"
 
-#: .\templates\paccotest\questionnaireForm.html:19
-#, python-format
-msgid "%(textfr)s"
-msgstr ""
-
-#: .\templates\paccotest\questionnaireForm.html:32
+#: templates/paccotest/probesForm.html:38
+#: templates/paccotest/questionnaireForm.html:34
 msgid "summary"
 msgstr "Summary"
+
+#: templates/paccotest/uploadToServer.html:6
+msgid "Upload to server"
+msgstr ""
+
+#: templates/paccotest/uploadToServer.html:11
+#, python-format
+msgid "There is %(newSurveysCount)s new surveys"
+msgstr ""
+
+#: templates/paccotest/uploadToServer.html:13
+msgid "button-upload"
+msgstr "Upload to server"
+
+#: templates/paccotest/uploadToServer.html:29
+msgid "try again"
+msgstr ""
 
 #, fuzzy
 #~| msgid "%(question.title)s"
@@ -106,7 +126,3 @@ msgstr "Summary"
 
 #~ msgid "testing"
 #~ msgstr "Testing"
-
-#: .\templates\paccotest\uploadToServer.html:8
-msgid "button-upload"
-msgstr "Upload to server"

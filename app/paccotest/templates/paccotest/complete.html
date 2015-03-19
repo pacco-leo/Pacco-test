@@ -6,7 +6,10 @@
     <div ng-controller="UploadToServerController">
             <h1>{% blocktrans %}Merci de votre participation{% endblocktrans %}</h1>
 
-            <p>You can now switch off the Paccotest</p>
+       <button ng-click="myData.doPrint(item, $event)" class="ui-btn">{% blocktrans %}Print your results!{% endblocktrans %}</button>
+<br />
+<br />
+            <p>{% blocktrans %}You can now switch off the Paccotest{% endblocktrans %}</p>
         <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="ui-btn ui-icon-power ui-btn-icon-right">{% trans "Shutdown Paccotest" %}</button>
 
     </div>

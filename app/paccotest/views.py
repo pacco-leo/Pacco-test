@@ -12,8 +12,8 @@ from paccotest.forms import GPSMeasureForm,ProbeMeasureForm
 import json
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
-from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
-#from paccotest.hardware.probesManagerReal import ProbesManagerReal
+#from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
+from paccotest.hardware.probesManagerReal import ProbesManagerReal
 
 # import the logging library
 import logging
@@ -36,7 +36,7 @@ class ProbesManagerFactory:
 
 
 global IS_DEBUGGING
-IS_DEBUGGING = True  #Set IS_DEBUGGING for RaspberryPI
+IS_DEBUGGING = 	False  #Set IS_DEBUGGING for RaspberryPI
 
 if IS_DEBUGGING:
     g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();  #For Dummy Probes
@@ -323,6 +323,26 @@ def doShutdown(request):
     #-------
     return HttpResponse("Shuting Down Pacco-test", content_type="application/json")
 
+def doPrint(request):
+	print 'start Printing'
+	from paccotest.hardware.probesManagerReal import channelselect
+	channelselect('2')
+	from paccotest.hardware.Adafruit_Thermal import *
+	printer = Adafruit_Thermal("/dev/ttyAMA0", 19200, timeout=5)
+	printer.wake() 
+	import paccotest.hardware.logoPaccoTest as logo
+	printer.printBitmap(logo.width,logo.height,logo.data)
+	probesValues = request.session['probesValues']
+    	for key in probesValues:
+		line=Probe.objects.get(id=key).name +': '+probesValues[key]
+        	printer.println(line)
+	printer.println('Merci! * Bedankt! * Thank you!')
+	printer.println('www.properwater.org')
+	printer.println('www.eaupropre.org')
+	printer.println()
+	printer.println()
+	printer.sleep()
+	print 'end Printing' 
 
 #------JSON Encoder for DateTime------------
 import datetime

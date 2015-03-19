@@ -22,7 +22,7 @@ class Answer(models.Model):
 class Question(models.Model):
     text = models.CharField('text',max_length=300)
     order = models.IntegerField()
-    actif = models.BooleanField()
+    actif = models.BooleanField(default=True)
     answers = models.ManyToManyField(Answer)  #Many-to-many relationship
 
     def __unicode__(self):
@@ -76,7 +76,7 @@ class UserAnswer(models.Model):
 class ProbeMeasure(models.Model):
     survey = models.ForeignKey(Survey)
     probeType = models.ForeignKey(Probe)
-    measure = models.FloatField('measure')
+    measure = models.CharField('measure',max_length=200)
 
     def __unicode__(self):
         return "Survey : " + str(self.survey.id) + " - " + str(self.probeType.name) + " : " + str(self.measure)

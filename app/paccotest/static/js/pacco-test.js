@@ -92,6 +92,7 @@ paccoApp.controller("UploadToServerController", function($scope, $http) {
 
     $scope.uploadAnswser = {};
     $scope.shutdownAnswer = {};
+    $scope.myData = {};
 
     $scope.uploadAnswser.doUploadClick = function(item, event) {
         var responsePromise = $http.get("uploadToServerClick");
@@ -118,5 +119,10 @@ paccoApp.controller("UploadToServerController", function($scope, $http) {
         });
     }
 
+    $scope.myData.doPrint = function(item, event) {
+        var responsePromise = $http.get("doPrint");
+        //Something like: http://127.0.0.1:8000/paccotest/doPrint
+
+    }
 
 });
