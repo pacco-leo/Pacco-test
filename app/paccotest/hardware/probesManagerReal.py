@@ -138,7 +138,7 @@ class ProbesManagerReal(ProbesManager):
 				break
 			else:
 				line = line + data
-
+				print 'working...'
 
 
 def port():
