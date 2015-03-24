@@ -4,6 +4,8 @@
 {% block content %}
         <h1>{% trans "Intro" %}</h1>
         <br />
-        {% blocktrans %}Welcome to the Pacco-Test{% endblocktrans %}
-        <a class="ui-btn" href="{% url 'paccotest:gpsPositionForm' %}">{% trans "button-next" %}</a>
+        <p>{% blocktrans %}Welcome to the Pacco-Test{% endblocktrans %}</p>
+        <br />
+        <br />
+        <p><a class="btn btnLarge" href="{% url 'paccotest:gpsPositionForm' %}">{% trans "button-next" %}</a></p>
 {% endblock %}

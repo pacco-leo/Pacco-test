@@ -19,21 +19,22 @@
         });
      </script>
 
-    <script src="{% static 'jquery.mobile/jquery.mobile-1.4.4.min.js' %}"></script>
+    <!--<script src="{% static 'jquery.mobile/jquery.mobile-1.4.4.min.js' %}"></script>-->
 
    <link type="text/css" href="{% static 'css/main.css' %}?{% now 'U' %}" rel="stylesheet" />
 
 
     <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/jquery-ui.min.js" %}"></script>
     <script src="{% static "js/angular.min.js" %}"></script>
     <script src="{% static "js/angular-animate.js" %}"></script>
-    <script src="{% static "js/pacco-test.js" %}"></script>
+    <script src="{% static "js/pacco-test.js" %}?{% now 'U' %}"></script>
 
 
 
     </head>
         <body ng-app="paccoApp">
-
+        <div id="waitingscreen"><img src='{% static "img/waitingForPaccoTest.gif" %}' alt="waitingLogo" /></div>
         {% load i18n %}
             <div id="cadre">
                 {% block content %}

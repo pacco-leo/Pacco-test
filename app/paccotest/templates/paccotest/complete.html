@@ -3,14 +3,15 @@
 {% load i18n %}
 {% block content %}
 
-    <div ng-controller="UploadToServerController">
+    <div ng-controller="UploadToServerController" style="text-align:center;">
             <h1>{% blocktrans %}Merci de votre participation{% endblocktrans %}</h1>
-
-       <button ng-click="myData.doPrint(item, $event)" class="ui-btn">{% blocktrans %}Print your results!{% endblocktrans %}</button>
+<br />
+        <br />
+       <button ng-click="myData.doPrint(item, $event)" class="btn btnLarge">{% blocktrans %}Print your results!{% endblocktrans %}</button>
 <br />
 <br />
-            <p>{% blocktrans %}You can now switch off the Paccotest{% endblocktrans %}</p>
-        <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="ui-btn ui-icon-power ui-btn-icon-right">{% trans "Shutdown Paccotest" %}</button>
+            <!--<p>{% blocktrans %}You can now switch off the Paccotest{% endblocktrans %}</p>-->
+        <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="btn btnLarge">{% trans "Shutdown Paccotest" %}</button>
 
     </div>
 {% endblock %}

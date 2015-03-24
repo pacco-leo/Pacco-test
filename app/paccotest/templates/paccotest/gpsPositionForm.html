@@ -5,23 +5,26 @@
     <div ng-controller="PositionController">
 
         <h1>{% trans "GPS" %}</h1>
+        <br />
+        <br />
         <div ng-hide="myData.fromServer != null">
-            <button ng-click="myData.doClick(item, $event)" class="ui-btn ui-icon-eye ui-btn-icon-right">{% trans "Measure" %}</button>
+            <button ng-click="myData.doClick(item, $event)" class="btn btnLarge">{% trans "Measure" %}</button>
         </div>
 
         <div ng-show="myData.fromServer != null">
-            <ul>
-                <li>{% trans "latitude" %} : <span class="resultdisplay">{[{myData.fromServer.latitude}]}</span></li>
-                <li>{% trans "longitude" %} : <span class="resultdisplay">{[{myData.fromServer.longitude}]}</span></li>
-                <li>{% trans "elevation" %} : <span class="resultdisplay">{[{myData.fromServer.elevation}]}</span></li>
-                <li>{% trans "utc" %} : <span class="resultdisplay">{[{myData.fromServer.utc}]}</span></li>
+            <ul class="resultsGPS">
+                <li>{% trans "latitude" %} : <span class="resultdisplayA">{[{myData.fromServer.latitude}]}</span></li>
+                <li>{% trans "longitude" %} : <span class="resultdisplayA">{[{myData.fromServer.longitude}]}</span></li>
+                <li>{% trans "elevation" %} : <span class="resultdisplayA">{[{myData.fromServer.elevation}]}</span></li>
+                <li>{% trans "utc" %} : <span class="resultdisplayA">{[{myData.fromServer.utc}]}</span></li>
             </ul>
 
             <!-- Filled by AngularJS on Ajax Request -->
             <form method="post" action="{% url 'paccotest:gpsPositionForm' %}">
                 {% csrf_token %}
                 {{ form }}
-                <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="{% trans 'submit' %}" name="{% trans 'submit' %}">{% trans 'submit' %}</button>
+                <br /><br />
+                <button type="submit" class="btn btnLarge" value="{% trans 'submit' %}" name="{% trans 'submit' %}">{% trans 'submit' %}</button>
             </form>
         </div>
 

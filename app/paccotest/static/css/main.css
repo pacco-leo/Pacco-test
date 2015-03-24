@@ -21,17 +21,95 @@ p, h1, h2 {
     width:700px;
 }
 
-.resultdisplay {
-    font-size:25px;
-    font-weight:bold;
+.resultdisplayA {
+        color:#0769AD;
+
+}
+.resultdisplayB {
+        color:#0769AD;
+        font-size:80px;
+}
+#waitingscreen {
+    width:800px;
+    height:450px;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color:rgba(0,0,0,0.8);
+  display:none;
+  z-index:10;
+  text-align:center;
+}
+#waitingscreen img {
+    height:120px;
+    margin-top:160px;
+}
+.btnLarge {
+
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    text-align:center;
+    padding:50px 75px;
+    text-decoration:none;
+    color:black;
+    background-color:white;
+    display:inline-block;
+    border:none;
+}
+.btn {
+    font-size:21px;
+    font-weight:normal;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    text-decoration:none;
+    color:black !important;
+    background-color:white;
+    display:inline-block;
+    text-transform:uppercase;
+}
+.btn:hover {
+    cursor:pointer;
+    background-color:#e5e5e5;
+    border-color:#0769AD;
+    box-shadow: 0 0 20px #0769AD;
+
+}
+.btn:active  {
+    background-color:#d8d8d8;
+    border-color:#0769AD;
+    box-shadow: 0 0 50px #0769AD;
+}
+/* opening */
+.btnPar3 {
+    text-align:center;
+    font-weight:normal;
+}
+.btnPar3 a {
+    width:25%;
+    vertical-align:top;
+    text-align:center;
+    height:80px;
+    padding-top:60px;
+}
+/* GPS */
+.resultsGPS {
+    font-size:21px;
 }
 /* QuestionnaireForm */
+    .btnRadio {
+        padding:30px;
+        margin-bottom:5px;
+    }
+    input[type="radio"] {
+        left:-999em;
+        position:absolute;
+    }
 	.question {
 
 		font-size:25px;
 	}
 	.bigger {
-	    font-size:250%;
+	    font-size:40px;
 	}
 	.tabsNavigation {
 		display:block;
@@ -49,9 +127,11 @@ p, h1, h2 {
 	.tabsNavigation span.active {
 		border-color:#0769AD;
 	}
-	.tabitem{
+	.tabitemTrnstn {
 		-webkit-transition: 1s linear all;
 		transition:1s linear all;
+	}
+	.tabitem{
 		opacity:1;
 		position:absolute;
 		top:30px;
@@ -91,7 +171,4 @@ bottom:15px;
         text-align:center;
         border:1px dotted black;
         padding:20px;
-    }
-    .red {
-        color:#a72424;
     }

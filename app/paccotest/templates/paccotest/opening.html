@@ -4,10 +4,9 @@
 {% block content %}
         <p  style="text-align:center;"><img src="/static/img/logo.png" /></p>
         <br />
-        <ul>
-            <!-- TODO: Create language selection system here-->
-            <li><a class="ui-btn" href="{% url 'paccotest:intro' lg='fr'  %}">continuer en français</a></li>
-            <li><a class="ui-btn" href="{% url 'paccotest:intro' lg='nl' %}">volg in het Nederlands</a></li>
-            <li><a class="ui-btn" href="{% url 'paccotest:intro' lg='en' %}">go on in English</a></li>
-        </ul>
+        <p class="btnPar3" style="text-align:center;">
+           <a class="btn" href="{% url 'paccotest:intro' lg='fr'  %}">Français</a>
+           <a class="btn" href="{% url 'paccotest:intro' lg='nl' %}">Nederlands</a>
+           <a class="btn" href="{% url 'paccotest:intro' lg='en' %}">English</a>
+        </p>
 {% endblock %}

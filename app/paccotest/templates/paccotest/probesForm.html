@@ -14,37 +14,35 @@
 
 	{% for probe in all_probes %}
 	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.id}})" class="tabitem">
-            <h2><span class="bigger">{{ forloop.counter }}</span> / {{ all_probes.count }}</h2>
+            <h2 style="position:fixed;top:3px;right:15px;display:block;text-align:right"><span class="bigger">{{ forloop.counter }}</span>/{{ all_probes.count }}</h2>
             <span style="border:1px dotted black;position:fixed;top:3px;left:3px;padding:7px 15px;">{{ probe.text }}</span>
-	        <div ng-hide="myData.fromServer != null && tab.backToResume == false">
-                 <h2>{% blocktrans with probeName=probe.name %}Put {{probeName}} in water{% endblocktrans %}</h2>
-		        <br />
-	            <a href ng-click="myData.doClick(item, $event,{{ probe.channel }});tab.hideresult()" class="ui-btn ui-icon-eye ui-btn-icon-right">{% trans "measure" %}</a>
+	        <div ng-hide="myData.fromServer != null"></div>
+            <div>
+                 <h2 class="consigne" ng-hide="myData.fromServer != null"  style="position:fixed;bottom:0;left:1%;width:48%;height:200px;text-align:center;font-size:30px;display:table-cell;vertical-align:middle;">{% blocktrans with probeName=probe.name %}Put {{probeName}} in water{% endblocktrans %}</h2>
+	            <a class="btn btnA" href ng-click="myData.doClick(item, $event,{{ probe.channel }});" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;bottom:10px;left:50%;text-decoration:none;color:black;font-size:29px;width:49%;padding-top:130px;height:170px;background-color:rgba(255,255,255,1);text-align:center;">{% trans "measure" %}</a>
 	        </div>
 
-	        <div ng-show="myData.fromServer != null && tab.hideResult == false">
-	            <br />
-                <br />
-                <h2 class="resultat">{% trans "outcome" %} {{ probe.text }} ({{ probe.name }}): <span class="red" id="result_{{probe.channel}}">{[{myData.fromServer}]}</span></h2>
-                <br />
-                <br />
+	        <div ng-show="myData.fromServer != null">
+                <div class="btnB" style="position:fixed;width:100%;left:0;top:50px;font-size:45px;text-align:center;height:140px;padding-top:60px;"
+              <p>  {% trans "outcome" %} {{ probe.text }}:<span class="red" id="result_{{probe.channel}}">{[{myData.fromServer}]}</span></p>
+                </div>
                 <input type="hidden" name="{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">
-	            <a href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">{% trans "proceed" %}</a>
+	            <a class="btnC"  href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;width:49%;left:50%;bottom:0;font-size:29px;text-align:center;height:80px;padding-top:40px;text-decoration:none;color:black;background-color:white;">{% trans "proceed" %}</a>
 	        </div>
 
 	    </div>
 	{% endfor %}
         <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
-            <h1 class=question">{% trans "summary" %}</h1>
+           <span style="border:1px dotted black;position:fixed;top:3px;left:3px;padding:7px 15px;">{% trans "summary" %}</span>
 			<br />
 			{% for probe in all_probes %}
-			<p>
-				{{ probe.name }}:
-                <span ng-click="tab.setTabResume({{forloop.counter}})" class="sdf resultdisplay" id="resume_result_{{probe.channel}}">Null</span>
+			<p class="resultsGPS">
+				{{ probe.text }}:
+                <span ng-click="tab.setTabResume({{forloop.counter}})" class="sdf resultdisplayA" id="resume_result_{{probe.channel}}">Null</span>
             </p>
            	{% endfor %}
 			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />
-            <button type="submit" class="ui-btn ui-icon-arrow-r ui-btn-icon-right" value="Submit" />{% trans "submit" %}</button>
+            <p style="text-align:center;"><input class="btn btnLarge" style="padding:25px;" type="submit" value="{% trans 'proceed' %}" /></p>
         </div>
 </form>
 </div>

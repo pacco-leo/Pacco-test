@@ -17,21 +17,21 @@
              <input ng-hide="tab.isSet({{lastTab}})" id="skipQuestion" data-role="none" type="submit" name="skip" value="> skip all Questions" />
             {% for question in all_questions %}
                 <div ng-show="tab.isSet({{ forloop.counter }})" class="ui-field-contain tabitem">
-                    <h2><span class="bigger">{{ forloop.counter }}</span> / {{ all_questions.count }}</h2>
-                    <h1 class="question">{{ question.text }}</h1>
+                    <h2 style="position:fixed;top:3px;right:15px;display:block;text-align:right;"><span class="bigger">{{ forloop.counter }}</span> / {{ all_questions.count }}</h2>
+                    <h1 class="question" style=text-align:center;margin-top:25px;margin-bottom:25px;">{{ question.text }}</h1>
 			<br />      
-			<fieldset data-role="controlgroup">
+			<fieldset data-role="controlgroup" style="border:none;text-align:center;align:center;">
                         {% for answer in question.answers.all %}
-                        	<div ng-click="tab.nextTab({{forloop.parentloop.counter}},{{ forloop.counter }})">
-                        		<input type="radio" name="{{ question.id}}" id="question{{ question.id}}_answer{{ forloop.counter }}" value="{{ answer.id }}">
+                        	<div class="btn btnRadio" ng-click="tab.nextTab({{forloop.parentloop.counter}},{{ forloop.counter }})">
+                        		<input  type="radio" name="{{ question.id}}" id="question{{ question.id}}_answer{{ forloop.counter }}" value="{{ answer.id }}">
                         		<label for="question{{ question.id}}_answer{{ forloop.counter }}">{{ answer.text }}</label>
                      		</div>
                         {% endfor %}
                     	</fieldset>
                 </div>
             {% endfor %}
-                <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
-	  		<h1 class=question">{% trans "summary" %}</h1>
+                <div class="tabitem tabitemTrsntn" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
+	  		<span style="border:1px dotted black;position:fixed;top:3px;left:3px;padding:7px 15px;">{% trans "summary" %}</span>
 			<br />
 			{% for question in all_questions %}
 			<p>
@@ -42,7 +42,7 @@
             </p>
            	{% endfor %}
 			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />
-			<input  type="submit" value="{% trans 'proceed' %}" />
+			<p style="text-align:center;"><input class="btn btnLarge" style="padding:25px;" type="submit" value="{% trans 'proceed' %}" /></p>
                 </div>
             
         </form>
