@@ -335,6 +335,17 @@ def doPrint(request):
     import paccotest.hardware.logoPaccoTest as logo
 
     printer.printBitmap(logo.width, logo.height, logo.data)
+    gpsValues = request.session['gpsForm']
+    utc_formated = gpsValues["utc"][1:11]+' '+gpsValues["utc"][12:20]
+    latitude = gpsValues["latitude"]
+    longitude = gpsValues["longitude"]
+    elevation = gpsValues["elevation"]
+    printer.println('date&time: ',utc_formated)   
+    printer.println('latitude: ',gpsValues["latitude"])   
+    printer.println('longitude: ',gpsValues["longitude"])   
+    printer.println('elevation: ',gpsValues["elevation"])   
+    
+
     probesValues = request.session['probesValues']
     for key in probesValues:
         line = Probe.objects.get(id=key).name + ': ' + probesValues[key]
@@ -342,6 +353,8 @@ def doPrint(request):
     printer.println('Merci! * Bedankt! * Thank you!')
     printer.println('www.properwater.org')
     printer.println('www.eaupropre.org')
+    printer.println()
+    printer.println()
     printer.println()
     printer.println()
     printer.sleep()
