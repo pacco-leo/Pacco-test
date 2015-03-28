@@ -14,12 +14,12 @@
         <form method="post" action="{% url 'paccotest:questionnaireForm' %}">
 
         {% csrf_token %}
-             <input ng-hide="tab.isSet({{lastTab}})" id="skipQuestion" data-role="none" type="submit" name="skip" value="> skip all Questions" />
+             <input ng-hide="tab.isSet({{lastTab}})" id="skipQuestion" data-role="none" type="submit" name="skip" value="> skip all Questions" class="btnChangePage" />
             {% for question in all_questions %}
                 <div ng-show="tab.isSet({{ forloop.counter }})" class="ui-field-contain tabitem">
                     <h2 style="position:fixed;top:3px;right:15px;display:block;text-align:right;"><span class="bigger">{{ forloop.counter }}</span> / {{ all_questions.count }}</h2>
                     <h1 class="question" style=text-align:center;margin-top:25px;margin-bottom:25px;">{{ question.text }}</h1>
-			<br />      
+			<br />
 			<fieldset data-role="controlgroup" style="border:none;text-align:center;align:center;">
                         {% for answer in question.answers.all %}
                         	<div class="btn btnRadio" ng-click="tab.nextTab({{forloop.parentloop.counter}},{{ forloop.counter }})">
@@ -42,7 +42,7 @@
             </p>
            	{% endfor %}
 			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />
-			<p style="text-align:center;"><input class="btn btnLarge" style="padding:25px;" type="submit" value="{% trans 'proceed' %}" /></p>
+			<p style="text-align:center;"><input class="btn btnLarge btnChangePage" style="padding:25px;" type="submit" value="{% trans 'proceed' %}" /></p>
                 </div>
             
         </form>

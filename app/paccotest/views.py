@@ -227,7 +227,7 @@ def uploadToServerClick(request):
 
 # Called when userUpload to servero server" in the uploadToServer.html page
 def uploadToServerClick(request):
-    
+
     paccoboxid = 0 #      !!!!!!!!!!TO DO :: assign paccobox ID to each box!:
     newSurveys = Survey.objects.filter(uploadedToServer=False)
     uploadedCount = newSurveys.count()
@@ -324,25 +324,33 @@ def doShutdown(request):
     return HttpResponse("Shuting Down Pacco-test", content_type="application/json")
 
 def doPrint(request):
-	print 'start Printing'
-	from paccotest.hardware.probesManagerReal import channelselect
-	channelselect('2')
-	from paccotest.hardware.Adafruit_Thermal import *
-	printer = Adafruit_Thermal("/dev/ttyAMA0", 19200, timeout=5)
-	printer.wake() 
-	import paccotest.hardware.logoPaccoTest as logo
-	printer.printBitmap(logo.width,logo.height,logo.data)
-	probesValues = request.session['probesValues']
-    	for key in probesValues:
-		line=Probe.objects.get(id=key).name +': '+probesValues[key]
-        	printer.println(line)
-	printer.println('Merci! * Bedankt! * Thank you!')
-	printer.println('www.properwater.org')
-	printer.println('www.eaupropre.org')
-	printer.println()
-	printer.println()
-	printer.sleep()
-	print 'end Printing' 
+    print 'start Printing'
+    from paccotest.hardware.probesManagerReal import channelselect
+
+    channelselect('2')
+    from paccotest.hardware.Adafruit_Thermal import *
+
+    printer = Adafruit_Thermal("/dev/ttyAMA0", 19200, timeout=5)
+    printer.wake()
+    import paccotest.hardware.logoPaccoTest as logo
+
+    printer.printBitmap(logo.width, logo.height, logo.data)
+    probesValues = request.session['probesValues']
+    for key in probesValues:
+        line = Probe.objects.get(id=key).name + ': ' + probesValues[key]
+        printer.println(line)
+    printer.println('Merci! * Bedankt! * Thank you!')
+    printer.println('www.properwater.org')
+    printer.println('www.eaupropre.org')
+    printer.println()
+    printer.println()
+    printer.sleep()
+    print 'end Printing'
+
+    return HttpResponse("Print completed", content_type="application/json")
+
+
+
 
 #------JSON Encoder for DateTime------------
 import datetime

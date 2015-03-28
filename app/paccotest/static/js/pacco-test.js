@@ -29,7 +29,7 @@ paccoApp.controller("PositionController", function($scope, $http) {
         });
         responsePromise.error(function(data, status, headers, config) {
             $('#waitingscreen').fadeOut();
-            alert("AJAX failed!");
+            //alert("AJAX failed!");
 
         });
 
@@ -60,7 +60,7 @@ paccoApp.controller("ProbeController", function($scope, $http) {
         });
         responsePromise.error(function(data, status, headers, config) {
             $('#waitingscreen').fadeOut();
-            alert("AJAX failed!");
+            //alert("AJAX failed!");
         });
     }
 
@@ -104,39 +104,59 @@ paccoApp.controller("TabController",function($scope){
 
 paccoApp.controller("UploadToServerController", function($scope, $http) {
 
+
+
     $scope.uploadAnswser = {};
     $scope.shutdownAnswer = {};
     $scope.myData = {};
 
     $scope.uploadAnswser.doUploadClick = function(item, event) {
+        $('#waitingscreen').fadeIn();
         var responsePromise = $http.get("uploadToServerClick");
          //Something like: http://127.0.0.1:8000/paccotest/uploadToServer/uploadToServerClick
 
         responsePromise.success(function(data, status, headers, config) {
             $scope.uploadAnswser.fromServer = data;
-            $("#uploadCountLeft").val($scope.uploadAnswser.fromServer.uploadCountLeft)
+            $("#uploadCountLeft").val($scope.uploadAnswser.fromServer.uploadCountLeft);
+            $('#waitingscreen').fadeOut();
         });
         responsePromise.error(function(data, status, headers, config) {
-            alert("AJAX failed!");
+            //alert("AJAX failed!");
+            $('#waitingscreen').fadeOut();
         });
     }
 
     $scope.shutdownAnswer.doShutdownClick = function(item, event) {
+
+        $('#waitingscreen').fadeIn();
         var responsePromise = $http.get("doShutdown");
          //Something like: http://127.0.0.1:8000/paccotest/uploadToServer/doShutdown
 
         responsePromise.success(function(data, status, headers, config) {
             $scope.shutdownAnswer.fromServer = data;
+            $('#waitingscreen').fadeOut();
         });
         responsePromise.error(function(data, status, headers, config) {
-            alert("AJAX failed!");
+            //alert("AJAX failed!");
+            $('#waitingscreen').fadeOut();
         });
     }
 
     $scope.myData.doPrint = function(item, event) {
+        $('#waitingscreen').fadeIn();
         var responsePromise = $http.get("doPrint");
         //Something like: http://127.0.0.1:8000/paccotest/doPrint
-
+        responsePromise.success(function(data, status, headers, config) {
+            $('#waitingscreen').fadeOut();
+        });
+        responsePromise.error(function(data, status, headers, config) {
+            $('#waitingscreen').fadeOut();
+        });
     }
 
 });
+$('document').ready(function(){
+    $('.btnChangePage').on('click',function(){
+        $('#waitingscreen').fadeIn();
+    });
+})
