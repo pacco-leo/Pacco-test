@@ -203,8 +203,8 @@ def getJsonFromSurvey(surveyID):
     data2 =   serializers.serialize("json", UserAnswer.objects.filter(survey=surveyID), fields=('question','answer'))
     data3 =   serializers.serialize("json", ProbeMeasure.objects.filter(survey=surveyID), fields=('probeType','measure'))
 
-    return data + data2 + data3
-
+    #return data + data2 + data3
+    return '['+data+','+data2+','+data3+']'
 
 
 
