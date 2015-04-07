@@ -7,9 +7,7 @@
         <h1>{% trans "GPS" %}</h1>
         <br />
         <br />
-        <div ng-hide="myData.fromServer != null">
-            <button ng-click="myData.doClick(item, $event)" class="btn btnLarge">{% trans "Measure" %}</button>
-        </div>
+         <a href ng-click="myData.doClick(item, $event)" class="btn btnA">{% trans "Measure" %}</a>
 
         <div ng-show="myData.fromServer != null">
             <ul class="resultsGPS">
@@ -24,7 +22,7 @@
                 {% csrf_token %}
                 {{ form }}
                 <br /><br />
-                <button type="submit" class="btn btnLarge btnChangePage" value="{% trans 'submit' %}" name="{% trans 'submit' %}">{% trans 'button-next' %}</button>
+                <a href type="submit" class="btnC btnChangePage" value="{% trans 'submit' %}" name="{% trans 'submit' %}" style="">{% trans 'button-next' %}</a>
             </form>
         </div>
 
