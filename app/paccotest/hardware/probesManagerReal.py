@@ -18,6 +18,7 @@ class ProbesManagerReal(ProbesManager):
     def getGPSPosition(self):
 	channelselect('0')
 	# a mettre aileurs ? pour eviter le sleepp 3 seconds...
+	os.system('>& killall gpsd')
 	os.system('sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock')
 	time.sleep(3) #time needed for gps-port start
 
