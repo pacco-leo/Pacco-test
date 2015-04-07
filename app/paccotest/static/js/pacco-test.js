@@ -25,6 +25,9 @@ paccoApp.controller("PositionController", function($scope, $http) {
             $("#id_latitude").val($scope.myData.fromServer.latitude);
             $("#id_longitude").val($scope.myData.fromServer.longitude);
             $("#id_utc").val($scope.myData.fromServer.utc);
+            $('.btnA').animate({fontSize:'20px',width:'30%',height:'40px',paddingTop:'20px',left:0,bottom:'50px'});
+            $('.btnC').animate({left:'31%',width:'68%',bottom:'30px'});
+            $('.consigne').css({display:'none'});
             $('#waitingscreen').fadeOut();
         });
         responsePromise.error(function(data, status, headers, config) {
