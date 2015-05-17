@@ -158,6 +158,35 @@ paccoApp.controller("UploadToServerController", function($scope, $http) {
     }
 
 });
+paccoApp.controller("CalibrationController", function($scope, $http) {
+
+    $scope.myData = {};
+    $scope.myData.doClick = function(item, event, probeType, stepID) {
+
+        $('#waitingscreen').fadeIn();
+        var responsePromise = $http.get(stepID);
+        //Something like: http://127.0.0.1:8000/paccotest/calibrate/4/1
+        responsePromise.success(function(data, status, headers, config) {
+            $scope.myData.fromServer = data;
+            //$("#id_measure").val($scope.myData.fromServer)
+            $("#resume_result_"+stepID).text($scope.myData.fromServer);
+            $('.btnA').animate({});
+            $('.btnB').animate({});
+            $('.btnC').animate({left:'31%',width:'68%',bottom:'30px'});
+            $('.consigne').css({display:'none'});
+            $('#waitingscreen').fadeOut();
+        });
+        responsePromise.error(function(data, status, headers, config) {
+
+            $('#waitingscreen').fadeOut();
+            //alert("AJAX failed!");
+        });
+
+    }
+
+
+} );
+
 $('document').ready(function(){
     $('.btnChangePage').on('click',function(){
         $('#waitingscreen').fadeIn();

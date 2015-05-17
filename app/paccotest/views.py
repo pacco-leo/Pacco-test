@@ -7,13 +7,13 @@ from django.utils.translation import activate as translationactivate
 from django.utils.translation import get_language as translationget_language
 from django.utils.translation import LANGUAGE_SESSION_KEY
 
-from paccotest.models import Question, Probe
+from paccotest.models import Question, Probe, CalibrationMemo
 from paccotest.forms import GPSMeasureForm,ProbeMeasureForm
 import json
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
-#from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
-from paccotest.hardware.probesManagerReal import ProbesManagerReal
+from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
+#from paccotest.hardware.probesManagerReal import ProbesManagerReal
 
 # import the logging library
 import logging
@@ -36,7 +36,7 @@ class ProbesManagerFactory:
 
 
 global IS_DEBUGGING
-IS_DEBUGGING = 	False  #Set IS_DEBUGGING for RaspberryPI
+IS_DEBUGGING = 	True  #Set IS_DEBUGGING for RaspberryPI
 
 if IS_DEBUGGING:
     g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();  #For Dummy Probes
@@ -362,8 +362,58 @@ def doPrint(request):
 
     return HttpResponse("Print completed", content_type="application/json")
 
+# Calibration Menu
+def calibrateMenu(request):
+    #all_probes_list = Probe.objects.filter(calibrable=True).order_by('channel')
+    all_probes_list = CalibrationMemo.objects.all().order_by('probeType')
+    return render(request, 'paccotest/calibrateMenu.html',{'all_probes': all_probes_list})
+
+# The Calibration Page
+def calibrate(request,probeType):
+    g_probesMananager.StartCalibrateProbe(probeType)
+    allProbeSteps = CalibrationSteps.objects.filter(probeType=probeType).order_by('probeType','order')
+    lastTab = allProbeSteps.count() + 1
+    return render(request, 'paccotest/calibrate.html',
+                  {'lastTab': lastTab, 'allProbeSteps':allProbeSteps})
+
+def calibrateMeasure(request,probeType,stepID):
+    probeValue = g_probesMananager.calibrateProbe(probeType,stepID)
+    return HttpResponse(probeValue, content_type="application/json")
 
 
+
+def doCalibrationCommand(request,key):
+    calibrateItem = CalibrationSteps.objects.get(id=key)
+    if calibrateItem.tempCompensation==True:
+        writeTemperature()
+    ser.write(calibrateItem.command)
+
+def writeTemperature(self):
+	import glob
+	os.system('modprobe w1-gpio')
+	os.system('modprobe w1-therm')
+	base_dir = '/sys/bus/w1/devices/'
+	device_folder = glob.glob(base_dir + '28*')[0]
+	device_file = device_folder + '/w1_slave'
+	def read_temp_raw():
+		f = open(device_file, 'r')
+		lines = f.readlines()
+		f.close()
+		return lines
+	def read_temp():
+		lines = read_temp_raw()
+		while lines[0].strip()[-3:] != 'YES':
+			time.sleep(0.2)
+			lines = read_temp_raw()
+		equals_pos = lines[1].find('t=')
+		if equals_pos != -1:
+			temp_string = lines[1][equals_pos+2:]
+			temp_c = float(temp_string) / 1000.0
+			#temp_f = temp_c + 9.0 / 5.0 + 32.0
+			return temp_c
+	line = read_temp()
+	#return line
+	ser.write("T,"+line+"\r")
 
 #------JSON Encoder for DateTime------------
 import datetime

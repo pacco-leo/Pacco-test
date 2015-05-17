@@ -1,6 +1,7 @@
 from paccotest.hardware.probesManager import ProbesManager, GPSPosition
 import time
-
+from paccotest.models import Probe, CalibrationSteps, CalibrationMemo
+from datetime import datetime
 ##
 # A Dummy Probes Manager that emulates the real Probes behaviour
 #
@@ -19,3 +20,12 @@ class ProbesManagerDummy(ProbesManager):
         time.sleep(1)
 	from random import randint
         return randint(1,100)
+
+    def StartCalibrateProbe(self,probeType):
+		pass
+
+    def calibrateProbe(self,probeType,stepID):
+        if  stepID=='0':
+            #save datetime of calibration
+            CalibrationMemo.objects.update_or_create(probeType=Probe.objects.get(channel=probeType))
+        return 'OK'

@@ -1,0 +1,47 @@
+{% extends "paccotest/base.html" %}
+
+{% load i18n %}
+{% block content %}
+<div ng-controller="TabController as tab">
+
+	<p class="tabsNavigation">
+	{% for step in allProbeSteps %}
+		<span ng-class="{active:tab.isSet({{step.order}})}"><!--ng-click="tab.setTab({{probe.id}})"-->&nbsp;</span>
+	{% endfor %}
+		<span ng-class="{active:tab.isSet({{lastTab}})}"><!--ng-click="tab.setTab({{lastTab}})"-->&nbsp;</span>
+	</p>
+	{% for step in allProbeSteps %}
+
+	    <div ng-controller="CalibrationController" ng-show="tab.isSet({{step.order}})" class="tabitem">
+
+
+            <h2 style="position:fixed;top:3px;right:15px;display:block;text-align:right"><span class="bigger">{{ forloop.counter }}</span>/{{ allProbeSteps.count }}</h2>
+            <span style="border:1px dotted black;position:fixed;top:3px;left:3px;padding:7px 15px;">{{ step.probeType.name }}</span>
+	        <div ng-hide="myData.fromServer != null"></div>
+            <div>
+                 <h2 class="consigne" ng-hide="myData.fromServer != null"  style="position:fixed;bottom:0;left:1%;width:48%;height:200px;text-align:center;font-size:30px;display:table-cell;vertical-align:middle;">{{step.sentence}}</h2>
+	            <a class="btn btnA" ng-hide="myData.fromServer != null" href ng-click="myData.doClick(item, $event,{{ step.probeType }},{{ step.id }});" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;bottom:10px;left:50%;text-decoration:none;color:black;font-size:29px;width:49%;padding-top:130px;height:170px;background-color:rgba(255,255,255,1);text-align:center;">{% trans "measure" %}</a>
+	        </div>
+
+	        <div ng-show="myData.fromServer != null">
+                <div class="btnB" style="position:fixed;width:100%;left:20px;top:50px;font-size:23px;text-align:left;height:140px;padding-top:60px;"
+             <p>Please make sure that the probe is dry and clean before next step.</p>
+                </div>
+                <input type="hidden" name="{{step.id}}" id="step{{step.id }}" value="{[{myData.fromServer}]}">
+                {% if forloop.counter == allProbeSteps.count %}
+	                 <a class="btnC"  href ng-click="tab.nextTab({{step.order}},{{ forloop.counter }});myData.doClick(item, $event,{{ step.probeType }},'0');" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;width:49%;left:50%;bottom:0;font-size:29px;text-align:center;height:80px;padding-top:40px;text-decoration:none;color:black;background-color:white;">{% trans "button-next" %}</a>
+	            {% else %}
+	                <a class="btnC"  href ng-click="tab.nextTab({{step.order}},{{ forloop.counter }});" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;width:49%;left:50%;bottom:0;font-size:29px;text-align:center;height:80px;padding-top:40px;text-decoration:none;color:black;background-color:white;">{% trans "button-next" %}</a>
+                {% endif %}
+            </div>
+
+	    </div>
+	{% endfor %}
+        <div class="tabitem" ng-show="tab.isSet({{lastTab}})" class="ui-field-contain">
+           <p>The {{step.probeType.name}} probe is now well calibrated.</p>
+			<br />
+            <a class="btn btnLarge btnChangePage" href="{% url 'paccotest:calibrateMenu' %}" style="margin:10px;">Back to calibration Menu</a>
+           <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="btn btnLarge">{% trans "Shutdown Paccotest" %}</button>
+        </div>
+</div>
+{% endblock %}

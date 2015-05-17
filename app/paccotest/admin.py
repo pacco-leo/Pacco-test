@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Question, Answer, Survey, UserAnswer, Probe, ProbeMeasure, PlateformInfo
+from models import Question, Answer, Survey, UserAnswer, Probe, ProbeMeasure, PlateformInfo, CalibrationSteps, CalibrationMemo
 
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -27,11 +27,16 @@ class AnswerAdmin(admin.ModelAdmin):
             #self.exclude.append('text_en')
         return super(AnswerAdmin, self).get_form(request, obj, **kwargs)
 
+
+
+
 # Register your models here.
 admin.site.register(PlateformInfo)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Probe)
+admin.site.register(CalibrationMemo)
+admin.site.register(CalibrationSteps)
 
 # User values
 admin.site.register(Survey)

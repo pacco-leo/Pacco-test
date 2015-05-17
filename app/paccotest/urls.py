@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     url(r'^probesForm/$', views.probesForm, name='probesForm'),
     url(r'^complete/$', views.complete, name='complete'),
     url(r'^uploadToServer/$', views.uploadToServer, name='uploadToServer'),
+    url(r'^calibrate/$', views.calibrateMenu, name='calibrateMenu'),
+    url(r'^calibrate/(?P<probeType>[0-9]+)/$', views.calibrate, name='calibrate'),
+
 
     #Ajax
     url(r'^gpsPositionForm/gpsPosition/$', views.gpsPosition, name='gpsPosition'),
@@ -21,5 +24,6 @@ urlpatterns = patterns('',
     url(r'^uploadToServer/uploadToServerClick/$', views.uploadToServerClick, name='uploadToServerClick'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
     url(r'^uploadToServer/doShutdown/$', views.doShutdown, name='doShutdown'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
     url(r'^complete/doShutdown/$', views.doShutdown, name='doShutdown'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
-    url(r'^complete/doPrint/$', views.doPrint, name='doPrint'),  
+    url(r'^complete/doPrint/$', views.doPrint, name='doPrint'),
+    url(r'^calibrate/(?P<probeType>[0-9]+)/(?P<stepID>[0-9]+)/$', views.calibrateMeasure, name='calibrateMeasure'),
 )

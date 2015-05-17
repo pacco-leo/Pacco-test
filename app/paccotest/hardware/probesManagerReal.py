@@ -1,8 +1,9 @@
 from paccotest.hardware.probesManager import ProbesManager, GPSPosition
-from paccotest.models import Probe
+from paccotest.models import Probe, CalibrationSteps, CalibrationMemo
 import serial, RPi.GPIO as GPIO
 import os, time, threading
 import gps
+from datetime import datetime
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -141,10 +142,58 @@ class ProbesManagerReal(ProbesManager):
 				line = line + data
 				print 'working...'
 
+    ##
+    # Calibrate probes
+    #
+    def StartCalibrateProbe(self,probeType):
+		channelselect(probeChannel)
+		import serial
+		usbport='/dev/ttyAMA0'
+		ser = serial.Serial(usbport,9600)
+		ser.flushInput()
+		ser.flushOutput()
+        time.sleep(.5)
+        ser.write("wake\r")
+        time.sleep(.5)
+        ser.write("Cal,clear\r")
+    def calibrateProbe(self,probeType,stepID):
+        if  stepID=='0':
+            #verfier si tout s'est bien passé
+            allProbeSteps = CalibrationSteps.objects.filter(probeType=probeType)
+            nbSteps=allProbeSteps.count()
+            ser = serial.Serial('/dev/ttyAMA0',9600)
+            ser.write("Cal,?\r")
+            while True:
+                data=ser.read()
+                if(data == "\r"):
+                    creturn = line
+                    print creturn
+                    line = ""
+                    break
+                else:
+                    line = line + data
+            if (creturn == '?CAL,'+str(nbSteps)):
+                #tout est OK
+                #save datetime of calibration
+                calibrationMemo.objects.create(probeType=probeType,
+                                        date_calibration=datetime.now())
+                #put EZO circuit of the probe to SLEEP
+                time.sleep(.5)
+                ser.write("SLEEP\r")
+                time.sleep(.5)
+                return 'The probe has been well calibrated.'
+            else: #error
+                return 'Something went wrong. Please do the calibration one more time.'
+
+        ser = serial.Serial('/dev/ttyAMA0',9600)
+        step = CalibrationSteps.objects.get(id=stepID)
+        time.sleep(step.delay)
+        ser.write(step.command+"\r")
+        #print(step.command+"\r")
+        return 'OK'
 
 def port():
 	GPIO.setmode(GPIO.BOARD)
-	
 	GPIO.setup(16,GPIO.OUT)
 	GPIO.setup(18,GPIO.OUT)
 	GPIO.setup(22,GPIO.OUT)

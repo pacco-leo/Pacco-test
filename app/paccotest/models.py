@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 class PlateformInfo(models.Model):
@@ -36,11 +37,14 @@ class Question(models.Model):
 class Probe(models.Model):
     name = models.CharField(max_length=200)
     text = models.CharField('text',max_length=200)
-    channel = models.IntegerField()
+    channel = models.IntegerField(primary_key=True)
+    calibrable = models.BooleanField(default=True)
     order = models.IntegerField()
 
+    #def __unicode__(self):
+    #    return self.name + " , " + str(self.channel)
     def __unicode__(self):
-        return self.name + " , " + str(self.channel)
+        return str(self.channel)
 
 #A ProbeType
 # class ProbeType(models.Model):
@@ -83,6 +87,23 @@ class ProbeMeasure(models.Model):
 # -------------- /User Values Related Classes --------------
 
 
+# Calibration
+class CalibrationSteps(models.Model):
+    probeType = models.ForeignKey(Probe)
+    sentence = models.CharField('sentence',max_length=300)
+    command =  models.CharField('command',max_length=300)
+    delay = models.IntegerField()
+    tempCompensation = models.BooleanField(default=False)
+    order = models.IntegerField()
 
+    def __unicode__(self):
+        return str(self.probeType) + "---" + str(self.order) + " : " + self.sentence
 
+# Calibration
+class CalibrationMemo(models.Model):
+    probeType = models.ForeignKey(Probe,unique=True)
+    date_calibration = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return str(self.probeType)
 
