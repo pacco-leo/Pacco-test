@@ -7,27 +7,27 @@
 	 {% csrf_token %}
 	<p class="tabsNavigation">
 	{% for probe in all_probes %}
-		<span ng-class="{active:tab.isSet({{probe.id}})}"><!--ng-click="tab.setTab({{probe.id}})"-->&nbsp;</span>
+		<span ng-class="{active:tab.isSet({{probe.order}})}"><!--ng-click="tab.setTab({{probe.order}})"-->&nbsp;</span>
 	{% endfor %}
 		<span ng-class="{active:tab.isSet({{lastTab}})}"><!--ng-click="tab.setTab({{lastTab}})"-->&nbsp;</span>
 	</p>
 
 	{% for probe in all_probes %}
-	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.id}})" class="tabitem">
+	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.order}})" class="tabitem">
             <h2 style="position:fixed;top:3px;right:15px;display:block;text-align:right"><span class="bigger">{{ forloop.counter }}</span>/{{ all_probes.count }}</h2>
             <span style="border:1px dotted black;position:fixed;top:3px;left:3px;padding:7px 15px;">{{ probe.text }}</span>
 	        <div ng-hide="myData.fromServer != null"></div>
             <div>
                  <h2 class="consigne" ng-hide="myData.fromServer != null"  style="position:fixed;bottom:0;left:1%;width:48%;height:200px;text-align:center;font-size:30px;display:table-cell;vertical-align:middle;">{% blocktrans with probeName=probe.name %}Put {{probeName}} in water{% endblocktrans %}</h2>
-	            <a class="btn btnA" href ng-click="myData.doClick(item, $event,{{ probe.channel }});" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;bottom:10px;left:50%;text-decoration:none;color:black;font-size:29px;width:49%;padding-top:130px;height:170px;background-color:rgba(255,255,255,1);text-align:center;">{% trans "measure" %}</a>
+	            <a class="btn btnA" href ng-click="myData.doClick(item, $event,{{ probe.order }});" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;bottom:10px;left:50%;text-decoration:none;color:black;font-size:29px;width:49%;padding-top:130px;height:170px;background-color:rgba(255,255,255,1);text-align:center;">{% trans "measure" %}</a>
 	        </div>
 
 	        <div ng-show="myData.fromServer != null">
-                <div class="btnB" style="position:fixed;width:100%;left:0;top:50px;font-size:45px;text-align:center;height:140px;padding-top:60px;"
-              <p>  {% trans "outcome" %} {{ probe.text }}:<span class="red" id="result_{{probe.channel}}">{[{myData.fromServer}]}</span></p>
+                <div class="btnB" style="position:fixed;width:100%;left:0;top:50px;font-size:45px;text-align:center;height:140px;padding-top:60px;">
+              <p>  {% trans "outcome" %} {{ probe.text }}:<span class="red" id="result_{{probe.order}}">{[{myData.fromServer}]}</span></p>
                 </div>
                 <input type="hidden" name="{{probe.id}}" id="probe{{probe.id}}" value="{[{myData.fromServer}]}">
-	            <a class="btnC"  href ng-click="tab.nextTab({{probe.id}},{{ forloop.counter }})" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;width:49%;left:50%;bottom:0;font-size:29px;text-align:center;height:80px;padding-top:40px;text-decoration:none;color:black;background-color:white;">{% trans "proceed" %}</a>
+	            <a class="btnC"  href ng-click="tab.nextTab({{probe.order}},{{ forloop.counter }})" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;width:49%;left:50%;bottom:0;font-size:29px;text-align:center;height:80px;padding-top:40px;text-decoration:none;color:black;background-color:white;">{% trans "proceed" %}</a>
 	        </div>
 
 	    </div>
@@ -38,7 +38,7 @@
 			{% for probe in all_probes %}
 			<p class="resultsGPS">
 				{{ probe.text }}:
-                <span ng-click="tab.setTabResume({{forloop.counter}})" class="sdf resultdisplayA" id="resume_result_{{probe.channel}}">Null</span>
+                <span ng-click="tab.setTabResume({{forloop.counter}})" class="sdf resultdisplayA" id="resume_result_{{probe.order}}">Null</span>
             </p>
            	{% endfor %}
 			<input type="hidden" id="lastTabValue" value="{{lastTab}}" />

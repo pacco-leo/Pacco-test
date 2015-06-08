@@ -71,7 +71,7 @@ paccoApp.controller("ProbeController", function($scope, $http) {
 } );
 
 paccoApp.controller("TabController",function($scope){
-	this.tab = 1;
+	this.tab = 1; /*TO CHANGE GET === GET FIRST VALUE...*/
 	this.backToResume = false;
 	this.lastTab = parseInt($('#lastTabValue').val());
 	this.setTab = function(newValue){
