@@ -4,7 +4,7 @@
 {% block content %}
 Be careful, once you have clicked on one of the button below you'll have to go all the way to THE END of the process otherwise the probe won't be calibrated anymore.<br /><br />
 {% for probe in all_probes %}
-<a class="btn btnLarge btnChangePage" href="{% url 'paccotest:calibrate' probeType=probe.probeType.channel %}" style="margin:5px;width:190px;padding:15px;">{{probe.probeType.name}}<br /><span style="font-size:13px;">last calibration:<br />{{probe.date_calibration}}</span></a>
+<a class="btn btnLarge btnChangePage" href="{% url 'paccotest:calibrate' probeType=probe.probeType.pk %}" style="margin:5px;width:190px;padding:15px;">{{probe.probeType.name}}<br /><span style="font-size:13px;">last calibration:<br />{{probe.date_calibration}}</span></a>
 {% endfor %}
 <span ng-controller="UploadToServerController">
     <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="btn btnLarge" style="margin:5px;margin-left:240px;width:190px;padding:15px;"><br />SHUTDOWN<br /><br /></button>

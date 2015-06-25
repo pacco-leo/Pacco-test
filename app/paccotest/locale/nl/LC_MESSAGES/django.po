@@ -3,31 +3,59 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-19 16:53+0000\n"
+"POT-Creation-Date: 2015-06-25 13:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/paccotest/complete.html:7
+#: templates/paccotest/calibrate.html:23
+#: templates/paccotest/probesForm.html:22
+msgid "measure"
+msgstr "test"
+
+#: templates/paccotest/calibrate.html:32 templates/paccotest/calibrate.html:34
+#: templates/paccotest/gpsPositionForm.html:25
+#: templates/paccotest/intro.html:10
+msgid "button-next"
+msgstr "verder"
+
+#: templates/paccotest/calibrate.html:44 templates/paccotest/complete.html:32
+#: templates/paccotest/uploadToServer.html:23
+msgid "Shutdown Paccotest"
+msgstr "Zet Pacco-test af"
+
+#: templates/paccotest/complete.html:5
+msgid "Résultats Pacco-test"
+msgstr "Conclusies Pacco-test"
+
+#: templates/paccotest/complete.html:11
+msgid "La meilleure utilisation de cette eau est pour :"
+msgstr "Dit water kan best gebruikt worden voor:"
+
+#: templates/paccotest/complete.html:16
+msgid "Elle peut aussi être utilisée pour :"
+msgstr "Het kan eveneens gebruikt worden voor"
+
+#: templates/paccotest/complete.html:23
+msgid "Cette eau ne devrait pas être utilisée."
+msgstr "Dit water past in geen enkele categorie"
+
+#: templates/paccotest/complete.html:27
 msgid "Merci de votre participation"
 msgstr "Dank je voor het bijdragen aan het Pacco-test!"
 
-#: templates/paccotest/complete.html:9
+#: templates/paccotest/complete.html:30
 msgid "Print your results!"
 msgstr "Print de resultaten"
 
-#: templates/paccotest/complete.html:12
+#: templates/paccotest/complete.html:31
 msgid "You can now switch off the Paccotest"
-msgstr "Je kan nu de Paccotest uitschakelen"
-
-#: templates/paccotest/complete.html:13
-#: templates/paccotest/uploadToServer.html:23
-msgid "Shutdown Paccotest"
-msgstr "Zet Paccotest af"
+msgstr "Je kan nu de Pacco-test uitschakelen"
 
 #: templates/paccotest/form.html:23
 msgid "first step"
@@ -38,8 +66,7 @@ msgid "prev step"
 msgstr ""
 
 #: templates/paccotest/form.html:26
-#: templates/paccotest/gpsPositionForm.html:24
-#: templates/paccotest/probesForm.html:47
+#: templates/paccotest/gpsPositionForm.html:25
 msgid "submit"
 msgstr "verder"
 
@@ -47,9 +74,9 @@ msgstr "verder"
 msgid "GPS"
 msgstr ""
 
-#: templates/paccotest/gpsPositionForm.html:9
+#: templates/paccotest/gpsPositionForm.html:10
 msgid "Measure"
-msgstr "verder"
+msgstr "GPS-positie bepalen"
 
 #: templates/paccotest/gpsPositionForm.html:14
 msgid "latitude"
@@ -61,7 +88,7 @@ msgstr "lengte"
 
 #: templates/paccotest/gpsPositionForm.html:16
 msgid "elevation"
-msgstr "elevatie"
+msgstr "hoogte"
 
 #: templates/paccotest/gpsPositionForm.html:17
 msgid "utc"
@@ -73,31 +100,24 @@ msgstr ""
 
 #: templates/paccotest/intro.html:7
 msgid "Welcome to the Pacco-Test"
-msgstr "Welkom op het Pacco-test"
+msgstr "Welkom op de Pacco-test"
 
-#: templates/paccotest/intro.html:8
-msgid "button-next"
-msgstr "verder"
-
-#: templates/paccotest/probesForm.html:20
+#: templates/paccotest/probesForm.html:21
 #, python-format
 msgid "Put %(probeName)s in water"
-msgstr "Plaats de %(probeName)s sonde in de water en druk onder om te testen"
+msgstr "Plaats de %(probeName)s sonde in het water en druk onder om te testen"
 
-#: templates/paccotest/probesForm.html:22
-msgid "measure"
-msgstr "test"
-
-#: templates/paccotest/probesForm.html:28
+#: templates/paccotest/probesForm.html:27
 msgid "outcome"
 msgstr "resultaat"
 
-#: templates/paccotest/probesForm.html:32
-#: templates/paccotest/questionnaireForm.html:46
+#: templates/paccotest/probesForm.html:30
+#: templates/paccotest/probesForm.html:45
+#: templates/paccotest/questionnaireForm.html:45
 msgid "proceed"
 msgstr "verder"
 
-#: templates/paccotest/probesForm.html:38
+#: templates/paccotest/probesForm.html:36
 #: templates/paccotest/questionnaireForm.html:34
 msgid "summary"
 msgstr "overzicht"
@@ -118,6 +138,31 @@ msgstr "Upload to server"
 #: templates/paccotest/uploadToServer.html:29
 msgid "try again"
 msgstr ""
+
+#: views.py:393
+msgid "Datas:"
+msgstr "Datas:"
+
+#: views.py:399
+msgid "Results:"
+msgstr "Conclusies Pacco-test"
+
+#: views.py:404
+msgid "water best used for: "
+msgstr "Dit water kan best gebruikt worden voor"
+
+#: views.py:406
+msgid "water could be used for : "
+msgstr "Het kan eveneens gebruikt worden voor"
+
+#: views.py:418
+msgid "water should not be"
+msgstr "Dit water past in geen enkele categorie"
+
+#, fuzzy
+#~| msgid "Welcome to the Pacco-Test"
+#~ msgid "Welcome to my site."
+#~ msgstr "Welkom op het Pacco-test"
 
 #, fuzzy
 #~| msgid "%(question.title)s"

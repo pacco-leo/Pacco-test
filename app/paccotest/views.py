@@ -7,7 +7,7 @@ from django.utils.translation import activate as translationactivate
 from django.utils.translation import get_language as translationget_language
 from django.utils.translation import LANGUAGE_SESSION_KEY
 
-from paccotest.models import Question, Probe, CalibrationMemo
+from paccotest.models import Question, Probe, CalibrationMemo, WaterCategoriesValue
 from paccotest.forms import GPSMeasureForm,ProbeMeasureForm
 import json
 
@@ -119,9 +119,7 @@ def probesForm(request):
     form = forms.Form(request.POST or None, initial=initial)
 
     if request.method == 'POST':
-
         if form.is_valid():   #Useless!
-
             if 'probesValues' not in request.session:
                 request.session['probesValues'] = {}
 
@@ -131,7 +129,6 @@ def probesForm(request):
                 if i != "csrfmiddlewaretoken":  #TODO: Make it cleaner
                     #print 'I have been passed the following keys: ',i, ' and value:',request.POST[i]
                     request.session['probesValues'][i] = request.POST[i]
-
             print request.session['probesValues']  #DEBUG
 
             # if 'probesValues' not in request.session:
@@ -142,8 +139,8 @@ def probesForm(request):
             #
             #     print request.session['probesValues']  #DEBUG
 
-            return HttpResponseRedirect(reverse('paccotest:complete'))
 
+            return HttpResponseRedirect(reverse('paccotest:complete'))
     return render(request, 'paccotest/probesForm.html',
                   {'all_probes': all_probes_list, 'lastTab': lastTab, 'form': form})
 
@@ -155,7 +152,10 @@ def complete(request):
     gpsValues = request.session['gpsForm']
     questionnaireValues = request.session['questionnaireValues']
     probesValues = request.session['probesValues']
-
+    print gpsValues
+    print questionnaireValues
+    print 'probesvalues===='
+    print probesValues  #DEBUG
     utc_formated = gpsValues["utc"][1:11]+' '+gpsValues["utc"][12:20]
 
     #Save GPS Values
@@ -179,7 +179,52 @@ def complete(request):
 
     #print(request.session.keys())   #DEBUG: Print all the keys
 
-    context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues)}
+    #print(request.session.keys())
+    #print(request.session['probesValues'])
+    #all_WaterCategories_list = WaterCategories.objects.all()
+    #all_surveyProbeMeasures_list = ProbeMeasure.objects.all().filter(survey = survey)
+
+    all_WaterCategorie_list = WaterCategorie.objects.all().order_by('order')
+    #probeMeasures_list = ProbeMeasure.objects.get(survey_id='61')
+
+    waterCategorieGoodtoUse_list = []
+
+    for waterCategorie in all_WaterCategorie_list:
+        watercategorieOK = True
+
+        #print waterCategorie.text
+        #for probe in probeMeasures_list:
+        probesValues = request.session['probesValues']
+        #print probesValues
+        for key in probesValues:
+            probe = Probe.objects.get(id=key)
+            if probe.criterable == True:
+                #print key
+                #item = WaterCategoriesValue.objects.get(waterCategorie=waterCategorie,probeType=probe.probeType_id)
+                item = WaterCategoriesValue.objects.get(waterCategorie=waterCategorie,probeType=Probe.objects.get(id=key))
+                #print 'max'+str(item.valueMax)
+                #print 'min'+str(item.valueMin)
+                #print 'prVal'+probesValues[key]
+                if item.valueMax >= int(probesValues[key]) >= item.valueMin:
+                    #print waterCategorie.text+': MAYBE'
+                    pass
+                else:
+                    print waterCategorie.text+': NON'
+                    watercategorieOK = False
+                    break
+        if watercategorieOK == True:
+            print waterCategorie.text+': OUI'
+            #waterCategorieGoodtoUse_list.append(waterCategorie.text)
+            waterCategorieGoodtoUse_list.append(waterCategorie.id)
+
+
+    #print 'eau bonne pour:'
+    #print waterCategorieGoodtoUse_list
+    #print ', '.join(waterCategorieGoodtoUse_list)
+    waterCat_list = []
+    for i in waterCategorieGoodtoUse_list:
+        waterCat_list.append(all_WaterCategorie_list[i].text)
+    context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues),'waterCategorieslist':waterCat_list}
     return render(request, 'paccotest/complete.html', context)
 
 
@@ -323,7 +368,7 @@ def doShutdown(request):
     #-------
     return HttpResponse("Shuting Down Pacco-test", content_type="application/json")
 
-def doPrint(request):
+def doPrint(request, datas=False):
     print 'start Printing'
     from paccotest.hardware.probesManagerReal import channelselect
 
@@ -345,11 +390,34 @@ def doPrint(request):
     printer.println('longitude: ',gpsValues["longitude"])   
     printer.println('elevation: ',gpsValues["elevation"])   
     
-
+    printer.println(_('Datas:'))
     probesValues = request.session['probesValues']
     for key in probesValues:
         line = Probe.objects.get(id=key).name + ': ' + probesValues[key]
         printer.println(line)
+
+    printer.println(_('Results:'))
+    if datas.lenght > 0 :
+        for item in datas:
+            counter=1
+            if counter == 1 :
+                printer.println(_("water best used for: ")+item)
+            elif counter == 2 :
+                phrase=_("water could be used for : ")
+                phrase=phrase+item
+                if counter < datas.length :
+                    phrase=phrase+', '
+                printer.println(phrase)
+            else :
+                phrase=item
+                if counter < datas.length :
+                    phrase=phrase+', '
+                printer.println(phrase)
+        counter += 1
+    else :
+        printer.println(_("water should not be"))
+
+    printer.println()
     printer.println('Merci! * Bedankt! * Thank you!')
     printer.println('www.properwater.org')
     printer.println('www.eaupropre.org')

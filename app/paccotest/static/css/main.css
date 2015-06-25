@@ -1,6 +1,13 @@
 * {
 	margin:0;
 	padding:0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
 }
 ul {
     list-style:none;
@@ -88,11 +95,10 @@ p, h1, h2 {
 	bottom:0;
 	font-size:29px;
 	text-align:center;
-	height:80px;
-	padding-top:40px;
 	text-decoration:none;
 	color:black;
 	background-color:white;
+	text-transform:uppercase;
 }
 .btnA {
 	-moz-border-radius: 15px;

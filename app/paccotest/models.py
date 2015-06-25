@@ -37,8 +37,9 @@ class Question(models.Model):
 class Probe(models.Model):
     name = models.CharField(max_length=200)
     text = models.CharField('text',max_length=200)
-    channel = models.IntegerField(primary_key=True)
+    channel = models.IntegerField()
     calibrable = models.BooleanField(default=True)
+    criterable = models.BooleanField(default=True) # if True will be use to categorize Water type
     order = models.IntegerField()
 
     #def __unicode__(self):
@@ -107,3 +108,20 @@ class CalibrationMemo(models.Model):
     def __unicode__(self):
         return str(self.probeType)
 
+#Water categories
+class WaterCategorie(models.Model):
+    name = models.CharField(max_length=200)
+    text = models.CharField('text',max_length=200)
+    order = models.IntegerField()
+
+    def __unicode__(self):
+        return str(self.name)
+
+class WaterCategoriesValue(models.Model):
+    waterCategorie = models.ForeignKey(WaterCategorie)
+    probeType = models.ForeignKey(Probe)
+    valueMax = models.DecimalField(max_digits=10, decimal_places=2)
+    valueMin = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __unicode__(self):
+        return str(self.waterCategorie)+'/'+str(self.probeType)

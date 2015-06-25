@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Question, Answer, Survey, UserAnswer, Probe, ProbeMeasure, PlateformInfo, CalibrationSteps, CalibrationMemo
+from models import Question, Answer, Survey, UserAnswer, Probe, ProbeMeasure, PlateformInfo, CalibrationSteps, CalibrationMemo, WaterCategorie, WaterCategoriesValue
 
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -37,6 +37,8 @@ admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Probe)
 admin.site.register(CalibrationMemo)
 admin.site.register(CalibrationSteps)
+admin.site.register(WaterCategorie)
+admin.site.register(WaterCategoriesValue)
 
 # User values
 admin.site.register(Survey)

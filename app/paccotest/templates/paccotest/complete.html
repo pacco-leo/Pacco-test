@@ -1,17 +1,35 @@
 {% extends "paccotest/base.html" %}
-
 {% load i18n %}
 {% block content %}
-
     <div ng-controller="UploadToServerController" style="text-align:center;">
-            <h1>{% blocktrans %}Merci de votre participation{% endblocktrans %}</h1>
-<br />
+        <h1>{% blocktrans %}Résultats Pacco-test{% endblocktrans %}</h1>
         <br />
-       <button ng-click="myData.doPrint(item, $event)" class="btn btnLarge">{% blocktrans %}Print your results!{% endblocktrans %}</button>
-<br />
-<br />
+        <p>
+       {% if waterCategorieslist|length >= 1 %}
+    {% for item in waterCategorieslist %}
+        {% if forloop.counter == 1 %}
+            {% blocktrans %}La meilleure utilisation de cette eau est pour :{% endblocktrans %}
+            <strong>{{ item }}</strong>
+            <br />
+        {% elif forloop.counter == 2 %}
+            <br />
+            {% blocktrans %}Elle peut aussi être utilisée pour :{% endblocktrans %}
+            <strong>{{ item }}</strong>{% if forloop.counter < waterCategorieslist|length %}, {% endif %}
+        {% else %}
+             <strong>{{ item }}</strong>{% if forloop.counter < waterCategorieslist|length %}, {% endif %}
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% blocktrans %}Cette eau ne devrait pas être utilisée.{% endblocktrans %}<br />
+{%endif %}
+            </p>
+            <br />
+            <h2>{% blocktrans %}Merci de votre participation{% endblocktrans %}</h2>
+
+        <br />
+       <button ng-click="myData.doPrint(item, $event, {{waterCategorieslist}})" class="btn btnLarge" style="width:300px;">{% blocktrans %}Print your results!{% endblocktrans %}</button>
             <!--<p>{% blocktrans %}You can now switch off the Paccotest{% endblocktrans %}</p>-->
-        <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="btn btnLarge">{% trans "Shutdown Paccotest" %}</button>
+        <button ng-click="shutdownAnswer.doShutdownClick(item, $event)" class="btn btnLarge" style="width:300px;">{% trans "Shutdown Paccotest" %}</button>
 
     </div>
 {% endblock %}

@@ -96,7 +96,8 @@ LANGUAGES = (
 
 USE_L10N = True
 
-USE_TZ = True
+#USE_TZ = True
+USE_TZ = False #modified on 2015-06-24
 
 
 # Static files (CSS, JavaScript, Images)

@@ -3,30 +3,58 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-19 16:53+0000\n"
+"POT-Creation-Date: 2015-06-25 13:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/paccotest/complete.html:7
+#: templates/paccotest/calibrate.html:23
+#: templates/paccotest/probesForm.html:22
+msgid "measure"
+msgstr "Measure"
+
+#: templates/paccotest/calibrate.html:32 templates/paccotest/calibrate.html:34
+#: templates/paccotest/gpsPositionForm.html:25
+#: templates/paccotest/intro.html:10
+msgid "button-next"
+msgstr "Proceed"
+
+#: templates/paccotest/calibrate.html:44 templates/paccotest/complete.html:32
+#: templates/paccotest/uploadToServer.html:23
+msgid "Shutdown Paccotest"
+msgstr "Shutdown Pacco-test"
+
+#: templates/paccotest/complete.html:5
+msgid "Résultats Pacco-test"
+msgstr "Conclusion Pacco-test"
+
+#: templates/paccotest/complete.html:11
+msgid "La meilleure utilisation de cette eau est pour :"
+msgstr "This water is best used for:"
+
+#: templates/paccotest/complete.html:16
+msgid "Elle peut aussi être utilisée pour :"
+msgstr "It may also be used for:"
+
+#: templates/paccotest/complete.html:23
+msgid "Cette eau ne devrait pas être utilisée."
+msgstr "This water fits none of the categories."
+
+#: templates/paccotest/complete.html:27
 msgid "Merci de votre participation"
 msgstr "Thank you for contributing to the Pacco-test!"
 
-#: templates/paccotest/complete.html:9
+#: templates/paccotest/complete.html:30
 msgid "Print your results!"
-msgstr "Print the results of your test!"
+msgstr "Print the results"
 
-#: templates/paccotest/complete.html:12
+#: templates/paccotest/complete.html:31
 msgid "You can now switch off the Paccotest"
-msgstr "You can now switch off the Paccotest"
-
-#: templates/paccotest/complete.html:13
-#: templates/paccotest/uploadToServer.html:23
-msgid "Shutdown Paccotest"
-msgstr "Shutdown Paccotest"
+msgstr "You can now switch off the Pacco-test"
 
 #: templates/paccotest/form.html:23
 msgid "first step"
@@ -37,8 +65,7 @@ msgid "prev step"
 msgstr "Previous stepp"
 
 #: templates/paccotest/form.html:26
-#: templates/paccotest/gpsPositionForm.html:24
-#: templates/paccotest/probesForm.html:47
+#: templates/paccotest/gpsPositionForm.html:25
 msgid "submit"
 msgstr "Submit"
 
@@ -46,7 +73,7 @@ msgstr "Submit"
 msgid "GPS"
 msgstr "GPS"
 
-#: templates/paccotest/gpsPositionForm.html:9
+#: templates/paccotest/gpsPositionForm.html:10
 msgid "Measure"
 msgstr "Measure"
 
@@ -74,30 +101,23 @@ msgstr "Intro"
 msgid "Welcome to the Pacco-Test"
 msgstr "Welcome to the Pacco-Test"
 
-
-#: templates/paccotest/intro.html:8
-msgid "button-next"
-msgstr "Proceed"
-
-#: templates/paccotest/probesForm.html:20
+#: templates/paccotest/probesForm.html:21
 #, python-format
 msgid "Put %(probeName)s in water"
-msgstr "Place the probe %(probeName)s in the water and press the button below to test"
+msgstr ""
+"Place the %(probeName)s probe in the water and press the button below to test"
 
-#: templates/paccotest/probesForm.html:22
-msgid "measure"
-msgstr "Measure"
-
-#: templates/paccotest/probesForm.html:28
+#: templates/paccotest/probesForm.html:27
 msgid "outcome"
 msgstr "Outcome"
 
-#: templates/paccotest/probesForm.html:32
-#: templates/paccotest/questionnaireForm.html:46
+#: templates/paccotest/probesForm.html:30
+#: templates/paccotest/probesForm.html:45
+#: templates/paccotest/questionnaireForm.html:45
 msgid "proceed"
 msgstr "Proceed"
 
-#: templates/paccotest/probesForm.html:38
+#: templates/paccotest/probesForm.html:36
 #: templates/paccotest/questionnaireForm.html:34
 msgid "summary"
 msgstr "Summary"
@@ -118,6 +138,26 @@ msgstr "Upload to server"
 #: templates/paccotest/uploadToServer.html:29
 msgid "try again"
 msgstr ""
+
+#: views.py:393
+msgid "Datas:"
+msgstr "Datas:"
+
+#: views.py:399
+msgid "Results:"
+msgstr "Conclusion:"
+
+#: views.py:404
+msgid "water best used for: "
+msgstr "his water is best used for:"
+
+#: views.py:406
+msgid "water could be used for : "
+msgstr "It may also be used for:"
+
+#: views.py:418
+msgid "water should not be"
+msgstr "This water fits none of the categories."
 
 #, fuzzy
 #~| msgid "%(question.title)s"
