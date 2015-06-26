@@ -11,6 +11,15 @@ GPIO.setup(16,GPIO.OUT)
 GPIO.setup(18,GPIO.OUT)
 GPIO.setup(22,GPIO.OUT)
 
+
+
+#TRY 27 juin 2015
+usbport="/dev/ttyAMA0"
+ser = serial.Serial(usbport,9600)
+
+
+
+
 ##
 # A Probes Manager for the real-world probes
 #
@@ -105,20 +114,26 @@ class ProbesManagerReal(ProbesManager):
 		line = read_temp()
 		return line	
 	else:
-		#port()
+		#port()	
 		channelselect(probeChannel)
-		import serial
-		usbport='/dev/ttyAMA0'
-		ser = serial.Serial(usbport,9600)
-		ser.flushInput()
-		ser.flushOutput()
-		ser.write("L,1\r")
+		########usbport='/dev/ttyAMA0'
+		########ser = serial.Serial(usbport,9600)
+		########ser.flushInput()
+		########ser.flushOutput()
+		time.sleep(.5)
+		#ser.write("L,1\r")
+		ser.write("WAKEUP!\r")
 		ser.write("C,1\r")
 		line=""
+		counterLoop=20	
 		#sensorOK=0
 		while True:
 			data=ser.read()
-			if(data == "\r" and line == '*OK'):
+			if(data== "\r" and counterLoop>0):
+				counterLoop -= 1
+				print line
+				line=""
+			elif(data == "\r" and line == '*OK'):
 				line=""
 				print 'redo'
 			elif(data == "\r" and line == '*ER'):
@@ -135,37 +150,58 @@ class ProbesManagerReal(ProbesManager):
 				#	sensorOK=1
 				#line = ""
 				print "Received from sensor:" + line
+				ser.write("C,0\r")
+				ser.write("RESPONSE,0\r")
+				time.sleep(.5)
+				ser.write("SLEEP\r")
+				time.sleep(.5)
 				return line
-				line = ""
 				break
 			else:
 				line = line + data
 				print 'working...'
+		time.sleep(.5)
+		ser.write("SLEEP\r")
+		time.sleep(.5)
 
     ##
     # Calibrate probes
     #
     def StartCalibrateProbe(self,probeType):
-		channelselect(probeChannel)
-		import serial
-		usbport='/dev/ttyAMA0'
-		ser = serial.Serial(usbport,9600)
-		ser.flushInput()
-		ser.flushOutput()
-        time.sleep(.5)
-        ser.write("wake\r")
-        time.sleep(.5)
-        ser.write("Cal,clear\r")
+        probe=Probe.objects.get(pk=probeType)
+	channelselect(str(probe.channel))
+	#########import serial
+	#########usbport='/dev/ttyAMA0'
+	#########ser = serial.Serial(usbport,9600)
+	#########ser.flushInput()
+	#########ser.flushOutput()
+	time.sleep(.5)
+	ser.write("wake\r")
+	time.sleep(.5)
+        ser.write("C,0\r")
+	ser.write("Cal,clear\r")
     def calibrateProbe(self,probeType,stepID):
         if  stepID=='0':
-            #verfier si tout s'est bien passé
+            print 'step 000'
+            #verfier si tout s'est bien pass
             allProbeSteps = CalibrationSteps.objects.filter(probeType=probeType)
             nbSteps=allProbeSteps.count()
-            ser = serial.Serial('/dev/ttyAMA0',9600)
+            if probeType=='4':
+                nbSteps=nbSteps-1
+            print 'nbsteps='+str(nbSteps)
+            ########ser = serial.Serial('/dev/ttyAMA0',9600)
+            ser.write("WAKE UP\r")
             ser.write("Cal,?\r")
+            ser.write("Cal,?\r")
+            line=""
+            print 'rr'
             while True:
                 data=ser.read()
-                if(data == "\r"):
+                if(data == "\r" and line.startswith('*')):
+                    print line
+                    line=""
+		    ser.write("Cal,?\r")
+		elif(data == "\r"):
                     creturn = line
                     print creturn
                     line = ""
@@ -175,22 +211,26 @@ class ProbesManagerReal(ProbesManager):
             if (creturn == '?CAL,'+str(nbSteps)):
                 #tout est OK
                 #save datetime of calibration
-                calibrationMemo.objects.create(probeType=probeType,
-                                        date_calibration=datetime.now())
+                CalibrationMemo.objects.update_or_create(probeType=probeType)
                 #put EZO circuit of the probe to SLEEP
                 time.sleep(.5)
                 ser.write("SLEEP\r")
                 time.sleep(.5)
+                print 'well done'
                 return 'The probe has been well calibrated.'
             else: #error
-                return 'Something went wrong. Please do the calibration one more time.'
-
-        ser = serial.Serial('/dev/ttyAMA0',9600)
-        step = CalibrationSteps.objects.get(id=stepID)
-        time.sleep(step.delay)
-        ser.write(step.command+"\r")
-        #print(step.command+"\r")
-        return 'OK'
+                print 'error'
+        else :
+               #######ser = serial.Serial('/dev/ttyAMA0',9600)
+               step = CalibrationSteps.objects.get(id=stepID)
+               print 'OOOOOO'
+               #time.sleep(step.delay)
+               ser.write('WAKE\r')
+               time.sleep(.5)
+               ser.write(step.command+"\r")
+               print 'ICI'
+               print(step.command+"\r")
+               return 'OK'
 
 def port():
 	GPIO.setmode(GPIO.BOARD)
@@ -252,7 +292,10 @@ def channelselect(cs):
     #return [A,B,C]
     #Matt: commented
     #GPIO.cleanup()
-
+    ser.flushInput()
+    ser.flushOutput()
     GPIO.output(16,A) #S2
     GPIO.output(18,B) #S1
     GPIO.output(22,C) #S0
+    ser.flushInput()	
+    ser.flushOutput()

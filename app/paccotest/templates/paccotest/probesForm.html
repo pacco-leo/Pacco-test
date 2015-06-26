@@ -19,7 +19,7 @@
 	        <div ng-hide="myData.fromServer != null"></div>
             <div>
                  <h2 class="consigne" ng-hide="myData.fromServer != null"  style="position:fixed;bottom:0;left:1%;width:48%;height:200px;text-align:center;font-size:30px;display:table-cell;vertical-align:middle;">{% blocktrans with probeName=probe.name %}Put {{probeName}} in water{% endblocktrans %}</h2>
-	            <a class="btn btnA" href ng-click="myData.doClick(item, $event,{{ probe.pk }});" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;bottom:10px;left:50%;text-decoration:none;color:black;font-size:29px;width:49%;padding-top:130px;height:170px;background-color:rgba(255,255,255,1);text-align:center;">{% trans "measure" %}</a>
+	            <a class="btn btnA" href ng-click="myData.doClick(item, $event,{{ probe.channel }});" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;bottom:10px;left:50%;text-decoration:none;color:black;font-size:29px;width:49%;padding-top:130px;height:170px;background-color:rgba(255,255,255,1);text-align:center;">{% trans "measure" %}</a>
 	        </div>
 
 	        <div ng-show="myData.fromServer != null">
