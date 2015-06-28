@@ -17,14 +17,28 @@ GPIO.setup(22,GPIO.OUT)
 usbport="/dev/ttyAMA0"
 ser = serial.Serial(usbport,9600)
 
-
-
-
 ##
 # A Probes Manager for the real-world probes
 #
 #
 class ProbesManagerReal(ProbesManager):
+
+    def allProbesToSleep(self):
+       listeProbes = ['4','5','6','7']
+       for i in listeProbes:
+            channelselect(i)
+            ser.write("C,0\r")
+            ser.write("C,0\r")
+            ser.write("RESPONSE,0\r")
+            time.sleep(.5)
+            ser.write("SLEEP\r")
+            time.sleep(.5)
+       channelselect('0')
+       ser.write('x\r\n')
+       time.sleep(.5)
+       ser.write('$PMTK161,0*28\r\n')
+       time.sleep(.5)
+
     def getGPSPosition(self):
 	channelselect('0')
 	# a mettre aileurs ? pour eviter le sleepp 3 seconds...
@@ -151,9 +165,9 @@ class ProbesManagerReal(ProbesManager):
 				#	sensorOK=1
 				#line = ""
 				print "Received from sensor:" + line
-				#ser.write("C,0\r")
-				#ser.write("RESPONSE,0\r")
 				result=line
+				ser.write("C,0\r")
+				ser.write("RESPONSE,0\r")
 				time.sleep(.5)
 				ser.write("SLEEP\r")
 				time.sleep(.5)

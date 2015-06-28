@@ -51,6 +51,7 @@ else:
 
 # The Opening Page
 def opening(request):
+    g_probesMananager.allProbesToSleep()
     return render(request, 'paccotest/opening.html')
 
 # The Intro Page
