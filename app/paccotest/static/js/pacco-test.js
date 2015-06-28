@@ -145,9 +145,9 @@ paccoApp.controller("UploadToServerController", function($scope, $http) {
         });
     }
 
-    $scope.myData.doPrint = function(item, event) {
+    $scope.myData.doPrint = function(item, event,datas) {
         $('#waitingscreen').fadeIn();
-        var responsePromise = $http.get("doPrint");
+        var responsePromise = $http.get("doPrint/"+datas);
         //Something like: http://127.0.0.1:8000/paccotest/doPrint
         responsePromise.success(function(data, status, headers, config) {
             $('#waitingscreen').fadeOut();

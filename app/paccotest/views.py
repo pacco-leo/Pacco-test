@@ -10,6 +10,7 @@ from django.utils.translation import LANGUAGE_SESSION_KEY
 from paccotest.models import Question, Probe, CalibrationMemo, WaterCategoriesValue
 from paccotest.forms import GPSMeasureForm,ProbeMeasureForm
 import json
+import unicodedata
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
 #from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
@@ -205,7 +206,7 @@ def complete(request):
                 #print 'max'+str(item.valueMax)
                 #print 'min'+str(item.valueMin)
                 #print 'prVal'+probesValues[key]
-                if item.valueMax >= int(probesValues[key]) >= item.valueMin:
+                if item.valueMax >= float(probesValues[key]) >= item.valueMin:
                     #print waterCategorie.text+': MAYBE'
                     pass
                 else:
@@ -222,9 +223,11 @@ def complete(request):
     #print waterCategorieGoodtoUse_list
     #print ', '.join(waterCategorieGoodtoUse_list)
     waterCat_list = []
+    waterCat_listinString = '0'
     for i in waterCategorieGoodtoUse_list:
         waterCat_list.append(all_WaterCategorie_list[i].text)
-    context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues),'waterCategorieslist':waterCat_list}
+        waterCat_listinString = waterCat_listinString+'--'+all_WaterCategorie_list[i].id
+    context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues),'waterCategorieslist':waterCat_list,'waterCategories_listinString':waterCat_listinString}
     return render(request, 'paccotest/complete.html', context)
 
 
@@ -368,7 +371,7 @@ def doShutdown(request):
     #-------
     return HttpResponse("Shuting Down Pacco-test", content_type="application/json")
 
-def doPrint(request, datas=False):
+def doPrint(request, datas):
     print 'start Printing'
     from paccotest.hardware.probesManagerReal import channelselect
 
@@ -395,22 +398,26 @@ def doPrint(request, datas=False):
     for key in probesValues:
         line = Probe.objects.get(id=key).name + ': ' + probesValues[key]
         printer.println(line)
-
+    
+    datas = datas.split('-')
     printer.println(_('Results:'))
-    if datas.lenght > 0 :
+    if len(datas) > 1 :
+	datas.pop(0)
+	counter = 1
         for item in datas:
-            counter=1
+            waterCategorie=WaterCategorie.objects.get(pk=int(item))
+            waterCategorie=remove_accents(waterCategorie.text)
             if counter == 1 :
-                printer.println(_("water best used for: ")+item)
+                printer.println(_("water best used for: ")+waterCategorie)
             elif counter == 2 :
                 phrase=_("water could be used for : ")
-                phrase=phrase+item
-                if counter < datas.length :
+                phrase=phrase+waterCategorie
+                if counter < len(datas) :
                     phrase=phrase+', '
                 printer.println(phrase)
             else :
-                phrase=item
-                if counter < datas.length :
+                phrase=waterCategorie
+                if counter < len(datas) :
                     phrase=phrase+', '
                 printer.println(phrase)
         counter += 1
@@ -429,6 +436,9 @@ def doPrint(request, datas=False):
     print 'end Printing'
 
     return HttpResponse("Print completed", content_type="application/json")
+
+def remove_accents(string):
+    return ''.join(c for c in unicodedata.normalize('NFD',string) if unicodedata.category(c) != 'Mn')
 
 # Calibration Menu
 def calibrateMenu(request):

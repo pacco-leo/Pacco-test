@@ -87,8 +87,8 @@ class ProbesManagerReal(ProbesManager):
     ##
     # Get values form probes
     #
-    def getProbeValue(self, probeChannel):
-	if probeChannel == '15': #temperature is not on muxdemux
+    def getProbeValue(self, probeID):
+	if probeID == '5': #temperature is not on muxdemux
 		import glob
 		os.system('modprobe w1-gpio')
 		os.system('modprobe w1-therm')
@@ -114,7 +114,8 @@ class ProbesManagerReal(ProbesManager):
 		line = read_temp()
 		return line	
 	else:
-		#port()	
+		#port()
+		probeChannel = str(Probe.objects.get(pk=probeID).channel)
 		channelselect(probeChannel)
 		########usbport='/dev/ttyAMA0'
 		########ser = serial.Serial(usbport,9600)
@@ -125,7 +126,7 @@ class ProbesManagerReal(ProbesManager):
 		ser.write("WAKEUP!\r")
 		ser.write("C,1\r")
 		line=""
-		counterLoop=20	
+		counterLoop=5	
 		#sensorOK=0
 		while True:
 			data=ser.read()
@@ -150,19 +151,20 @@ class ProbesManagerReal(ProbesManager):
 				#	sensorOK=1
 				#line = ""
 				print "Received from sensor:" + line
-				ser.write("C,0\r")
-				ser.write("RESPONSE,0\r")
+				#ser.write("C,0\r")
+				#ser.write("RESPONSE,0\r")
+				result=line
 				time.sleep(.5)
 				ser.write("SLEEP\r")
 				time.sleep(.5)
-				return line
+				return result
 				break
 			else:
 				line = line + data
 				print 'working...'
-		time.sleep(.5)
-		ser.write("SLEEP\r")
-		time.sleep(.5)
+		#time.sleep(.5)
+		#ser.write("SLEEP\r")
+		#time.sleep(.5)
 
     ##
     # Calibrate probes

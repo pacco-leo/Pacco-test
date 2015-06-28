@@ -143,7 +143,7 @@ msgstr ""
 
 #: views.py:393
 msgid "Datas:"
-msgstr "Données :"
+msgstr "Donnees :"
 
 #: views.py:399
 msgid "Results:"
@@ -155,11 +155,11 @@ msgstr "La meilleure utilisation de cette eau est pour :"
 
 #: views.py:406
 msgid "water could be used for : "
-msgstr "Elle peut aussi être utilisée pour :"
+msgstr "Elle peut aussi etre utilisee pour :"
 
 #: views.py:418
 msgid "water should not be"
-msgstr "Cette eau n'entre dans aucune catégorie."
+msgstr "Cette eau n'entre dans aucune categorie."
 
 #, fuzzy
 #~| msgid "Welcome to the Pacco-Test"

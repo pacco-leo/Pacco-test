@@ -24,6 +24,6 @@ urlpatterns = patterns('',
     url(r'^uploadToServer/uploadToServerClick/$', views.uploadToServerClick, name='uploadToServerClick'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
     url(r'^uploadToServer/doShutdown/$', views.doShutdown, name='doShutdown'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
     url(r'^complete/doShutdown/$', views.doShutdown, name='doShutdown'),  #Ex: http://127.0.0.1:8000/paccotest/probeMeasure/ph/
-    url(r'^complete/doPrint/$', views.doPrint, name='doPrint'),
+    url(r'^complete/doPrint/(?P<datas>.+)$', views.doPrint, name='doPrint'),
     url(r'^calibrate/(?P<probeType>[0-9]+)/(?P<stepID>[0-9]+)/$', views.calibrateMeasure, name='calibrateMeasure'),
 )

@@ -104,8 +104,7 @@ msgstr "Welcome to the Pacco-Test"
 #: templates/paccotest/probesForm.html:21
 #, python-format
 msgid "Put %(probeName)s in water"
-msgstr ""
-"Place the %(probeName)s probe in the water and press the button below to test"
+msgstr "Place the %(probeName)s probe in the water and press the button below to test"
 
 #: templates/paccotest/probesForm.html:27
 msgid "outcome"
