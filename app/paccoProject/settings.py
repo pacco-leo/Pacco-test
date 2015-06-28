@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-STATIC_ROOT = "/var/www/example.com/static/"
+STATIC_ROOT = "/var/www/paccotest/static/"
 
 
 # Quick-start development settings - unsuitable for production
