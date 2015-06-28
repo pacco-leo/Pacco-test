@@ -12,8 +12,6 @@ from paccotest.forms import GPSMeasureForm,ProbeMeasureForm
 import json
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
-#from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
-from paccotest.hardware.probesManagerReal import ProbesManagerReal
 
 # import the logging library
 import logging
@@ -39,8 +37,10 @@ global IS_DEBUGGING
 IS_DEBUGGING = False  #Set IS_DEBUGGING for RaspberryPI
 
 if IS_DEBUGGING:
+    from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
     g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();  #For Dummy Probes
 else:
+    from paccotest.hardware.probesManagerReal import ProbesManagerReal
     g_probesMananager = ProbesManagerFactory.make_realProbesManager();  #For Real Probes
 
 

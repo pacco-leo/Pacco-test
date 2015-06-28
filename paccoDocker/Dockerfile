@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y most\
 					 python-dev \
 					 gpsd \
 					 gpsd-clients \
-					 python-gps \
+					 python-gps 
 					 #matchbox-window-manager \
 					 #unclutter \
 					 #chromium \
@@ -54,10 +54,14 @@ WORKDIR /home/pi/Pacco-test/
 #RUN /home/pi/Pacco-test/djangoEnv/linux/bin/pip install -r requirements.txt
 RUN pip install -r /home/pi/Pacco-test/requirements.txt
 
+# Put DEBUG MODE 'ON'
+RUN sed -i "s/IS_DEBUGGING = False/IS_DEBUGGING = True/g" /home/pi/Pacco-test/app/paccotest/views.py
+
+
 ADD files/scripts/run.sh /run.sh
 RUN chmod a+x /run.sh 
 EXPOSE 22 80
-ENTRYPOINT ["/run.sh"]
+#ENTRYPOINT ["/run.sh"]
 
 
 
