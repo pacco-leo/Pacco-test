@@ -53,6 +53,9 @@ ENV PACCO_DIR=/home/pi/Pacco-test/app
 WORKDIR /home/pi/Pacco-test/
 #RUN /home/pi/Pacco-test/djangoEnv/linux/bin/pip install -r requirements.txt
 RUN pip install -r /home/pi/Pacco-test/requirements.txt
+RUN /home/pi/Pacco-test/app/manage.py makemigrations
+RUN /home/pi/Pacco-test/app/manage.py syncdb --noinput
+RUN /home/pi/Pacco-test/app/manage.py loaddata updateDB.json
 
 # Put DEBUG MODE 'ON'
 RUN sed -i "s/IS_DEBUGGING = False/IS_DEBUGGING = True/g" /home/pi/Pacco-test/app/paccotest/views.py

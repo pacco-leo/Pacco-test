@@ -16,4 +16,6 @@ pip-delete-this-directory.txt
 *.log
 .idea/
 
+*~
+
 virtualEnv/osx/
