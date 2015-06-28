@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y most\
 					 python-dev \
 					 gpsd \
 					 gpsd-clients \
-					 python-gps 
+					 python-gps
 					 #matchbox-window-manager \
 					 #unclutter \
 					 #chromium \
@@ -25,8 +25,8 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 
-RUN pip install Django==1.7 \
-		django-modeltranslation
+# RUN pip install Django==1.7 \
+#		django-modeltranslation
 
 # SUPERVISOR
 RUN chmod 777 /var/log/gunicorn
@@ -61,7 +61,7 @@ RUN sed -i "s/IS_DEBUGGING = False/IS_DEBUGGING = True/g" /home/pi/Pacco-test/ap
 ADD files/scripts/run.sh /run.sh
 RUN chmod a+x /run.sh 
 EXPOSE 22 80
-#ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["/run.sh"]
 
 
 
