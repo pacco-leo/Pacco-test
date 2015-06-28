@@ -1,6 +1,7 @@
 
 Django==1.7
 RPi.GPIO==0.5.11
+pyserial==2.7
 argparse==1.2.1
 ## FIXME: could not find svn URL in dependency_links for this package:
 distribute>=0.6
