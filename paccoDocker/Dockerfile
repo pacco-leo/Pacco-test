@@ -49,16 +49,22 @@ RUN apt-get install -y curl netcat nano
 
 # GIT
 RUN git clone https://github.com/pacco-leo/Pacco-test/ /home/pi/Pacco-test/
-ENV PACCO_DIR=/home/pi/Pacco-test/app
 WORKDIR /home/pi/Pacco-test/
+# SWITCHING TO BRANCH OF TEST !
+RUN git checkout origin/nomigrate
+
+ENV PACCO_DIR=/home/pi/Pacco-test/app
 #RUN /home/pi/Pacco-test/djangoEnv/linux/bin/pip install -r requirements.txt
 RUN pip install -r /home/pi/Pacco-test/requirements.txt
-RUN /home/pi/Pacco-test/app/manage.py makemigrations
-RUN /home/pi/Pacco-test/app/manage.py syncdb --noinput
-RUN /home/pi/Pacco-test/app/manage.py loaddata updateDB.json
+RUN mkdir -p /var/www/paccotest/static
+RUN chmod 755 /var/www/paccotest/static
+RUN $PACCO_DIR/manage.py collectstatic
+RUN $PACCO_DIR/manage.py makemigrations
+RUN $PACCO_DIR/manage.py migrate
+RUN $PACCO_DIR/manage.py loaddata updateDB.json
 
 # Put DEBUG MODE 'ON'
-RUN sed -i "s/IS_DEBUGGING = False/IS_DEBUGGING = True/g" /home/pi/Pacco-test/app/paccotest/views.py
+RUN sed -i "s/IS_DEBUGGING = False/IS_DEBUGGING = True/g" $PACCO_DIR/paccotest/views.py
 
 
 ADD files/scripts/run.sh /run.sh
