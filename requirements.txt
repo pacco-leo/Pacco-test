@@ -1,3 +1,4 @@
+
 Django==1.7
 RPi.GPIO==0.5.11
 argparse==1.2.1
@@ -5,7 +6,7 @@ argparse==1.2.1
 distribute>=0.6
 django-modeltranslation==0.8
 #gps>=3.6
-mcpi==0.1.1
+#mcpi==0.1.1
 numpy==1.6.2
 picamera==1.9
 pifacecommon==4.1.2
