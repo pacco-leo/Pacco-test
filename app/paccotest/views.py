@@ -13,8 +13,6 @@ import json
 import unicodedata
 
 from paccotest.hardware.probesManager import GPSPosition, ProbesManager
-#from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
-from paccotest.hardware.probesManagerReal import ProbesManagerReal
 
 # import the logging library
 import logging
@@ -40,8 +38,10 @@ global IS_DEBUGGING
 IS_DEBUGGING = False  #Set IS_DEBUGGING for RaspberryPI
 
 if IS_DEBUGGING:
+    from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
     g_probesMananager = ProbesManagerFactory.make_dummyProbesManager();  #For Dummy Probes
 else:
+    from paccotest.hardware.probesManagerReal import ProbesManagerReal
     g_probesMananager = ProbesManagerFactory.make_realProbesManager();  #For Real Probes
 
 
@@ -241,6 +241,23 @@ def uploadToServer(request):
 
     print(uploadedCount);
     return render(request, 'paccotest/uploadToServer.html', {'newSurveysCount':uploadedCount})
+
+###
+# get Raspberry PI unique identifier
+###
+def getRPIserial():
+  # Extract serial from cpuinfo file
+  cpuserial = "0000000000000000"
+  try:
+    f = open('/proc/cpuinfo','r')
+    for line in f:
+      if line[0:6]=='Serial':
+        cpuserial = line[10:26]
+    f.close()
+  except:
+    cpuserial = "ERROR000000000"
+
+  return cpuserial
 #--------------------- /CRON ----------------------------------
 
 #Return a JSON from all user data for survey "surveyID"
@@ -276,7 +293,7 @@ def uploadToServerClick(request):
 # Called when userUpload to servero server" in the uploadToServer.html page
 def uploadToServerClick(request):
 
-    paccoboxid = 0 #      !!!!!!!!!!TO DO :: assign paccobox ID to each box!:
+    paccoboxid = getRPIserial() 
     newSurveys = Survey.objects.filter(uploadedToServer=False)
     uploadedCount = newSurveys.count()
 
