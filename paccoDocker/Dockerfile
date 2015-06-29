@@ -15,10 +15,10 @@ RUN apt-get update && apt-get install -y most\
 					 gpsd \
 					 gpsd-clients \
 					 python-gps
-					 #matchbox-window-manager \
-					 #unclutter \
-					 #chromium \
-					 #x11-xserver-utils 
+					 matchbox-window-manager \
+					 unclutter \
+					 chromium \
+					 x11-xserver-utils 
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
@@ -56,9 +56,10 @@ RUN git checkout origin/nomigrate
 ENV PACCO_DIR=/home/pi/Pacco-test/app
 #RUN /home/pi/Pacco-test/djangoEnv/linux/bin/pip install -r requirements.txt
 RUN pip install -r /home/pi/Pacco-test/requirements.txt
+# Create a common static dir for all assets (admin and normal)
 RUN mkdir -p /var/www/paccotest/static
 RUN chmod 755 /var/www/paccotest/static
-RUN $PACCO_DIR/manage.py collectstatic
+RUN $PACCO_DIR/manage.py collectstatic --noinput
 RUN $PACCO_DIR/manage.py makemigrations
 RUN $PACCO_DIR/manage.py migrate
 RUN $PACCO_DIR/manage.py loaddata updateDB.json
