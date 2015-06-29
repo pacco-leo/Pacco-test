@@ -9,6 +9,9 @@ from datetime import datetime
 #
 class ProbesManagerDummy(ProbesManager):
 
+    def allProbesToSleep(self):
+	pass
+
     def initGPIO( self ):
         pass
 

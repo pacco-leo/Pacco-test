@@ -35,7 +35,7 @@ class ProbesManagerFactory:
 
 
 global IS_DEBUGGING
-IS_DEBUGGING = False  #Set IS_DEBUGGING for RaspberryPI
+IS_DEBUGGING = True  #Set IS_DEBUGGING for RaspberryPI
 
 if IS_DEBUGGING:
     from paccotest.hardware.probesManagerDummy import ProbesManagerDummy
@@ -227,7 +227,7 @@ def complete(request):
     waterCat_listinString = '0'
     for i in waterCategorieGoodtoUse_list:
         waterCat_list.append(all_WaterCategorie_list[i].text)
-        waterCat_listinString = waterCat_listinString+'--'+all_WaterCategorie_list[i].id
+        waterCat_listinString = waterCat_listinString+'--'+str(all_WaterCategorie_list[i].id)
     context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues),'waterCategorieslist':waterCat_list,'waterCategories_listinString':waterCat_listinString}
     return render(request, 'paccotest/complete.html', context)
 

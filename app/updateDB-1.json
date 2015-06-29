@@ -1,0 +1,1004 @@
+[  
+   {  
+      "fields":{  
+         "text":"yes",
+         "text_nl":"ja",
+         "order":0,
+         "text_en":"yes",
+         "text_fr":"oui"
+      },
+      "model":"paccotest.answer",
+      "pk":1
+   },
+   {  
+      "fields":{  
+         "text":"no",
+         "text_nl":"neen",
+         "order":0,
+         "text_en":"no",
+         "text_fr":"non"
+      },
+      "model":"paccotest.answer",
+      "pk":2
+   },
+   {  
+      "fields":{  
+         "text":"0-1 bucket",
+         "text_nl":"0-1 emmer",
+         "order":1,
+         "text_en":"0-1 bucket",
+         "text_fr":"0-1 seau"
+      },
+      "model":"paccotest.answer",
+      "pk":13
+   },
+   {  
+      "fields":{  
+         "text":"1-20 buckets",
+         "text_nl":"1-20 emmers",
+         "order":2,
+         "text_en":"1-20 buckets",
+         "text_fr":"1-20 seaux"
+      },
+      "model":"paccotest.answer",
+      "pk":14
+   },
+   {  
+      "fields":{  
+         "text":"20-50 buckets",
+         "text_nl":"20-50 emmers",
+         "order":3,
+         "text_en":"20-50 buckets",
+         "text_fr":"20-50 seaux"
+      },
+      "model":"paccotest.answer",
+      "pk":15
+   },
+   {  
+      "fields":{  
+         "text":"more than 50 buckets",
+         "text_nl":"meer dan 50 emmers",
+         "order":4,
+         "text_en":"more than 50 buckets",
+         "text_fr":"plus de 50 seaux"
+      },
+      "model":"paccotest.answer",
+      "pk":16
+   },
+   {  
+      "fields":{  
+         "text":"summer-like",
+         "text_nl":"zomers",
+         "order":1,
+         "text_en":"summer-like",
+         "text_fr":"estivales"
+      },
+      "model":"paccotest.answer",
+      "pk":17
+   },
+   {  
+      "fields":{  
+         "text":"winter-like",
+         "text_nl":"winters",
+         "order":4,
+         "text_en":"winter-like",
+         "text_fr":"hivernales"
+      },
+      "model":"paccotest.answer",
+      "pk":18
+   },
+   {  
+      "fields":{  
+         "text":"spring-like",
+         "text_nl":"lente",
+         "order":3,
+         "text_en":"spring-like",
+         "text_fr":"printani\u00e8res"
+      },
+      "model":"paccotest.answer",
+      "pk":19
+   },
+   {  
+      "fields":{  
+         "text":"autumn-like",
+         "text_nl":"herfstig",
+         "order":2,
+         "text_en":"autumn-like",
+         "text_fr":"automnales"
+      },
+      "model":"paccotest.answer",
+      "pk":20
+   },
+   {  
+      "fields":{  
+         "text":"Is the basin from which the sample was taken more than 50 cm deep ?",
+         "text_en":"Is the basin from which the sample was taken more than 50 cm deep ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Is het bassin waarin het staal werd genomen dieper dan 50cm?",
+         "actif":true,
+         "order":3,
+         "text_fr":"Est-ce que l'endroit o\u00f9 l'echantillon a \u00e9t\u00e9 pr\u00e9lev\u00e9 est plus profond que 50cm?"
+      },
+      "model":"paccotest.question",
+      "pk":1
+   },
+   {  
+      "fields":{  
+         "text":"Was the sample taken in a hard/stone/concrete basin ?",
+         "text_en":"Was the sample taken in a hard/stone/concrete basin ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Is het staal genomen in een verharde/stenen/betonnen bassin?",
+         "actif":true,
+         "order":1,
+         "text_fr":"L'\u00e9chantillon est-il pris dans un bassin \u00e9tanche/b\u00e9tonn\u00e9/en pierre ?"
+      },
+      "model":"paccotest.question",
+      "pk":3
+   },
+   {  
+      "fields":{  
+         "text":"Was it running water ?",
+         "text_en":"Was it running water ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Gaat het om stromend water?",
+         "actif":true,
+         "order":2,
+         "text_fr":"S'agit-il d'eau qui s'\u00e9coule ?"
+      },
+      "model":"paccotest.question",
+      "pk":4
+   },
+   {  
+      "fields":{  
+         "text":"Could you see the bottom ?",
+         "text_en":"Could you see the bottom ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Kan je de bodem zien?",
+         "actif":true,
+         "order":4,
+         "text_fr":"Peux-tu voir le fond ?"
+      },
+      "model":"paccotest.question",
+      "pk":5
+   },
+   {  
+      "fields":{  
+         "text":"Could you see waste in the water (of non-natural origin) ?",
+         "text_en":"Could you see waste in the water (of non-natural origin) ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Zie je afval in het water (niet-natuurlijke oorsprong)?",
+         "actif":true,
+         "order":5,
+         "text_fr":"Vois-tu des d\u00e9chets  (d'origine non-naturelle)  dans l'eau ?"
+      },
+      "model":"paccotest.question",
+      "pk":6
+   },
+   {  
+      "fields":{  
+         "text":"Could you see biological waste in the water (leaves, branches) ?",
+         "text_en":"Could you see biological waste in the water (leaves, branches) ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Zie je biologisch afval in het water (bladeren, takken enz)?",
+         "actif":true,
+         "order":6,
+         "text_fr":"Vois-tu des d\u00e9ch\u00eats biologiques dans l'eau (feuilles, branches, etc.) ?"
+      },
+      "model":"paccotest.question",
+      "pk":7
+   },
+   {  
+      "fields":{  
+         "text":"Can you see life in or on the water (plants, fish, birds, insects) ?",
+         "text_en":"Can you see life in or on the water (plants, fish, birds, insects) ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Zie je leven in of op het water (planten, vissen, vogels, insecten)?",
+         "actif":true,
+         "order":7,
+         "text_fr":"Vois-tu de la vie dans l'eau (plantes, poissons, oiseaux, insectes) ?"
+      },
+      "model":"paccotest.question",
+      "pk":8
+   },
+   {  
+      "fields":{  
+         "text":"Does the water have a remarkable smell ?",
+         "text_en":"Does the water have a remarkable smell ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Heeft het water een uitgesproken geur?",
+         "actif":true,
+         "order":8,
+         "text_fr":"L'eau a-t-elle une odeur prononc\u00e9e ?"
+      },
+      "model":"paccotest.question",
+      "pk":9
+   },
+   {  
+      "fields":{  
+         "text":"Does the water have a remarkable colour ?",
+         "text_en":"Does the water have a remarkable colour ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Heeft het water een uitgesproken kleur?",
+         "actif":true,
+         "order":9,
+         "text_fr":"L'eau a-t-elle une couleur prononc\u00e9e ?"
+      },
+      "model":"paccotest.question",
+      "pk":10
+   },
+   {  
+      "fields":{  
+         "text":"Is the water used for recreational purposes ?",
+         "text_en":"Is the water used for recreational purposes ?",
+         "answers":[  
+            1,
+            2
+         ],
+         "text_nl":"Wordt het water gebruikt voor recreatie?",
+         "actif":true,
+         "order":10,
+         "text_fr":"L'eau est-elle utilis\u00e9e \u00e0 des fins r\u00e9cr\u00e9atives ?"
+      },
+      "model":"paccotest.question",
+      "pk":11
+   },
+   {  
+      "fields":{  
+         "text":"What was the volume of the water of which the sample was taken ?",
+         "text_en":"What was the volume of the water of which the sample was taken ?",
+         "answers":[  
+            13,
+            14,
+            15,
+            16
+         ],
+         "text_nl":"Hoe groot is het volume van de plaats waar de staal genomen is?",
+         "actif":true,
+         "order":11,
+         "text_fr":"Quel volume a l'endroit o\u00f9 l'echantillon a \u00e9t\u00e9 pr\u00e9lev\u00e9 ?"
+      },
+      "model":"paccotest.question",
+      "pk":12
+   },
+   {  
+      "fields":{  
+         "text":"What were weather conditions like when you took the sample ?",
+         "text_en":"What were weather conditions like when you took the sample ?",
+         "answers":[  
+            17,
+            18,
+            19,
+            20
+         ],
+         "text_nl":"Welke zijn de weersomstandigheden tijdens het nemen van het staal?",
+         "actif":true,
+         "order":12,
+         "text_fr":"Quelles sont les conditions m\u00e9t\u00e9orologiques au moment du pr\u00e9l\u00e8vement ?"
+      },
+      "model":"paccotest.question",
+      "pk":13
+   },
+{  
+      "fields":{  
+         "name":"PH",
+         "text":"pH",
+         "text_en":"pH",
+         "criterable":true,
+         "calibrable":true,
+         "text_nl":"pH",
+         "order":2,
+         "channel":4,
+         "text_fr":"pH"
+      },
+      "model":"paccotest.probe",
+      "pk":1
+   },
+   {  
+      "fields":{  
+         "name":"ORP",
+         "text":"Reduction potential",
+         "text_en":"Reduction potential",
+         "criterable":true,
+         "calibrable":true,
+         "text_nl":"Redoxpotentiaal",
+         "order":3,
+         "channel":5,
+         "text_fr":"Potentiel d'oxydor\u00e9duction"
+      },
+      "model":"paccotest.probe",
+      "pk":2
+   },
+   {  
+      "fields":{  
+         "name":"DO",
+         "text":"Dissolved oxygen",
+         "text_en":"Dissolved oxygen",
+         "criterable":true,
+         "calibrable":true,
+         "text_nl":"Opgeloste Zuurstof",
+         "order":4,
+         "channel":6,
+         "text_fr":"Oxyg\u00e8ne Dissous"
+      },
+      "model":"paccotest.probe",
+      "pk":3
+   },
+   {  
+      "fields":{  
+         "name":"EC",
+         "text":"Conductivity",
+         "text_en":"Conductivity",
+         "criterable":true,
+         "calibrable":true,
+         "text_nl":"Geleidbaarheid",
+         "order":5,
+         "channel":7,
+         "text_fr":"Conductivit\u00e9"
+      },
+      "model":"paccotest.probe",
+      "pk":4
+   },
+   {  
+      "fields":{  
+         "name":"T",
+         "text":"Temperatur",
+         "text_en":"Temperatur",
+         "criterable":false,
+         "calibrable":false,
+         "text_nl":"Temperatuur",
+         "order":1,
+         "channel":15,
+         "text_fr":"Temperature"
+      },
+      "model":"paccotest.probe",
+      "pk":5
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"put ph and t\u00b0 probe in solution ph 7",
+         "probeType":1,
+         "delay":30,
+         "command":"Cal,mid,7.00",
+         "order":1
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":1
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"put ph and t\u00b0 probe in solution ph 4",
+         "probeType":1,
+         "delay":30,
+         "command":"Cal,low,4.00",
+         "order":2
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":2
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"put ph and t\u00b0 probe in solution ph 10",
+         "probeType":1,
+         "delay":30,
+         "command":"Cal,high,10.00",
+         "order":3
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":3
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"put ORP probe in solution ORP 225mV",
+         "probeType":2,
+         "delay":30,
+         "command":"Cal,225",
+         "order":1
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":4
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"remove cap, dip DO probe in fresh water, let the probe sit in air for 3~5min",
+         "probeType":3,
+         "delay":300,
+         "command":"Cal",
+         "order":1
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":5
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"Place the probe in a 0 D.O. solution",
+         "probeType":3,
+         "delay":30,
+         "command":"Cal,0",
+         "order":2
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":6
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"put EC and T\u00b0 probe in the air",
+         "probeType":4,
+         "delay":30,
+         "command":"Cal,dry",
+         "order":1
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":7
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"put EC and T\u00b0 probe in EC solution 84",
+         "probeType":4,
+         "delay":30,
+         "command":"Cal,low,84",
+         "order":2
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":8
+   },
+   {  
+      "fields":{  
+         "tempCompensation":true,
+         "sentence":"put EC and T\u00b0 probe in EC solution 1413",
+         "probeType":4,
+         "delay":30,
+         "command":"Cal,high,1413",
+         "order":3
+      },
+      "model":"paccotest.calibrationsteps",
+      "pk":9
+   },
+{  
+      "fields":{  
+         "name":"wc",
+         "text":"wc",
+         "text_en":"wc",
+         "text_nl":"wc",
+         "order":9,
+         "text_fr":"wc"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":1
+   },
+   {  
+      "fields":{  
+         "name":"afwas",
+         "text":"washing-up",
+         "text_en":"washing-up",
+         "text_nl":"afwas",
+         "order":8,
+         "text_fr":"laver la vaisselle"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":2
+   },
+   {  
+      "fields":{  
+         "name":"planten",
+         "text":"plants",
+         "text_en":"plants",
+         "text_nl":"planten",
+         "order":7,
+         "text_fr":"plantes"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":3
+   },
+   {  
+      "fields":{  
+         "name":"douchen",
+         "text":"to take a shower",
+         "text_en":"to take a shower",
+         "text_nl":"douchen",
+         "order":6,
+         "text_fr":"se doucher"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":4
+   },
+   {  
+      "fields":{  
+         "name":"waterspel",
+         "text":"water games",
+         "text_en":"water games",
+         "text_nl":"waterspel",
+         "order":5,
+         "text_fr":"jeux d'eau"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":5
+   },
+   {  
+      "fields":{  
+         "name":"swemmen",
+         "text":"swim",
+         "text_en":"swim",
+         "text_nl":"swemmen",
+         "order":4,
+         "text_fr":"nager"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":6
+   },
+   {  
+      "fields":{  
+         "name":"ehbo",
+         "text":"first aid",
+         "text_en":"first aid",
+         "text_nl":"ehbo",
+         "order":3,
+         "text_fr":"premiers secours"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":7
+   },
+   {  
+      "fields":{  
+         "name":"drinkwater dieren",
+         "text":"drinking water for animals",
+         "text_en":"drinking water for animals",
+         "text_nl":"drinkwater dieren",
+         "order":2,
+         "text_fr":"eau potable pour animaux"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":8
+   },
+   {  
+      "fields":{  
+         "name":"drinkwater",
+         "text":"potable water",
+         "text_en":"potable water",
+         "text_nl":"drinkwater",
+         "order":1,
+         "text_fr":"eau potable"
+      },
+      "model":"paccotest.watercategorie",
+      "pk":9
+   },
+   {  
+      "fields":{  
+         "waterCategorie":1,
+         "valueMin":"1",
+         "valueMax":"14",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":1
+   },
+   {  
+      "fields":{  
+         "waterCategorie":2,
+         "valueMin":"-200",
+         "valueMax":"1000",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":9
+   },
+   {  
+      "fields":{  
+         "waterCategorie":1,
+         "valueMin":"-400",
+         "valueMax":"900",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":10
+   },
+   {  
+      "fields":{  
+         "waterCategorie":1,
+         "valueMin":"0",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":11
+   },
+   {  
+      "fields":{  
+         "waterCategorie":1,
+         "valueMin":"0",
+         "valueMax":"860",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":12
+   },
+   {  
+      "fields":{  
+         "waterCategorie":2,
+         "valueMin":"2",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":13
+   },
+   {  
+      "fields":{  
+         "waterCategorie":2,
+         "valueMin":"0",
+         "valueMax":"547",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":14
+   },
+   {  
+      "fields":{  
+         "waterCategorie":2,
+         "valueMin":"4",
+         "valueMax":"8.5",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":15
+   },
+   {  
+      "fields":{  
+         "waterCategorie":3,
+         "valueMin":"5",
+         "valueMax":"8",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":16
+   },
+   {  
+      "fields":{  
+         "waterCategorie":3,
+         "valueMin":"0",
+         "valueMax":"1000",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":17
+   },
+   {  
+      "fields":{  
+         "waterCategorie":3,
+         "valueMin":"2",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":18
+   },
+   {  
+      "fields":{  
+         "waterCategorie":3,
+         "valueMin":"78",
+         "valueMax":"625",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":20
+   },
+   {  
+      "fields":{  
+         "waterCategorie":4,
+         "valueMin":"2",
+         "valueMax":"9",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":21
+   },
+   {  
+      "fields":{  
+         "waterCategorie":4,
+         "valueMin":"0",
+         "valueMax":"1000",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":22
+   },
+   {  
+      "fields":{  
+         "waterCategorie":4,
+         "valueMin":"4",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":23
+   },
+   {  
+      "fields":{  
+         "waterCategorie":4,
+         "valueMin":"0",
+         "valueMax":"234",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":24
+   },
+   {  
+      "fields":{  
+         "waterCategorie":5,
+         "valueMin":"7",
+         "valueMax":"7.6",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":25
+   },
+   {  
+      "fields":{  
+         "waterCategorie":5,
+         "valueMin":"200",
+         "valueMax":"1000",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":26
+   },
+   {  
+      "fields":{  
+         "waterCategorie":5,
+         "valueMin":"4",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":27
+   },
+   {  
+      "fields":{  
+         "waterCategorie":5,
+         "valueMin":"0",
+         "valueMax":"703",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":28
+   },
+   {  
+      "fields":{  
+         "waterCategorie":6,
+         "valueMin":"7",
+         "valueMax":"7.6",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":29
+   },
+   {  
+      "fields":{  
+         "waterCategorie":6,
+         "valueMin":"400",
+         "valueMax":"1000",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":30
+   },
+   {  
+      "fields":{  
+         "waterCategorie":6,
+         "valueMin":"4.5",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":31
+   },
+   {  
+      "fields":{  
+         "waterCategorie":6,
+         "valueMin":"39",
+         "valueMax":"703",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":32
+   },
+   {  
+      "fields":{  
+         "waterCategorie":7,
+         "valueMin":"6",
+         "valueMax":"8",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":33
+   },
+   {  
+      "fields":{  
+         "waterCategorie":7,
+         "valueMin":"650",
+         "valueMax":"900",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":34
+   },
+   {  
+      "fields":{  
+         "waterCategorie":7,
+         "valueMin":"5",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":35
+   },
+   {  
+      "fields":{  
+         "waterCategorie":7,
+         "valueMin":"78",
+         "valueMax":"625",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":36
+   },
+   {  
+      "fields":{  
+         "waterCategorie":8,
+         "valueMin":"2",
+         "valueMax":"8.3",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":37
+   },
+   {  
+      "fields":{  
+         "waterCategorie":8,
+         "valueMin":"650",
+         "valueMax":"800",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":38
+   },
+   {  
+      "fields":{  
+         "waterCategorie":8,
+         "valueMin":"6",
+         "valueMax":"8",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":39
+   },
+   {  
+      "fields":{  
+         "waterCategorie":8,
+         "valueMin":"234",
+         "valueMax":"625",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":40
+   },
+   {  
+      "fields":{  
+         "waterCategorie":9,
+         "valueMin":"7.8",
+         "valueMax":"8.3",
+         "probeType":1
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":41
+   },
+   {  
+      "fields":{  
+         "waterCategorie":9,
+         "valueMin":"680",
+         "valueMax":"720",
+         "probeType":2
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":42
+   },
+   {  
+      "fields":{  
+         "waterCategorie":9,
+         "valueMin":"7.9",
+         "valueMax":"8.1",
+         "probeType":3
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":43
+   },
+   {  
+      "fields":{  
+         "waterCategorie":9,
+         "valueMin":"313",
+         "valueMax":"625",
+         "probeType":4
+      },
+      "model":"paccotest.watercategoriesvalue",
+      "pk":44
+   },
+   {  
+      "fields":{  
+         "username":"matt",
+         "first_name":"",
+         "last_name":"",
+         "is_active":true,
+         "is_superuser":true,
+         "is_staff":true,
+         "last_login":"2015-06-28T09:17:09.729",
+         "groups":[  
+
+         ],
+         "user_permissions":[  
+
+         ],
+         "password":"pbkdf2_sha256$12000$mL8r3I0DxzvY$beyAE2weWzMKcuIMuVaU6tLp5sT7wk3xFnVPO/zTxuY=",
+         "email":"",
+         "date_joined":"2014-10-21T16:17:24.334"
+      },
+      "model":"auth.user",
+      "pk":1
+   },
+   {  
+      "fields":{  
+         "username":"leo",
+         "first_name":"",
+         "last_name":"",
+         "is_active":true,
+         "is_superuser":false,
+         "is_staff":true,
+         "last_login":"2015-02-06T10:52:52.184",
+         "groups":[  
+            1
+         ],
+         "user_permissions":[  
+
+         ],
+         "password":"pbkdf2_sha256$15000$LXsGtjcQIlbU$FTYMUCAEQaA/PKJnYh+xwzc2/akF4ELVgImBOfgvWdo=",
+         "email":"",
+         "date_joined":"2015-02-06T09:50:28"
+      },
+      "model":"auth.user",
+      "pk":2
+   }
+]
+
