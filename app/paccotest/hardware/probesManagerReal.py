@@ -140,7 +140,7 @@ class ProbesManagerReal(ProbesManager):
 		ser.write("WAKEUP!\r")
 		ser.write("C,1\r")
 		line=""
-		counterLoop=5	
+		counterLoop=20	
 		#sensorOK=0
 		while True:
 			data=ser.read()
@@ -198,19 +198,16 @@ class ProbesManagerReal(ProbesManager):
 	ser.write("Cal,clear\r")
     def calibrateProbe(self,probeType,stepID):
         if  stepID=='0':
-            print 'step 000'
             #verfier si tout s'est bien pass
             allProbeSteps = CalibrationSteps.objects.filter(probeType=probeType)
             nbSteps=allProbeSteps.count()
             if probeType=='4':
                 nbSteps=nbSteps-1
-            print 'nbsteps='+str(nbSteps)
             ########ser = serial.Serial('/dev/ttyAMA0',9600)
             ser.write("WAKE UP\r")
             ser.write("Cal,?\r")
             ser.write("Cal,?\r")
             line=""
-            print 'rr'
             while True:
                 data=ser.read()
                 if(data == "\r" and line.startswith('*')):
@@ -239,13 +236,11 @@ class ProbesManagerReal(ProbesManager):
         else :
                #######ser = serial.Serial('/dev/ttyAMA0',9600)
                step = CalibrationSteps.objects.get(id=stepID)
-               print 'OOOOOO'
                #time.sleep(step.delay)
                ser.write('WAKE\r')
-               time.sleep(.5)
+               time.sleep(step.delay)
                ser.write(step.command+"\r")
-               print 'ICI'
-               print(step.command+"\r")
+               #print(step.command+"\r")
                return 'OK'
 
 def port():

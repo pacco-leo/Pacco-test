@@ -7,13 +7,13 @@
 	 {% csrf_token %}
 	<p class="tabsNavigation">
 	{% for probe in all_probes %}
-		<span ng-class="{active:tab.isSet({{probe.pk}})}"><!--ng-click="tab.setTab({{probe.pk}})"-->&nbsp;</span>
+		<span ng-class="{active:tab.isSet({{probe.order}})}"><!--ng-click="tab.setTab({{probe.order}})"-->&nbsp;</span>
 	{% endfor %}
 		<span ng-class="{active:tab.isSet({{lastTab}})}"><!--ng-click="tab.setTab({{lastTab}})"-->&nbsp;</span>
 	</p>
 
 	{% for probe in all_probes %}
-	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.pk}})" class="tabitem">
+	    <div ng-controller="ProbeController" ng-show="tab.isSet({{probe.order}})" class="tabitem">
             <h2 style="position:fixed;top:3px;right:15px;display:block;text-align:right"><span class="bigger">{{ forloop.counter }}</span>/{{ all_probes.count }}</h2>
             <span style="border:1px dotted black;position:fixed;top:3px;left:3px;padding:7px 15px;">{{ probe.text }}</span>
 	        <div ng-hide="myData.fromServer != null"></div>
@@ -27,7 +27,7 @@
               <p>  {% trans "outcome" %} {{ probe.text }}:<span class="red" id="result_{{probe.pk}}">{[{myData.fromServer}]}</span></p>
                 </div>
                 <input type="hidden" name="{{probe.pk}}" id="probe{{probe.pk}}" value="{[{myData.fromServer}]}">
-	            <a class="btnC"  href ng-click="tab.nextTab({{probe.pk}},{{ forloop.counter }})" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;width:49%;left:50%;bottom:0;font-size:29px;text-align:center;height:80px;padding-top:40px;text-decoration:none;color:black;background-color:white;">{% trans "proceed" %}</a>
+	            <a class="btnC"  href ng-click="tab.nextTab({{probe.order}},{{ forloop.counter }})" style="-moz-border-radius: 15px;border-radius: 15px;position:fixed;width:49%;left:50%;bottom:0;font-size:29px;text-align:center;height:80px;padding-top:40px;text-decoration:none;color:black;background-color:white;">{% trans "proceed" %}</a>
 	        </div>
 
 	    </div>

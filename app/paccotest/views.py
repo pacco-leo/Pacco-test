@@ -154,10 +154,10 @@ def complete(request):
     gpsValues = request.session['gpsForm']
     questionnaireValues = request.session['questionnaireValues']
     probesValues = request.session['probesValues']
-    print gpsValues
-    print questionnaireValues
-    print 'probesvalues===='
-    print probesValues  #DEBUG
+    #print gpsValues
+    #print questionnaireValues
+    #print 'probesvalues===='
+    #print probesValues  #DEBUG
     utc_formated = gpsValues["utc"][1:11]+' '+gpsValues["utc"][12:20]
 
     #Save GPS Values
@@ -295,6 +295,7 @@ def uploadToServerClick(request):
 def uploadToServerClick(request):
 
     paccoboxid = getRPIserial() 
+    softwareVersion = '1'
     newSurveys = Survey.objects.filter(uploadedToServer=False)
     uploadedCount = newSurveys.count()
 
@@ -321,7 +322,7 @@ def uploadToServerClick(request):
         msg = MIMEText(getJsonFromSurvey(survey.id))
         msg['To'] = addr_to
         msg['From'] = addr_from
-        msg['Subject'] = 'PACCORESULT-'+str(paccoboxid)+'-'+str(survey.id)
+        msg['Subject'] = 'PACCORESULT-'+str(paccoboxid)+'-'+softwareVersion+'-'+str(survey.id)
 
         survey.uploadedToServer = True
         survey.save() #Debug: commented for debugging
