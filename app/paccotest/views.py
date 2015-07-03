@@ -20,8 +20,6 @@ import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-
-
 class ProbesManagerFactory:
     @classmethod
     def make_realProbesManager(Class):
@@ -226,8 +224,14 @@ def complete(request):
     waterCat_list = []
     waterCat_listinString = '0'
     for i in waterCategorieGoodtoUse_list:
+<<<<<<< HEAD
+	wcat= WaterCategorie.objects.get(pk=i)
+        waterCat_list.append(wcat.text)
+        waterCat_listinString = waterCat_listinString+'--'+str(wcat.id)
+=======
         waterCat_list.append(all_WaterCategorie_list[i].text)
         waterCat_listinString = waterCat_listinString+'--'+str(all_WaterCategorie_list[i].id)
+>>>>>>> 0d35219d463405d021105e2127b8bb11e7ad4a28
     context = {'SESSION': json.dumps(gpsValues)+ " ---- " +json.dumps(questionnaireValues)+ " ---- " + json.dumps(probesValues),'waterCategorieslist':waterCat_list,'waterCategories_listinString':waterCat_listinString}
     return render(request, 'paccotest/complete.html', context)
 
